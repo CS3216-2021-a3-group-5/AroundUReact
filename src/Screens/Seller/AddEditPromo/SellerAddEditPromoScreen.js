@@ -73,78 +73,68 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				<img className="Image_promo" src={image} />
 
 				<div className="Buffer_30px" />
-				<div className="Container_large-screen-optimize">
-					<div className="Container_horizontal-padding-20px">
-						<TextField
-							value={promoName}
-							onChange={(event) =>
-								setPromoName(event.target.value)
-							}
-							margin="normal"
+				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
+					<TextField
+						value={promoName}
+						onChange={(event) => setPromoName(event.target.value)}
+						margin="normal"
+						fullWidth
+						id="name"
+						label="Name"
+						name="name"
+						autoComplete="promo name"
+						autoFocus
+					/>
+					<TextField
+						value={description}
+						onChange={(event) => setDescription(event.target.value)}
+						margin="normal"
+						fullWidth
+						id="description"
+						label="Description"
+						name="description"
+						autoComplete="description"
+						multiline
+					/>
+					<div className="Buffer_20px" />
+					<MuiPickersUtilsProvider utils={DateFnsUtils}>
+						<KeyboardDatePicker
+							label="End Date"
+							format="dd/MM/yyyy"
 							fullWidth
-							id="name"
-							label="Name"
-							name="name"
-							autoComplete="promo name"
-							autoFocus
+							value={endDate}
+							onChange={setEndDate}
 						/>
-						<TextField
-							value={description}
-							onChange={(event) =>
-								setDescription(event.target.value)
-							}
-							margin="normal"
-							fullWidth
-							id="description"
-							label="Description"
-							name="description"
-							autoComplete="description"
-							multiline
-						/>
-						<div className="Buffer_20px" />
-						<MuiPickersUtilsProvider utils={DateFnsUtils}>
-							<KeyboardDatePicker
-								label="End Date"
-								format="dd/MM/yyyy"
-								fullWidth
-								value={endDate}
-								onChange={setEndDate}
-							/>
-						</MuiPickersUtilsProvider>
-						<div className="Buffer_30px" />
-						<p className="Text_medium--dark-multiline-bold">
-							Stores
-						</p>
-						<div className="Buffer_10px" />
-						<StoreSelector
-							stores={stores}
-							selectedStoreIds={selectedStoreIds}
-							setSelectedStoreIds={setSelectedStoreIds}
-						/>
-						<div className="Buffer_30px" />
-						<div
-							className="Toggle_large--primary"
-							onClick={() => submit()}
-						>
-							<p className="Text_medium--light">Create</p>
-						</div>
-						<div className="Buffer_30px" />
+					</MuiPickersUtilsProvider>
+					<div className="Buffer_30px" />
+					<p className="Text_medium--dark-multiline-bold">Stores</p>
+					<div className="Buffer_10px" />
+					<StoreSelector
+						stores={stores}
+						selectedStoreIds={selectedStoreIds}
+						setSelectedStoreIds={setSelectedStoreIds}
+					/>
+					<div className="Buffer_30px" />
+					<div
+						className="Toggle_large--primary"
+						onClick={() => submit()}
+					>
+						<p className="Text_medium--light">Create</p>
 					</div>
+					<div className="Buffer_30px" />
 				</div>
 			</div>
-			<div className="Container_header">
-				<div className="Container_horizontal-padding-20px">
-					<div className="Container_row">
-						<ArrowBackIcon
-							className="Toggle_header"
-							onClick={() => history.goBack()}
-						/>
-						<p className="Text_large--dark">Add/Edit Promotion</p>
-						<ArrowBackIcon
-							className="Toggle_header"
-							style={{ opacity: 0 }}
-						/>
-					</div>
+			<div className="Container_header Container_horizontal-padding-20px">
+				<div className="Container_row">
+					<ArrowBackIcon
+						className="Toggle_header"
+						onClick={() => history.goBack()}
+					/>
+					<p className="Text_large--dark">Add/Edit Promotion</p>
+					<ArrowBackIcon
+						className="Toggle_header"
+						style={{ opacity: 0 }}
+					/>
 				</div>
 			</div>
 		</div>

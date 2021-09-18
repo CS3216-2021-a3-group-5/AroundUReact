@@ -161,20 +161,18 @@ export default function MainScreen() {
 					{PromoListItems()}
 				</div>
 			</div>
-			<div className="Container_header">
-				<div className="Container_horizontal-padding-20px">
-					<div className="Container_row">
-						<img
-							className="Image_logo--small"
-							alt={"App Logo"}
-							src={Logo}
-						/>
-						<div
-							className="Toggle_small"
-							onClick={() => history.push("/seller")}
-						>
-							<p className="Text_medium--dark">Seller Portal</p>
-						</div>
+			<div className="Container_header Container_horizontal-padding-20px">
+				<div className="Container_row">
+					<img
+						className="Image_logo--small"
+						alt={"App Logo"}
+						src={Logo}
+					/>
+					<div
+						className="Toggle_small"
+						onClick={() => history.push("/seller")}
+					>
+						<p className="Text_medium--dark">Seller Portal</p>
 					</div>
 				</div>
 			</div>

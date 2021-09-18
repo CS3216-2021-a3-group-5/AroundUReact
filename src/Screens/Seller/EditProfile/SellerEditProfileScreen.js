@@ -25,78 +25,70 @@ export default function SellerEditProfileScreen({ sellerId }) {
 
 	return (
 		<div className="App">
-			<div className="Container_after_header">
-				<div className="Container_center--horizontal">
-					<div className="Buffer_50px" />
-					<Avatar src={image} style={{ height: 100, width: 100 }} />
-					<input
-						className="Toggle_profile-image-input"
-						accept="image/*"
-						type="file"
-						onChange={(event) => uploadImage(event)}
+			<div className="Container_after_header Container_center--horizontal">
+				<div className="Buffer_50px" />
+				<Avatar src={image} style={{ height: 100, width: 100 }} />
+				<input
+					className="Toggle_profile-image-input"
+					accept="image/*"
+					type="file"
+					onChange={(event) => uploadImage(event)}
+				/>
+				<div className="Buffer_20px" />
+				<p className="Text_medium--dark">
+					Tap on image to upload new image.
+				</p>
+				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
+					<div className="Buffer_30px" />
+					<TextField
+						value={email}
+						onChange={(event) => setEmail(event.target.value)}
+						variant="outlined"
+						fullWidth
+						id="email"
+						label="Email"
+						name="email"
+						autoComplete="email"
 					/>
 					<div className="Buffer_20px" />
-					<p className="Text_medium--dark">
-						Tap on image to upload new image.
-					</p>
-					<div className="Container_large-screen-optimize">
-						<div className="Container_horizontal-padding-20px">
-							<div className="Buffer_30px" />
-							<TextField
-								value={email}
-								onChange={(event) =>
-									setEmail(event.target.value)
-								}
-								variant="outlined"
-								fullWidth
-								id="email"
-								label="Email"
-								name="email"
-								autoComplete="email"
-							/>
-							<div className="Buffer_20px" />
-							<TextField
-								value={contactNumber}
-								onChange={(event) =>
-									setContactNumber(event.target.value)
-								}
-								variant="outlined"
-								fullWidth
-								id="contactNumber"
-								label="Contact Number"
-								name="contactNumber"
-								autoComplete="phone number"
-							/>
-							<div className="Buffer_20px" />
-							<CategorySelector
-								category={category}
-								setCategory={setCategory}
-							/>
-							<div className="Buffer_50px" />
-							<div
-								className="Toggle_large--primary"
-								onClick={() => save()}
-							>
-								<p className="Text_medium--light">Update</p>
-							</div>
-							<div className="Buffer_30px" />
-						</div>
+					<TextField
+						value={contactNumber}
+						onChange={(event) =>
+							setContactNumber(event.target.value)
+						}
+						variant="outlined"
+						fullWidth
+						id="contactNumber"
+						label="Contact Number"
+						name="contactNumber"
+						autoComplete="phone number"
+					/>
+					<div className="Buffer_20px" />
+					<CategorySelector
+						category={category}
+						setCategory={setCategory}
+					/>
+					<div className="Buffer_50px" />
+					<div
+						className="Toggle_large--primary"
+						onClick={() => save()}
+					>
+						<p className="Text_medium--light">Update</p>
 					</div>
+					<div className="Buffer_30px" />
 				</div>
 			</div>
-			<div className="Container_header">
-				<div className="Container_horizontal-padding-20px">
-					<div className="Container_row">
-						<ArrowBackIcon
-							className="Toggle_header"
-							onClick={() => history.goBack()}
-						/>
-						<p className="Text_large--dark">Edit Profile</p>
-						<ArrowBackIcon
-							className="Toggle_header"
-							style={{ opacity: 0 }}
-						/>
-					</div>
+			<div className="Container_header Container_horizontal-padding-20px">
+				<div className="Container_row">
+					<ArrowBackIcon
+						className="Toggle_header"
+						onClick={() => history.goBack()}
+					/>
+					<p className="Text_large--dark">Edit Profile</p>
+					<ArrowBackIcon
+						className="Toggle_header"
+						style={{ opacity: 0 }}
+					/>
 				</div>
 			</div>
 		</div>

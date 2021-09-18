@@ -39,87 +39,83 @@ export default function PromoScreen() {
 		<div className="App">
 			<div className="Container_after_header">
 				<img className="Image_promo" />
-				<div className="Container_large-screen-optimize">
-					<div className="Container_horizontal-padding-20px">
-						<div className="Buffer_20px" />
-						<div className="Container_row">
-							<p className="Text_extra-large--dark-multiline">
-								{data.sellerName}
+				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
+					<div className="Buffer_20px" />
+					<div className="Container_row">
+						<p className="Text_extra-large--dark-multiline">
+							{data.sellerName}
+						</p>
+						<div className="Container_range-text">
+							<p className="Text_medium--dark">
+								{data.range} min
 							</p>
-							<div className="Container_range-text">
-								<p className="Text_medium--dark">
-									{data.range} min
-								</p>
-							</div>
 						</div>
-						<div className="Buffer_5px" />
-						<p className="Text_large--dark-multiline">
-							{promo.promoName}
-						</p>
-						<div className="Buffer_5px" />
-						<p className="Text_medium--grey-multiline">
-							Until {getFormattedDate()}
-						</p>
-						<div className="Buffer_30px" />
-						<p className="Text_medium--dark-multiline-bold">
-							Description
-						</p>
-						<div className="Buffer_10px" />
-						<p className="Text_medium--dark-multiline">
-							{promo.description}
-						</p>
-						<div className="Buffer_30px" />
-						<div
-							className="Map_small"
-							onClick={() => openOnGoogleMaps()}
-						>
-							<Map
-								center={[data.latitude, data.longtitude]}
-								mouseEvents={false}
-								touchEvents={false}
-								defaultZoom={18}
-								minZoom={18}
-								maxZoom={19}
-							>
-								<Overlay
-									anchor={[data.latitude, data.longtitude]}
-									offset={[15, 47]}
-								>
-									<img
-										src={IndicatorSelected}
-										className="Indicator_promo"
-									/>
-								</Overlay>
-							</Map>
-						</div>
-						<div className="Buffer_30px" />
-						<p className="Text_medium--dark-multiline-bold">
-							{"Address & Opening Hours"}
-						</p>
-						<div className="Buffer_10px" />
-						<p className="Text_medium--dark-multiline">
-							{data.address}
-						</p>
-						<div className="Buffer_5px" />
-						<p className="Text_medium--dark-multiline">
-							{data.openingHours}
-						</p>
-						<div className="Buffer_30px" />
 					</div>
+					<div className="Buffer_5px" />
+					<p className="Text_large--dark-multiline">
+						{promo.promoName}
+					</p>
+					<div className="Buffer_5px" />
+					<p className="Text_medium--grey-multiline">
+						Until {getFormattedDate()}
+					</p>
+					<div className="Buffer_30px" />
+					<p className="Text_medium--dark-multiline-bold">
+						Description
+					</p>
+					<div className="Buffer_10px" />
+					<p className="Text_medium--dark-multiline">
+						{promo.description}
+					</p>
+					<div className="Buffer_30px" />
+					<div
+						className="Map_small"
+						onClick={() => openOnGoogleMaps()}
+					>
+						<Map
+							center={[data.latitude, data.longtitude]}
+							mouseEvents={false}
+							touchEvents={false}
+							defaultZoom={18}
+							minZoom={18}
+							maxZoom={19}
+						>
+							<Overlay
+								anchor={[data.latitude, data.longtitude]}
+								offset={[15, 47]}
+							>
+								<img
+									src={IndicatorSelected}
+									className="Indicator_promo"
+								/>
+							</Overlay>
+						</Map>
+					</div>
+					<div className="Buffer_30px" />
+					<p className="Text_medium--dark-multiline-bold">
+						{"Address & Opening Hours"}
+					</p>
+					<div className="Buffer_10px" />
+					<p className="Text_medium--dark-multiline">
+						{data.address}
+					</p>
+					<div className="Buffer_5px" />
+					<p className="Text_medium--dark-multiline">
+						{data.openingHours}
+					</p>
+					<div className="Buffer_30px" />
 				</div>
 			</div>
-			<div className="Container_header">
-				<div className="Container_horizontal-padding-20px">
-					<div className="Container_row">
-						<ArrowBackIcon
-							className="Toggle_header"
-							onClick={() => history.push("/")}
-						/>
-						<ShareIcon
-							className="Toggle_header"
-							onClick={() => share()}
-						/>
-					</div>
+			<div className="Container_header Container_horizontal-padding-20px">
+				<div className="Container_row">
+					<ArrowBackIcon
+						className="Toggle_header"
+						onClick={() => history.push("/")}
+					/>
+					<ShareIcon
+						className="Toggle_header"
+						onClick={() => share()}
+					/>
 				</div>
 			</div>
 		</div>

@@ -11,7 +11,6 @@ export default function StoreSelector({
 		storeItems.push(
 			<div key={store.storeId}>
 				<div className="Buffer_20px" />
-
 				<div className="Container_row">
 					<div className="Container_column">
 						<p className="Text_medium--dark">{store.address}</p>
