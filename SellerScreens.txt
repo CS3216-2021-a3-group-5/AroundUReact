@@ -1,0 +1,26 @@
+Overview:
+                      SellerLogin
+                    /	         \
+      (Promo List)SellerHome   SellerRegister
+            /     |     \
+    Settings SellerOutlet  EditPromotion
+
+Seller global Component: nav bar, list item
+
+Screens:
+
+SellerLogin
+/     \
+Edit  Button
+
+SellerHome
+  /       \
+List    Navbar
+/           \
+Item         Item
+
+SellerRegister
+/         \
+Edit      Button
+
+
