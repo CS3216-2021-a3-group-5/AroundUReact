@@ -20,24 +20,22 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 				<p className="Text_extra-large--dark-multiline">Store Name</p>
 				<div className="Buffer_5px" />
 				<p className="Text_large--dark-multiline">Category</p>
-				<div className="Container_large-screen-optimize">
-					<div className="Container_horizontal-padding-20px">
-						<div className="Buffer_50px" />
-						<div
-							className="Toggle_large--primary"
-							onClick={() => history.push("/seller/editprofile")}
-						>
-							<p className="Text_medium--light">Edit Profile</p>
-						</div>
-						<div className="Buffer_20px" />
-						<div
-							className="Toggle_large--hollow"
-							onClick={() => logout()}
-						>
-							<p className="Text_medium--dark">Logout</p>
-						</div>
-						<div className="Buffer_50px" />
+				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
+					<div className="Buffer_50px" />
+					<div
+						className="Toggle_large--primary"
+						onClick={() => history.push("/seller/editprofile")}
+					>
+						<p className="Text_medium--light">Edit Profile</p>
 					</div>
+					<div className="Buffer_20px" />
+					<div
+						className="Toggle_large--hollow"
+						onClick={() => logout()}
+					>
+						<p className="Text_medium--dark">Logout</p>
+					</div>
+					<div className="Buffer_50px" />
 				</div>
 			</div>
 		</div>

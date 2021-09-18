@@ -68,36 +68,34 @@ export default function CoordinatesSearch({
 			onClick={() => setShowAddressSelector(false)}
 		>
 			<div
-				className="Container_popup"
+				className="Container_popup Container_horizontal-padding-20px"
 				onClick={(event) => {
 					event.stopPropagation();
 				}}
 			>
-				<div className="Container_horizontal-padding-20px">
-					<div className="Container_row">
-						<TextField
-							value={search}
-							onChange={(event) => setSearch(event.target.value)}
-							variant="outlined"
-							color="secondary"
-							margin="normal"
-							fullWidth
-							id="search"
-							label="Search Address"
-							name="search"
-							autoFocus
-						/>
-						<div className="Buffer_20px" />
-						<div
-							className="Toggle_search"
-							onClick={() => findResults()}
-						>
-							<SearchIcon />
-						</div>
-					</div>
+				<div className="Container_row">
+					<TextField
+						value={search}
+						onChange={(event) => setSearch(event.target.value)}
+						variant="outlined"
+						color="secondary"
+						margin="normal"
+						fullWidth
+						id="search"
+						label="Search Address"
+						name="search"
+						autoFocus
+					/>
 					<div className="Buffer_20px" />
-					{AddressSelection()}
+					<div
+						className="Toggle_search"
+						onClick={() => findResults()}
+					>
+						<SearchIcon />
+					</div>
 				</div>
+				<div className="Buffer_20px" />
+				{AddressSelection()}
 			</div>
 		</div>
 	);
