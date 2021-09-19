@@ -14,12 +14,12 @@ export default function SignInScreen({ setLoggedIn }) {
 
 	return (
 		<div className="App">
-			<div className="Container_after_header Container_large-screen-optimize Container_horizontal-padding-20px">
-				<div className="Buffer_110px" />
-				<p className="Text_extra-large--dark-multiline">
+			<div className="Container__after-header Container__large-screen-optimize Container__horizontal-padding-20px">
+				<div className="Buffer__110px" />
+				<p className="Text__extra-large--dark-multiline">
 					Seller's Console
 				</p>
-				<div className="Buffer_30px" />
+				<div className="Buffer__30px" />
 				<form noValidate>
 					<TextField
 						value={email}
@@ -46,26 +46,26 @@ export default function SignInScreen({ setLoggedIn }) {
 						autoComplete="current-password"
 					/>
 				</form>
-				<div className="Buffer_50px" />
-				<div className="Toggle_large--primary" onClick={() => login()}>
-					<p className="Text_medium--light">Login</p>
+				<div className="Buffer__50px" />
+				<div className="Toggle__large--primary" onClick={() => login()}>
+					<p className="Text__medium--light">Login</p>
 				</div>
-				<div className="Buffer_20px" />
+				<div className="Buffer__20px" />
 				<div
-					className="Toggle_large--hollow"
+					className="Toggle__large--hollow"
 					onClick={() => history.push("/seller/signup")}
 				>
-					<p className="Text_medium--dark">Register</p>
+					<p className="Text__medium--dark">Register</p>
 				</div>
-				<div className="Buffer_50px" />
+				<div className="Buffer__50px" />
 			</div>
 			<div
-				className="Container_header Container_horizontal-padding-20px"
+				className="Container__header Container__horizontal-padding-20px"
 				style={{ borderWidth: 0 }}
 			>
-				<div className="Container_row">
+				<div className="Container__row">
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() => history.push("/")}
 					/>
 				</div>

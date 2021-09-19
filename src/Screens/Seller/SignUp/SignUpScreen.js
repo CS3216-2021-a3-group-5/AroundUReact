@@ -15,11 +15,11 @@ export default function SignUpScreen() {
 
 	return (
 		<div className="App">
-			<div className="Container_banner--primary">
-				<p className="Text_extra-large--light-multiline">Register</p>
+			<div className="Container__banner--primary">
+				<p className="Text__extra-large--light-multiline">Register</p>
 			</div>
-			<div className="Buffer_20px" />
-			<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
+			<div className="Buffer__20px" />
+			<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 				<form noValidate>
 					<TextField
 						autoComplete="shopname"
@@ -84,17 +84,20 @@ export default function SignUpScreen() {
 						}
 					/>
 				</form>
-				<div className="Buffer_50px" />
-				<div className="Toggle_large--primary" onClick={() => create()}>
-					<p className="Text_medium--light">Create</p>
+				<div className="Buffer__50px" />
+				<div
+					className="Toggle__large--primary"
+					onClick={() => create()}
+				>
+					<p className="Text__medium--light">Create</p>
 				</div>
-				<div className="Buffer_20px" />
-				<div className="Container_center--horizontal">
+				<div className="Buffer__20px" />
+				<div className="Container__center--horizontal">
 					<Link onClick={() => history.push("/seller/signin")}>
 						Already have an account? Sign in
 					</Link>
 				</div>
-				<div className="Buffer_30px" />
+				<div className="Buffer__30px" />
 			</div>
 		</div>
 	);

@@ -60,20 +60,20 @@ export default function SellerAddEditPromoScreen({ promo }) {
 
 	return (
 		<div className="App">
-			<div className="Container_after_header">
-				<div className="Container_center--horizontal">
+			<div className="Container__after-header">
+				<div className="Container__center--horizontal">
 					<input
 						accept="image/*"
 						type="file"
 						onChange={(event) => uploadImage(event)}
-						className="Toggle_promo-image-input"
+						className="Toggle__promo-image-input"
 					/>
 				</div>
 
-				<img className="Image_promo" src={image} />
+				<img className="Image__promo" src={image} />
 
-				<div className="Buffer_30px" />
-				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
+				<div className="Buffer__30px" />
+				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<TextField
 						value={promoName}
 						onChange={(event) => setPromoName(event.target.value)}
@@ -96,7 +96,7 @@ export default function SellerAddEditPromoScreen({ promo }) {
 						autoComplete="description"
 						multiline
 					/>
-					<div className="Buffer_20px" />
+					<div className="Buffer__20px" />
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
 						<KeyboardDatePicker
 							label="End Date"
@@ -106,33 +106,33 @@ export default function SellerAddEditPromoScreen({ promo }) {
 							onChange={setEndDate}
 						/>
 					</MuiPickersUtilsProvider>
-					<div className="Buffer_30px" />
-					<p className="Text_medium--dark-multiline-bold">Stores</p>
-					<div className="Buffer_10px" />
+					<div className="Buffer__30px" />
+					<p className="Text__medium--dark-multiline-bold">Stores</p>
+					<div className="Buffer__10px" />
 					<StoreSelector
 						stores={stores}
 						selectedStoreIds={selectedStoreIds}
 						setSelectedStoreIds={setSelectedStoreIds}
 					/>
-					<div className="Buffer_30px" />
+					<div className="Buffer__30px" />
 					<div
-						className="Toggle_large--primary"
+						className="Toggle__large--primary"
 						onClick={() => submit()}
 					>
-						<p className="Text_medium--light">Create</p>
+						<p className="Text__medium--light">Create</p>
 					</div>
-					<div className="Buffer_30px" />
+					<div className="Buffer__30px" />
 				</div>
 			</div>
-			<div className="Container_header Container_horizontal-padding-20px">
-				<div className="Container_row">
+			<div className="Container__header Container__horizontal-padding-20px">
+				<div className="Container__row">
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() => history.goBack()}
 					/>
-					<p className="Text_large--dark">Add/Edit Promotion</p>
+					<p className="Text__large--dark">Add/Edit Promotion</p>
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						style={{ opacity: 0 }}
 					/>
 				</div>

@@ -10,20 +10,20 @@ export default function OutletListItem({ store }) {
 				history.push("/seller/outlet", { store });
 			}}
 		>
-			<div className="Buffer_20px" />
-			<div className="Container_horizontal-padding-20px">
-				<div className="Container_row">
-					<div className="Container_column">
-						<p className="Text_large--dark">{store.address}</p>
-						<div className="Buffer_5px " />
-						<p className="Text_medium--grey-multiline">
+			<div className="Buffer__20px" />
+			<div className="Container__horizontal-padding-20px">
+				<div className="Container__row">
+					<div className="Container__column">
+						<p className="Text__large--dark">{store.address}</p>
+						<div className="Buffer__5px " />
+						<p className="Text__medium--grey-multiline">
 							{store.openingHours}
 						</p>
 					</div>
-					<p className="Text_arrow">{">"}</p>
+					<p className="Text__arrow">{">"}</p>
 				</div>
 			</div>
-			<div className="Buffer_20px" />
+			<div className="Buffer__20px" />
 			<div className="Line" />
 		</div>
 	);

@@ -25,21 +25,21 @@ export default function SellerEditProfileScreen({ sellerId }) {
 
 	return (
 		<div className="App">
-			<div className="Container_after_header Container_center--horizontal">
-				<div className="Buffer_50px" />
+			<div className="Container__after-header Container__center--horizontal">
+				<div className="Buffer__50px" />
 				<Avatar src={image} style={{ height: 100, width: 100 }} />
 				<input
-					className="Toggle_profile-image-input"
+					className="Toggle__profile-image-input"
 					accept="image/*"
 					type="file"
 					onChange={(event) => uploadImage(event)}
 				/>
-				<div className="Buffer_20px" />
-				<p className="Text_medium--dark">
+				<div className="Buffer__20px" />
+				<p className="Text__medium--dark">
 					Tap on image to upload new image.
 				</p>
-				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
-					<div className="Buffer_30px" />
+				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
+					<div className="Buffer__30px" />
 					<TextField
 						value={email}
 						onChange={(event) => setEmail(event.target.value)}
@@ -50,7 +50,7 @@ export default function SellerEditProfileScreen({ sellerId }) {
 						name="email"
 						autoComplete="email"
 					/>
-					<div className="Buffer_20px" />
+					<div className="Buffer__20px" />
 					<TextField
 						value={contactNumber}
 						onChange={(event) =>
@@ -63,30 +63,30 @@ export default function SellerEditProfileScreen({ sellerId }) {
 						name="contactNumber"
 						autoComplete="phone number"
 					/>
-					<div className="Buffer_20px" />
+					<div className="Buffer__20px" />
 					<CategorySelector
 						category={category}
 						setCategory={setCategory}
 					/>
-					<div className="Buffer_50px" />
+					<div className="Buffer__50px" />
 					<div
-						className="Toggle_large--primary"
+						className="Toggle__large--primary"
 						onClick={() => save()}
 					>
-						<p className="Text_medium--light">Update</p>
+						<p className="Text__medium--light">Update</p>
 					</div>
-					<div className="Buffer_30px" />
+					<div className="Buffer__30px" />
 				</div>
 			</div>
-			<div className="Container_header Container_horizontal-padding-20px">
-				<div className="Container_row">
+			<div className="Container__header Container__horizontal-padding-20px">
+				<div className="Container__row">
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() => history.goBack()}
 					/>
-					<p className="Text_large--dark">Edit Profile</p>
+					<p className="Text__large--dark">Edit Profile</p>
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						style={{ opacity: 0 }}
 					/>
 				</div>

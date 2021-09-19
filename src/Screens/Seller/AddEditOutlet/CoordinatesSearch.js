@@ -40,17 +40,19 @@ export default function CoordinatesSearch({
 						}}
 						key={address.LATITUDE + address.LONGITUDE}
 					>
-						<div className="Buffer_20px" />
-						<p className="Text_medium--dark">{address.SEARCHVAL}</p>
-						<div className="Buffer_5px " />
-						<p className="Text_small--dark">
+						<div className="Buffer__20px" />
+						<p className="Text__medium--dark">
+							{address.SEARCHVAL}
+						</p>
+						<div className="Buffer__5px " />
+						<p className="Text__small--dark">
 							{address.BLK_NO +
 								" " +
 								address.ROAD_NAME +
 								", S" +
 								address.POSTAL}
 						</p>
-						<div className="Buffer_20px" />
+						<div className="Buffer__20px" />
 					</div>
 				);
 				if (i != addresses.length - 1) {
@@ -64,16 +66,16 @@ export default function CoordinatesSearch({
 
 	return (
 		<div
-			className="Container_darken-background"
+			className="Container__darken-background"
 			onClick={() => setShowAddressSelector(false)}
 		>
 			<div
-				className="Container_popup Container_horizontal-padding-20px"
+				className="Container__popup Container__horizontal-padding-20px"
 				onClick={(event) => {
 					event.stopPropagation();
 				}}
 			>
-				<div className="Container_row">
+				<div className="Container__row">
 					<TextField
 						value={search}
 						onChange={(event) => setSearch(event.target.value)}
@@ -86,15 +88,15 @@ export default function CoordinatesSearch({
 						name="search"
 						autoFocus
 					/>
-					<div className="Buffer_20px" />
+					<div className="Buffer__20px" />
 					<div
-						className="Toggle_search"
+						className="Toggle__search"
 						onClick={() => findResults()}
 					>
 						<SearchIcon />
 					</div>
 				</div>
-				<div className="Buffer_20px" />
+				<div className="Buffer__20px" />
 				{AddressSelection()}
 			</div>
 		</div>

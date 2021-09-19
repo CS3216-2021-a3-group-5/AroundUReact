@@ -23,11 +23,11 @@ export default function SellerPromoScreen() {
 		for (let i = 0; i < size; i++) {
 			storeItems.push(
 				<div key={"Store" + i}>
-					<div className="Buffer_20px" />
-					<p className="Text_medium--dark-multiline">
+					<div className="Buffer__20px" />
+					<p className="Text__medium--dark-multiline">
 						{data.stores[i].address}
 					</p>
-					<div className="Buffer_20px" />
+					<div className="Buffer__20px" />
 				</div>
 			);
 			if (i != size - 1) {
@@ -39,51 +39,51 @@ export default function SellerPromoScreen() {
 
 	return (
 		<div className="App">
-			<div className="Container_after_header">
-				<img className="Image_promo" />
-				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
-					<div className="Buffer_20px" />
-					<p className="Text_extra-large--dark-multiline">
+			<div className="Container__after-header">
+				<img className="Image__promo" />
+				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
+					<div className="Buffer__20px" />
+					<p className="Text__extra-large--dark-multiline">
 						{data.promoName}
 					</p>
-					<div className="Buffer_5px" />
-					<p className="Text_medium--grey-multiline">
+					<div className="Buffer__5px" />
+					<p className="Text__medium--grey-multiline">
 						Until {getFormattedDate()}
 					</p>
-					<div className="Buffer_30px" />
-					<p className="Text_medium--dark-multiline-bold">
+					<div className="Buffer__30px" />
+					<p className="Text__medium--dark-multiline-bold">
 						Description
 					</p>
-					<div className="Buffer_10px" />
-					<p className="Text_medium--dark-multiline">
+					<div className="Buffer__10px" />
+					<p className="Text__medium--dark-multiline">
 						{data.description}
 					</p>
-					<div className="Buffer_30px" />
-					<p className="Text_medium--dark-multiline-bold">Stores</p>
+					<div className="Buffer__30px" />
+					<p className="Text__medium--dark-multiline-bold">Stores</p>
 					{Stores()}
-					<div className="Buffer_110px" />
+					<div className="Buffer__110px" />
 				</div>
 			</div>
-			<div className="Container_footer">
-				<div className="Buffer_20px" />
-				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
+			<div className="Container__footer">
+				<div className="Buffer__20px" />
+				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div
-						className="Toggle_large--primary"
+						className="Toggle__large--primary"
 						onClick={() => deletePromo()}
 					>
-						<p className="Text_medium--light">Delete Promo</p>
+						<p className="Text__medium--light">Delete Promo</p>
 					</div>
 				</div>
-				<div className="Buffer_20px" />
+				<div className="Buffer__20px" />
 			</div>
-			<div className="Container_header Container_horizontal-padding-20px">
-				<div className="Container_row">
+			<div className="Container__header Container__horizontal-padding-20px">
+				<div className="Container__row">
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() => history.goBack()}
 					/>
 					<EditIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() =>
 							history.push("/seller/editpromo/", { data })
 						}

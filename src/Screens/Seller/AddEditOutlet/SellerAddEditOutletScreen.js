@@ -25,7 +25,7 @@ export default function SellerAddEditOutletScreen({ store }) {
 
 	return (
 		<div className="App">
-			<div className="Container_after_header Container_large-screen-optimize Container_horizontal-padding-20px">
+			<div className="Container__after-header Container__large-screen-optimize Container__horizontal-padding-20px">
 				<TextField
 					value={openingHours}
 					onChange={(event) => setOpeningHours(event.target.value)}
@@ -48,13 +48,13 @@ export default function SellerAddEditOutletScreen({ store }) {
 					name="address"
 					autoComplete="address"
 				/>
-				<div className="Buffer_20px" />
-				<p className="Text_medium--grey-multiline">
+				<div className="Buffer__20px" />
+				<p className="Text__medium--grey-multiline">
 					Tap on the text field below to search for the rough
 					coordinates, then drag the red marker in the map to the
 					actual location of your store.
 				</p>
-				<div className="Buffer_5px" />
+				<div className="Buffer__5px" />
 				<TextField
 					value={
 						storeCoords[0] == null
@@ -69,8 +69,8 @@ export default function SellerAddEditOutletScreen({ store }) {
 					name="coords"
 					onClick={() => setShowAddressSelector(true)}
 				/>
-				<div className="Buffer_20px" />
-				<div className="Map_small">
+				<div className="Buffer__20px" />
+				<div className="Map__small">
 					<Map
 						center={storeCoords}
 						defaultZoom={18}
@@ -84,29 +84,29 @@ export default function SellerAddEditOutletScreen({ store }) {
 						>
 							<img
 								src={IndicatorSelected}
-								className="Indicator_promo"
+								className="Indicator__promo"
 							/>
 						</Draggable>
 					</Map>
 				</div>
-				<div className="Buffer_20px" />
+				<div className="Buffer__20px" />
 				<div
-					className="Toggle_large--secondary"
+					className="Toggle__large--secondary"
 					onClick={() => submit()}
 				>
-					<p className="Text_medium--light">Create</p>
+					<p className="Text__medium--light">Create</p>
 				</div>
-				<div className="Buffer_30px" />
+				<div className="Buffer__30px" />
 			</div>
-			<div className="Container_header Container_horizontal-padding-20px">
-				<div className="Container_row">
+			<div className="Container__header Container__horizontal-padding-20px">
+				<div className="Container__row">
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() => history.goBack()}
 					/>
-					<p className="Text_large--dark">Add/Edit Outlet</p>
+					<p className="Text__large--dark">Add/Edit Outlet</p>
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						style={{ opacity: 0 }}
 					/>
 				</div>
