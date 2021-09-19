@@ -1,15 +1,22 @@
 {
+  "name": "Search for deals AroundU",
   "short_name": "AroundU",
-  "name": "Searching for deals AroundU",
+  "start_url": "/",
+
   "icons": [
     {
       "src": "Logo.png",
       "type": "image/png",
-      "sizes": "150x150"
-    }
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+        "src": "Logo_192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "display": "fullscreen",
+  "theme_color": "#ffffff",
+  "background_color": "#000000"
 }

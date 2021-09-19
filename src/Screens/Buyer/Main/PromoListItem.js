@@ -5,7 +5,10 @@ export default function PromoListItem({ store, openPromo }) {
 	const size = store.promos.length;
 	for (let i = 0; i < size; i++) {
 		promoItems.push(
-			<div onClick={() => openPromo(store, i)} key={"Item" + i}>
+			<div
+				onClick={() => openPromo(store, i)}
+				key={"Item" + store.storeId + "/" + i}
+			>
 				<div className="Buffer__20px" />
 				<div className="Container__horizontal-padding-20px">
 					<div className="Container__row">

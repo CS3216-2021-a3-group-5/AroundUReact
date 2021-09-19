@@ -334,6 +334,12 @@ html {
 	object-fit: cover;
 }
 
+.Image__request-background {
+	width: 100%;
+	height: 100vh;
+	object-fit: contain;
+}
+
 /* Text */
 
 .Text__small--dark {
