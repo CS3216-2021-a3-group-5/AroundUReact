@@ -11,8 +11,8 @@ html {
 	--background: white;
 	--clear-background: rgba(0, 0, 0, 0.85);
 	--line: #dddddd;
-	--border: #888888;
-	--text: black;
+	--border: #b6b6b6;
+	--text: #212121;
 	--light-text: white;
 	--grey-text: #888888;
 	--user-location: dodgerblue;
@@ -289,8 +289,8 @@ html {
 /* Images */
 
 .Image__logo--small {
-	width: 40px;
-	height: 40px;
+	width: 144px;
+	height: 36px;
 }
 
 .Image__promo-overlay {

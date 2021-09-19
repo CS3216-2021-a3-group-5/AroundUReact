@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Map, Overlay } from "pigeon-maps";
 
-import Logo from "../../../assets/Logo.png";
+import Logo from "../../../assets/Logo_Words.png";
 import Indicator from "./Indicator";
 import PromoListItem from "./PromoListItem";
 import PromoOverlay from "./PromoOverlay";

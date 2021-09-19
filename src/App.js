@@ -11,6 +11,7 @@ import SellerMainScreen from "./Screens/Seller/Rerouting/SellerReroutingScreen";
 import { ThemeProvider } from "@material-ui/styles";
 import { createTheme } from "@material-ui/core/styles";
 import ScrollToTop from "./ScrollToTop";
+import ShareAdapter from "./Screens/Buyer/Share/ShareAdapter";
 
 export default function App() {
 	return (
@@ -22,6 +23,9 @@ export default function App() {
 				/>
 				<ScrollToTop />
 				<Switch>
+					<Route path="/promo/:promoId">
+						<ShareAdapter />
+					</Route>
 					<Route path="/promo/">
 						<PromoScreen />
 					</Route>
