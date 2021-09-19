@@ -35,7 +35,9 @@ export default function App() {
 						<div
 							className="Toggle__large--primary"
 							onClick={() =>
-								navigator.geolocation.getCurrentPosition()
+								navigator.geolocation.getCurrentPosition(
+									() => {}
+								)
 							}
 						>
 							<p className="Text__medium--light">
