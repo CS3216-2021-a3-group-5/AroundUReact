@@ -1,5 +1,6 @@
 {
   "short_name": "AroundU",
+  "name": "Searching for deals AroundU",
   "icons": [
     {
       "src": "Logo.png",
@@ -8,7 +9,7 @@
     }
   ],
   "start_url": ".",
-  "display": "fullscreen",
-  "theme_color": "#FFFFFF",
-  "background_color": "#000000"
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }
