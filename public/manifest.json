@@ -1,15 +1,14 @@
 {
   "short_name": "AroundU",
-  "name": "Around You? Around Deal!",
   "icons": [
     {
-      "src": "Logo.png",
+      "src": "splashscreen.png",
       "type": "image/png",
-      "sizes": "150x150"
+      "sizes": "800x1000"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#FFFFFF",
+  "background_color": "#000000"
 }
