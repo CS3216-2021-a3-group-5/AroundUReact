@@ -1,16 +1,39 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import { useHistory } from "react-router";
+import { Route, useHistory } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { API_URL, LOGIN_ROUTE } from "../../../constants.js"
+import SellerMainScreen from "../Rerouting/SellerReroutingScreen.js";
 
 export default function SignInScreen({ setLoggedIn }) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const history = useHistory();
 
-	function login() {
-		setLoggedIn(true);
-	}
+  const handleLogin = async () => {
+    const rawResponse = await fetch(API_URL + LOGIN_ROUTE, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userID: email,
+        password: password,
+      })
+    });
+    const content = await rawResponse.json();
+    if (content.error_code == 0) {
+      localStorage.setItem('accessToken', content.accessToken);
+      console.log("successful login")
+      return <Route exact path="/seller">
+      <SellerMainScreen screen='Outlet' />
+    </Route>
+    } else {
+      alert(content.message);
+    }
+    
+  }
 
 	return (
 		<div className="App">
@@ -47,7 +70,9 @@ export default function SignInScreen({ setLoggedIn }) {
 					/>
 				</form>
 				<div className="Buffer__50px" />
-				<div className="Toggle__large--primary" onClick={() => login()}>
+				<div className="Toggle__large--primary" onClick={() => {
+          handleLogin()
+        }}>
 					<p className="Text__medium--light">Login</p>
 				</div>
 				<div className="Buffer__20px" />
