@@ -36,7 +36,12 @@ export default function App() {
 							className="Toggle__large--primary"
 							onClick={() =>
 								navigator.geolocation.getCurrentPosition(
-									() => {}
+									() => {
+										setPermission(true);
+									},
+									() => {
+										setPermission(false);
+									}
 								)
 							}
 						>
