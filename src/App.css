@@ -11,7 +11,7 @@ html {
 	--background: white;
 	--clear-background: rgba(0, 0, 0, 0.85);
 	--line: #dddddd;
-	--border: #b6b6b6;
+	--border: #cecece;
 	--text: #212121;
 	--light-text: white;
 	--grey-text: #888888;
@@ -19,9 +19,10 @@ html {
 	--user-location-border: white;
 	--primary: #e44a4a;
 	--primary-hover: #d63a3a;
-	--secondary: #eb9f11;
-	--secondary-hover: #f5ae14;
-	--store-listing-header: #fafafa;
+	--secondary: #f5ae14;
+	--secondary-hover: #eb9f11;
+	--store-listing-header: #fcfcfc;
+	--shadow: rgba(214, 214, 214, 0.85);
 }
 
 /* Containers */
@@ -120,6 +121,7 @@ html {
 	border-width: 0.5px;
 	border-style: solid;
 	border-radius: 10px;
+	box-shadow: 1px 1px var(--shadow);
 }
 
 .Container__darken-background {
@@ -154,7 +156,11 @@ html {
 	align-items: center;
 	padding-top: 50px;
 	padding-bottom: 50px;
-	background-color: var(--primary);
+	background: linear-gradient(
+		0deg,
+		var(--primary) 0%,
+		var(--primary-hover) 100%
+	);
 }
 
 .Container__banner--secondary {
@@ -164,10 +170,24 @@ html {
 	align-items: center;
 	padding-top: 50px;
 	padding-bottom: 50px;
-	background-color: var(--secondary);
+	background: linear-gradient(
+		0deg,
+		var(--secondary) 0%,
+		var(--secondary-hover) 100%
+	);
 }
 
 .Container__home-store-listing {
+	border-radius: 10px;
+	border-width: 0.5px;
+	border-style: solid;
+	border-color: var(--border);
+	box-shadow: 1px 1px var(--shadow);
+}
+
+.Container__home-store-header {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 	background-color: var(--store-listing-header);
 }
 
@@ -188,10 +208,11 @@ html {
 	align-items: center;
 	justify-content: center;
 	border-radius: 30px;
-	border-width: 1px;
+	border-width: 0.5px;
 	border-style: solid;
 	border-color: var(--border);
 	text-decoration: none;
+	box-shadow: 1px 1px var(--shadow);
 }
 
 .Toggle__small:hover {
@@ -206,8 +227,9 @@ html {
 	justify-content: center;
 	border-color: var(--border);
 	border-radius: 22.5px;
-	border-width: 1px;
+	border-width: 0.5px;
 	border-style: solid;
+	box-shadow: 1px 1px var(--shadow);
 }
 
 .Toggle__large--hollow:hover {
@@ -222,9 +244,10 @@ html {
 	justify-content: center;
 	background-color: var(--primary);
 	border-radius: 22.5px;
-	border-width: 1px;
+	border-width: 0.5px;
 	border-style: solid;
 	border-color: var(--border);
+	box-shadow: 1px 1px var(--shadow);
 }
 
 .Toggle__large--primary:hover {
@@ -239,9 +262,10 @@ html {
 	justify-content: center;
 	background-color: var(--secondary);
 	border-radius: 22.5px;
-	border-width: 1px;
+	border-width: 0.5px;
 	border-style: solid;
 	border-color: var(--border);
+	box-shadow: 1px 1px var(--shadow);
 }
 
 .Toggle__large--secondary:hover {

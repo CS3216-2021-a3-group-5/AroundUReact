@@ -156,8 +156,7 @@ export default function MainScreen() {
 							/>
 						</div>
 					</div>
-					<div className="Buffer__10px" />
-					<div className="Line" />
+					<div className="Buffer__20px" />
 					{PromoListItems()}
 				</div>
 			</div>
@@ -172,7 +171,7 @@ export default function MainScreen() {
 						className="Toggle__small"
 						onClick={() => history.push("/seller")}
 					>
-						<p className="Text__medium--dark">Seller Portal</p>
+						<p className="Text__medium--dark">Seller's Console</p>
 					</div>
 				</div>
 			</div>
