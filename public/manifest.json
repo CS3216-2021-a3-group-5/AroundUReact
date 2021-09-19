@@ -2,13 +2,13 @@
   "short_name": "AroundU",
   "icons": [
     {
-      "src": "splashscreen.png",
+      "src": "Logo.png",
       "type": "image/png",
-      "sizes": "800x1000"
+      "sizes": "150x150"
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#FFFFFF",
   "background_color": "#000000"
 }
