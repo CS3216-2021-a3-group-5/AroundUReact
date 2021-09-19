@@ -13,6 +13,10 @@ import { createTheme } from "@material-ui/core/styles";
 import ScrollToTop from "./ScrollToTop";
 
 export default function App() {
+	if (window.location.protocol == "http:") {
+		window.location.href = window.location.href.replace("http:", "https");
+	}
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Router>
