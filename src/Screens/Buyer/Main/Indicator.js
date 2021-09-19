@@ -26,7 +26,7 @@ export default function Indicator({
 						: getIndicatorIcon(promo.category)
 				}
 				alt={"Store Indicator: " + promo.category}
-				className="Indicator_promo"
+				className="Indicator__promo"
 				onClick={() => {
 					setViewingIndex(0);
 					setSelectedId(isSelected ? -1 : promo.storeId);

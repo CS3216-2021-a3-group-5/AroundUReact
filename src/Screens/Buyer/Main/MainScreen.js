@@ -124,8 +124,8 @@ export default function MainScreen() {
 
 	return (
 		<div className="App">
-			<div className="Container_after_header">
-				<div className="Map_large">
+			<div className="Container__after-header">
+				<div className="Map__large">
 					<Map
 						center={userPosition}
 						defaultZoom={18}
@@ -134,45 +134,45 @@ export default function MainScreen() {
 						onClick={() => setSelectedStoreId(-1)}
 					>
 						<Overlay anchor={userPosition} offset={[12, 12]}>
-							<div className="Indicator_user-position" />
+							<div className="Indicator__user-position" />
 						</Overlay>
 						{MapIndicators()}
 					</Map>
 				</div>
-				<div className="Container_large-screen-optimize">
-					<div className="Buffer_10px" />
-					<div className="Container_row">
-						<div className="Container_category-selector">
+				<div className="Container__large-screen-optimize">
+					<div className="Buffer__10px" />
+					<div className="Container__row">
+						<div className="Container__category-selector">
 							<CategorySelector
 								category={catFilter}
 								setCategory={setCatFilter}
 								includeAll
 							/>
 						</div>
-						<div className="Container_range-selector">
+						<div className="Container__range-selector">
 							<RangeSelector
 								range={rangeFilter}
 								setRange={setRangeFilter}
 							/>
 						</div>
 					</div>
-					<div className="Buffer_10px" />
+					<div className="Buffer__10px" />
 					<div className="Line" />
 					{PromoListItems()}
 				</div>
 			</div>
-			<div className="Container_header Container_horizontal-padding-20px">
-				<div className="Container_row">
+			<div className="Container__header Container__horizontal-padding-20px">
+				<div className="Container__row">
 					<img
-						className="Image_logo--small"
+						className="Image__logo--small"
 						alt={"App Logo"}
 						src={Logo}
 					/>
 					<div
-						className="Toggle_small"
+						className="Toggle__small"
 						onClick={() => history.push("/seller")}
 					>
-						<p className="Text_medium--dark">Seller Portal</p>
+						<p className="Text__medium--dark">Seller Portal</p>
 					</div>
 				</div>
 			</div>

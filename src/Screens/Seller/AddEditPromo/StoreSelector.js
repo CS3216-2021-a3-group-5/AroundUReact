@@ -10,12 +10,14 @@ export default function StoreSelector({
 		const store = stores[i];
 		storeItems.push(
 			<div key={store.storeId}>
-				<div className="Buffer_20px" />
-				<div className="Container_row">
-					<div className="Container_column">
-						<p className="Text_medium--dark">{store.address}</p>
-						<div className="Buffer_5px " />
-						<p className="Text_small--dark">{store.openingHours}</p>
+				<div className="Buffer__20px" />
+				<div className="Container__row">
+					<div className="Container__column">
+						<p className="Text__medium--dark">{store.address}</p>
+						<div className="Buffer__5px " />
+						<p className="Text__small--dark">
+							{store.openingHours}
+						</p>
 					</div>
 					<Checkbox
 						defaultChecked={selectedStoreIds[i]}
@@ -28,7 +30,7 @@ export default function StoreSelector({
 						key={"checkbox" + store.storeId}
 					/>
 				</div>
-				<div className="Buffer_20px" />
+				<div className="Buffer__20px" />
 			</div>
 		);
 		if (i != stores.length - 1) {

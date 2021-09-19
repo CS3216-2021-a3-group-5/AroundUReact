@@ -43,7 +43,7 @@ export default function NavBar({ screen }) {
 
 	return (
 		<div>
-			<div className="Container_footer">
+			<div className="Container__footer">
 				<BottomNavigation
 					value={value}
 					onChange={(event, newValue) => {

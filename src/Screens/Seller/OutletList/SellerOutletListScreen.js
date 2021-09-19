@@ -18,12 +18,12 @@ export default function SellerOutletListScreen() {
 
 	return (
 		<div className="App">
-			<div className="Container_banner--secondary">
-				<p className="Text_extra-large--light-multiline">Outlets</p>
+			<div className="Container__banner--secondary">
+				<p className="Text__extra-large--light-multiline">Outlets</p>
 			</div>
-			<div className="Buffer_5px" />
-			<div className="Container_large-screen-optimize">{Outlets()}</div>
-			<div className="Buffer_50px" />
+			<div className="Buffer__5px" />
+			<div className="Container__large-screen-optimize">{Outlets()}</div>
+			<div className="Buffer__50px" />
 			<div className="Fab">
 				<Fab
 					color="secondary"

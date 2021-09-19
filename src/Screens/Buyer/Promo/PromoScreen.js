@@ -37,39 +37,39 @@ export default function PromoScreen() {
 
 	return (
 		<div className="App">
-			<div className="Container_after_header">
-				<img className="Image_promo" />
-				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
-					<div className="Buffer_20px" />
-					<div className="Container_row">
-						<p className="Text_extra-large--dark-multiline">
+			<div className="Container__after-header">
+				<img className="Image__promo" />
+				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
+					<div className="Buffer__20px" />
+					<div className="Container__row">
+						<p className="Text__extra-large--dark-multiline">
 							{data.sellerName}
 						</p>
-						<div className="Container_range-text">
-							<p className="Text_medium--dark">
+						<div className="Container__range-text">
+							<p className="Text__medium--dark">
 								{data.range} min
 							</p>
 						</div>
 					</div>
-					<div className="Buffer_5px" />
-					<p className="Text_large--dark-multiline">
+					<div className="Buffer__5px" />
+					<p className="Text__large--dark-multiline">
 						{promo.promoName}
 					</p>
-					<div className="Buffer_5px" />
-					<p className="Text_medium--grey-multiline">
+					<div className="Buffer__5px" />
+					<p className="Text__medium--grey-multiline">
 						Until {getFormattedDate()}
 					</p>
-					<div className="Buffer_30px" />
-					<p className="Text_medium--dark-multiline-bold">
+					<div className="Buffer__30px" />
+					<p className="Text__medium--dark-multiline-bold">
 						Description
 					</p>
-					<div className="Buffer_10px" />
-					<p className="Text_medium--dark-multiline">
+					<div className="Buffer__10px" />
+					<p className="Text__medium--dark-multiline">
 						{promo.description}
 					</p>
-					<div className="Buffer_30px" />
+					<div className="Buffer__30px" />
 					<div
-						className="Map_small"
+						className="Map__small"
 						onClick={() => openOnGoogleMaps()}
 					>
 						<Map
@@ -86,34 +86,34 @@ export default function PromoScreen() {
 							>
 								<img
 									src={IndicatorSelected}
-									className="Indicator_promo"
+									className="Indicator__promo"
 								/>
 							</Overlay>
 						</Map>
 					</div>
-					<div className="Buffer_30px" />
-					<p className="Text_medium--dark-multiline-bold">
+					<div className="Buffer__30px" />
+					<p className="Text__medium--dark-multiline-bold">
 						{"Address & Opening Hours"}
 					</p>
-					<div className="Buffer_10px" />
-					<p className="Text_medium--dark-multiline">
+					<div className="Buffer__10px" />
+					<p className="Text__medium--dark-multiline">
 						{data.address}
 					</p>
-					<div className="Buffer_5px" />
-					<p className="Text_medium--dark-multiline">
+					<div className="Buffer__5px" />
+					<p className="Text__medium--dark-multiline">
 						{data.openingHours}
 					</p>
-					<div className="Buffer_30px" />
+					<div className="Buffer__30px" />
 				</div>
 			</div>
-			<div className="Container_header Container_horizontal-padding-20px">
-				<div className="Container_row">
+			<div className="Container__header Container__horizontal-padding-20px">
+				<div className="Container__row">
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() => history.push("/")}
 					/>
 					<ShareIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() => share()}
 					/>
 				</div>

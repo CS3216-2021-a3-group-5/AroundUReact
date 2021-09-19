@@ -17,29 +17,29 @@ export default function PromoOverlay({
 			offset={[15, 310]}
 			key={store.storeId + "overlay"}
 		>
-			<div className="Container_promo-overlay">
+			<div className="Container__promo-overlay">
 				<div
-					className="Image_promo-overlay"
+					className="Image__promo-overlay"
 					onClick={() => {
 						openPromo(store, pageIndex);
 					}}
 				/>
-				<div className="Container_padding-10px">
+				<div className="Container__padding-10px">
 					<div
 						onClick={() => {
 							openPromo(store, pageIndex);
 						}}
 					>
-						<p className="Text_large--dark">{store.sellerName}</p>
-						<div className="Buffer_5px" />
-						<p className="Text_medium--dark">{promo.promoName}</p>
-						<div className="Buffer_5px" />
-						<p className="Text_overlay-description">
+						<p className="Text__large--dark">{store.sellerName}</p>
+						<div className="Buffer__5px" />
+						<p className="Text__medium--dark">{promo.promoName}</p>
+						<div className="Buffer__5px" />
+						<p className="Text__overlay-description">
 							{promo.description}
 						</p>
 					</div>
-					<div className="Buffer_5px" />
-					<div className="Container_row">
+					<div className="Buffer__5px" />
+					<div className="Container__row">
 						<NavigateBeforeRoundedIcon
 							onClick={() => {
 								if (viewingIndex > 0) {
@@ -47,7 +47,7 @@ export default function PromoOverlay({
 								}
 							}}
 						/>
-						<p className="Text_small--dark">
+						<p className="Text__small--dark">
 							{pageIndex + 1} / {store.promos.length}
 						</p>
 						<NavigateNextRoundedIcon

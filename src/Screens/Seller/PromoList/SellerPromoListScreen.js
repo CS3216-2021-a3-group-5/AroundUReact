@@ -8,18 +8,18 @@ export default function SellerHomeScreen() {
 
 	return (
 		<div className="App">
-			<div className="Container_banner--primary">
-				<p className="Text_extra-large--light-multiline">Promotions</p>
+			<div className="Container__banner--primary">
+				<p className="Text__extra-large--light-multiline">Promotions</p>
 			</div>
-			<div className="Buffer_5px" />
-			<div className="Container_large-screen-optimize">
+			<div className="Buffer__5px" />
+			<div className="Container__large-screen-optimize">
 				<PromoListItem />
 				<PromoListItem />
 				<PromoListItem />
 				<PromoListItem />
 				<PromoListItem />
 			</div>
-			<div className="Buffer_50px" />
+			<div className="Buffer__50px" />
 			<div
 				className="Fab"
 				onClick={() => {

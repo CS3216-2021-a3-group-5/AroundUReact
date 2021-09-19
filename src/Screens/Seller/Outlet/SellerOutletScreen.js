@@ -9,41 +9,41 @@ export default function SellerOutletScreen({ store }) {
 
 	return (
 		<div className="App">
-			<div className="Container_after_header Container_large-screen-optimize Container_horizontal-padding-20px">
-				<div className="Buffer_30px" />
-				<p className="Text_extra-large--dark-multiline">
+			<div className="Container__after-header Container__large-screen-optimize Container__horizontal-padding-20px">
+				<div className="Buffer__30px" />
+				<p className="Text__extra-large--dark-multiline">
 					{store.address}
 				</p>
-				<div className="Buffer_30px" />
-				<p className="Text_medium--dark-multiline-bold">
+				<div className="Buffer__30px" />
+				<p className="Text__medium--dark-multiline-bold">
 					Opening Hours
 				</p>
-				<div className="Buffer_10px" />
-				<p className="Text_medium--dark-multiline">
+				<div className="Buffer__10px" />
+				<p className="Text__medium--dark-multiline">
 					{store.openingHours}
 				</p>
-				<div className="Buffer_110px" />
+				<div className="Buffer__110px" />
 			</div>
-			<div className="Container_footer">
-				<div className="Buffer_20px" />
-				<div className="Container_large-screen-optimize Container_horizontal-padding-20px">
+			<div className="Container__footer">
+				<div className="Buffer__20px" />
+				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div
-						className="Toggle_large--secondary"
+						className="Toggle__large--secondary"
 						onClick={() => deleteOutlet()}
 					>
-						<p className="Text_medium--light">Delete Outlet</p>
+						<p className="Text__medium--light">Delete Outlet</p>
 					</div>
 				</div>
-				<div className="Buffer_20px" />
+				<div className="Buffer__20px" />
 			</div>
-			<div className="Container_header Container_horizontal-padding-20px">
-				<div className="Container_row">
+			<div className="Container__header Container__horizontal-padding-20px">
+				<div className="Container__row">
 					<ArrowBackIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() => history.goBack()}
 					/>
 					<EditIcon
-						className="Toggle_header"
+						className="Toggle__header"
 						onClick={() =>
 							history.push("/seller/editoutlet", { store })
 						}
