@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Map, Overlay } from "pigeon-maps";
 
-import Logo from "../../../assets/Logo.png";
+import Logo from "../../../assets/Logo_Words.png";
 import Indicator from "./Indicator";
 import PromoListItem from "./PromoListItem";
 import PromoOverlay from "./PromoOverlay";
@@ -156,8 +156,7 @@ export default function MainScreen() {
 							/>
 						</div>
 					</div>
-					<div className="Buffer__10px" />
-					<div className="Line" />
+					<div className="Buffer__20px" />
 					{PromoListItems()}
 				</div>
 			</div>
@@ -172,7 +171,7 @@ export default function MainScreen() {
 						className="Toggle__small"
 						onClick={() => history.push("/seller")}
 					>
-						<p className="Text__medium--dark">Seller Portal</p>
+						<p className="Text__medium--dark">Seller's Console</p>
 					</div>
 				</div>
 			</div>

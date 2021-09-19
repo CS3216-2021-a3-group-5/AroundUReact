@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Redirect } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShareIcon from "@material-ui/icons/Share";
 import { Map, Overlay } from "pigeon-maps";
@@ -8,12 +7,24 @@ import IndicatorSelected from "../../../assets/Indicator_Selected.png";
 export default function PromoScreen() {
 	const history = useHistory();
 	const location = useLocation();
+
+	if (location.state === undefined) {
+		return <Redirect to="/" />;
+	}
+
 	const data = location.state.store;
 	const position = location.state.position;
+	const promo = data.promos[position];
 
-	const [promo] = useState(data.promos[position]);
-
-	function share() {}
+	function share() {
+		if (navigator.share) {
+			navigator.share({
+				title: "AroundU | " + data.sellerName,
+				text: "Check out this promo!",
+				url: document.location.href + data.promos[position].promoId,
+			});
+		}
+	}
 
 	function getFormattedDate() {
 		const dateSplit = new Date(data.endDate).toUTCString().split(" ");
