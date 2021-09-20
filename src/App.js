@@ -16,6 +16,10 @@ import ShareAdapter from "./Screens/Buyer/Share/ShareAdapter";
 import ServiceWorkerRegistration from "./serviceWorkerRegistration";
 
 export default function App() {
+	if (!window.location.host.startsWith("localhost:3000") && window.location.protocol != "https:"){
+		window.location.protocol = "https";
+	}
+
 	// const [hasPermission, setPermission] = useState(false);
 
 	// navigator.permissions.query({ name: "geolocation" }).then((result) => {
