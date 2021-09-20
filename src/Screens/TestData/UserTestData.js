@@ -2,84 +2,94 @@ import { Categories } from "../../constants";
 
 export const testData = [
 	{
-		latitude: 1.39704710723121,
-		longtitude: 103.74685004621115,
+		store_id: 1,
 		address: "21 Choa Chu Kang North 6, 01-44, Singapore 689578",
-		sellerName: "Urban Mobile Yew Tee Point",
-		storeId: 1,
-		openingHours: "10:30am to 9pm daily",
-		category: Categories.ELECTRONICS,
-		range: 6,
-		endDate: Date(),
-		promos: [
+		location: {
+			lat: 1.39704710723121,
+			lon: 103.74685004621115
+		},
+		company_name: "Urban Mobile Yew Tee Point",
+		category_name: Categories.ELECTRONICS,
+		opening_hours: "10am to 9pm daily",
+		range: 1,
+		promotions: [
 			{
 				promotion_id: 1,
 				promo_name: "5% Off Repairs",
-				details:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Elit at imperdiet dui accumsan. Scelerisque eu ultrices vitae auctor eu augue. Lobortis elementum nibh tellus molestie nunc non. Habitasse platea dictumst vestibulum rhoncus est. A iaculis at erat pellentesque adipiscing commodo elit. Id diam maecenas ultricies mi eget mauris. Lectus arcu bibendum at varius vel pharetra vel turpis nunc. Ullamcorper morbi tincidunt ornare massa eget.",
-			},
+				end_date: "2021-09-30T00:00:00.000Z",
+				details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Elit at imperdiet dui accumsan. Scelerisque eu ultrices vitae auctor eu augue. Lobortis elementum nibh tellus molestie nunc non. Habitasse platea dictumst vestibulum rhoncus est. A iaculis at erat pellentesque adipiscing commodo elit. Id diam maecenas ultricies mi eget mauris. Lectus arcu bibendum at varius vel pharetra vel turpis nunc. Ullamcorper morbi tincidunt ornare massa eget.",
+				storeIDs: [1],
+			}
 		],
 	},
 	{
-		latitude: 1.3971495932986484,
-		longtitude: 103.74678804883916,
+		store_id: 2,
 		address: "21 Choa Chu Kang North 6, 01-52/53, Singapore 689578",
-		sellerName: "Mr Bean - Yew Tee Point",
-		storeId: 2,
-		openingHours: "6:30am to 10pm daily",
-		category: Categories.FOOD,
+		location: {
+			lat: 1.3971495932986484,
+			lon: 103.74678804883916
+		},
+		company_name: "Mr Bean - Yew Tee Point",
+		category_name: Categories.FOOD,
+		opening_hours: "6:30am to 10pm daily",
 		range: 1,
-		endDate: Date(),
-		promos: [
+		promotions: [
 			{
 				promotion_id: 1,
 				promo_name: "1-for-1 Ice-cream",
-				details:
-					"Valid for selected branches only. Ice-cream is only available after 12pm.",
-			},
+				end_date: "2021-10-15T00:00:00.000Z",
+				details: "Valid for selected branches only. Ice-cream is only available after 12pm.",
+				storeIDs: [2],
+			}
 		],
 	},
 	{
-		latitude: 1.397094046274386,
-		longtitude: 103.74653991145861,
+		store_id: 3,
 		address: "21 Choa Chu Kang North 6, 01-12, Singapore 689578",
-		sellerName: "Yew Mei Fashion",
-		storeId: 3,
-		openingHours: "10am to 9pm",
-		category: Categories.FASHION,
+		location: {
+			lat: 1.397094046274386,
+			lon: 103.74653991145861
+		},
+		company_name: "Yew Mei Fashion",
+		category_name: Categories.FASHION,
+		opening_hours: "10am to 9pm",
 		range: 2,
-		endDate: Date(),
-		promos: [
+		promotions: [
 			{
 				promotion_id: 1,
 				promo_name: "Closing down sale",
-				details:
-					"Up to 80% off! Dress, shoes and more, lowest price you will find in Singapore.",
+				end_date: "2021-09-17T00:00:00.000Z",
+				details: "Up to 80% off! Dress, shoes and more, lowest price you will find in Singapore.",
+				storeIDs: [3],
 			},
 			{
 				promotion_id: 2,
 				promo_name: "Internation shoe day sale",
+				end_date: "2021-09-18T00:00:00.000Z",
 				details: "Buy one get one free for all shoes!",
-			},
+				storeIDs: [3,10],
+			}
 		],
 	},
 	{
-		latitude: 1.3969344285658285,
-		longtitude: 103.74649961997056,
+		store_id: 4,
 		address: "21 Choa Chu Kang North 6, 01-15, Singapore 689578",
-		sellerName: "Kousei Foot Reflexology",
-		storeId: 4,
-		openingHours: "10am to 10pm daily",
-		category: Categories.WELLNESS,
+		location: {
+			lat: 1.3969344285658285,
+			lon: 103.74649961997056
+		},
+		company_name: "Kousei Foot Reflexology",
+		category_name: Categories.WELLNESS,
+		opening_hours: "10am to 10pm daily",
 		range: 3,
-		endDate: Date(),
-		promos: [
+		promotions: [
 			{
 				promotion_id: 1,
 				promo_name: "Up to 10% off all packages.",
-				details:
-					"8% off all foot reflexology packages, 10% off fish foot spa packages, minimum spend $200.",
-			},
+				end_date: "2021-10-12T00:00:00.000Z",
+				details: "8% off all foot reflexology packages, 10% off fish foot spa packages, minimum spend $200.",
+				storeIDs: [4],
+			}
 		],
 	},
 ];

@@ -16,21 +16,21 @@ export default function Indicator({
 }) {
 	return (
 		<Overlay
-			anchor={[promo.latitude, promo.longtitude]}
+			anchor={[promo.location.lat, promo.location.lon]}
 			offset={[15, 45]}
-			key={promo.storeId}
+			key={promo.store_id}
 		>
 			<img
 				src={
 					isSelected
 						? IndicatorSelected
-						: getIndicatorIcon(promo.category)
+						: getIndicatorIcon(promo.category_name)
 				}
-				alt={"Store Indicator: " + promo.category}
+				alt={"Store Indicator: " + promo.category_name}
 				className="Indicator__promo"
 				onClick={() => {
 					setViewingIndex(0);
-					setSelectedId(isSelected ? -1 : promo.storeId);
+					setSelectedId(isSelected ? -1 : promo.store_id);
 				}}
 			/>
 		</Overlay>

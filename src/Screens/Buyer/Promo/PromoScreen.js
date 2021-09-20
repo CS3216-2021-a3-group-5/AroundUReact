@@ -14,35 +14,35 @@ export default function PromoScreen() {
 
 	const data = location.state.store;
 	const position = location.state.position;
-	const promo = data.promos[position];
+	const promo = data.promotions[position];
 
 	function share() {
 		if (navigator.share) {
 			navigator.share({
-				title: "AroundU | " + data.sellerName,
+				title: "AroundU | " + data.company_name,
 				text: "Check out this promo!",
 				url:
-					document.location.href + data.promos[position].promotion_id,
+					document.location.href + data.promotions[position].promotion_id,
 			});
 		}
 	}
 
 	function getFormattedDate() {
-		const dateSplit = new Date(data.endDate).toUTCString().split(" ");
-		return dateSplit[1] + " " + dateSplit[2] + " " + dateSplit[3];
+		const splitResult = promo.end_date.split("T")
+		return splitResult[0]
 	}
 
 	function openOnGoogleMaps() {
 		console.log("Opening");
 		window.open(
 			"https://www.google.com/maps/search/" +
-				data.latitude +
+				data.location.lat +
 				"," +
-				data.longtitude +
+				data.location.lon +
 				"/@" +
-				data.latitude +
+				data.location.lat +
 				"," +
-				data.longtitude +
+				data.location.lon +
 				",20z"
 		);
 	}
@@ -55,7 +55,7 @@ export default function PromoScreen() {
 					<div className="Buffer__20px" />
 					<div className="Container__row">
 						<p className="Text__extra-large--dark-multiline">
-							{data.sellerName}
+							{data.company_name}
 						</p>
 						<div className="Container__range-text">
 							<p className="Text__medium--dark">
@@ -85,7 +85,7 @@ export default function PromoScreen() {
 						onClick={() => openOnGoogleMaps()}
 					>
 						<Map
-							center={[data.latitude, data.longtitude]}
+							center={[data.location.lat, data.location.lon]}
 							mouseEvents={false}
 							touchEvents={false}
 							defaultZoom={18}
@@ -93,7 +93,7 @@ export default function PromoScreen() {
 							maxZoom={19}
 						>
 							<Overlay
-								anchor={[data.latitude, data.longtitude]}
+								anchor={[data.location.lat, data.location.lon]}
 								offset={[15, 47]}
 							>
 								<img
@@ -113,7 +113,7 @@ export default function PromoScreen() {
 					</p>
 					<div className="Buffer__5px" />
 					<p className="Text__medium--dark-multiline">
-						{data.openingHours}
+						{data.opening_hours}
 					</p>
 					<div className="Buffer__30px" />
 				</div>
