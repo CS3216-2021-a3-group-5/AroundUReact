@@ -65,7 +65,7 @@ export default function App() {
 				/>
 				<ScrollToTop />
 				<Switch>
-					<Route path="/promo/:promoId">
+					<Route path="/promo/:promotion_id">
 						<ShareAdapter />
 					</Route>
 					<Route path="/promo/">

@@ -21,7 +21,8 @@ export default function SignUpScreen() {
 			email === "" ||
 			contact === "" ||
 			password === "" ||
-			repeatPassword === "";
+			repeatPassword === "" ||
+			category === "";
 		if (isAnyNotFilled) {
 			alert("please fill up all the fields");
 			return;
@@ -41,10 +42,11 @@ export default function SignUpScreen() {
 				password: password,
 				contact_no: contact,
 				company_name: name,
+				category: category,
 			}),
 		});
 		const content = await rawResponse.json();
-		if (content.error_code === 0) {
+		if (rawResponse.status === 200) {
 			history.push("/seller/signin");
 		} else {
 			alert(content.message);

@@ -15,9 +15,7 @@ import { testData } from "../../TestData/UserTestData";
 export default function MainScreen() {
 	const history = useHistory();
 
-	const [userPosition, setUserPosition] = useState([
-		1.3976242810264037, 103.74739520517032,
-	]);
+	const [userPosition, setUserPosition] = useState([1.32, 103.915]);
 	var [lastUpdatedCoords, setLastUpdatedCoords] = useState([0, 0]);
 	var storeIds = [];
 	const [promos, setPromos] = useState(
