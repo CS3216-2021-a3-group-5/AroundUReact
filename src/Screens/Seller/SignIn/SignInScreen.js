@@ -12,18 +12,17 @@ export default function SignInScreen({ setLoggedIn }) {
 	const handleLogin = async () => {
 		const rawResponse = await fetch(API_URL + LOGIN_ROUTE, {
 			method: "POST",
-			mode: "no-cors",
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				userID: email,
+				email: email,
 				password: password,
 			}),
 		});
 		const content = await rawResponse.json();
-		if (content.error_code === 0) {
+		if (rawResponse.status === 200) {
 			localStorage.setItem("accessToken", content.accessToken);
 			console.log("successful login");
 			setLoggedIn(true);
