@@ -20,7 +20,7 @@ export default function MainScreen() {
 	var storeIds = [];
 	const [promos, setPromos] = useState(
 		testData.sort((promo1, promo2) => {
-			return promo2.latitude - promo1.latitude;
+			return promo2.location.lat - promo1.location.lon;
 		})
 	);
 	const [selectedStoreId, setSelectedStoreId] = useState(-1);
@@ -76,7 +76,7 @@ export default function MainScreen() {
 
 			setPromos(
 				testData.sort((promo1, promo2) => {
-					return promo2.latitude - promo1.latitude;
+					return promo2.location.lat - promo1.location.lat;
 				})
 			);
 		}
@@ -85,7 +85,7 @@ export default function MainScreen() {
 	function getFilteredPromo() {
 		const filteredPromos = [];
 		promos.forEach((store) => {
-			if (catFilter !== "all" && store.category !== catFilter) {
+			if (catFilter !== "all" && store.category_name !== catFilter) {
 				return;
 			}
 			if (store.range > rangeFilter) {
@@ -103,7 +103,7 @@ export default function MainScreen() {
 		const indicators = [];
 		var selected = null;
 		getFilteredPromo().forEach((promo) => {
-			if (promo.storeId === selectedStoreId) {
+			if (promo.store_id === selectedStoreId) {
 				selected = promo;
 			}
 			indicators.push(
@@ -111,7 +111,7 @@ export default function MainScreen() {
 					promo: promo,
 					setViewingIndex: setViewingIndex,
 					setSelectedId: setSelectedStoreId,
-					isSelected: promo.storeId === selectedStoreId,
+					isSelected: promo.store_id === selectedStoreId,
 				})
 			);
 		});
@@ -136,7 +136,7 @@ export default function MainScreen() {
 				<PromoListItem
 					store={store}
 					openPromo={openPromo}
-					key={store.storeId}
+					key={store.store_id}
 				/>
 			);
 		});

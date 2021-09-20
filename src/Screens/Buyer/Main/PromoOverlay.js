@@ -8,12 +8,12 @@ export default function PromoOverlay({
 	setViewingIndex,
 	openPromo,
 }) {
-	if (store.promos.length < 1) return;
-	var pageIndex = Math.min(store.promos.length - 1, viewingIndex);
-	const promo = store.promos[pageIndex];
+	if (store.promotions.length < 1) return;
+	var pageIndex = Math.min(store.promotions.length - 1, viewingIndex);
+	const promo = store.promotions[pageIndex];
 	return (
 		<Overlay
-			anchor={[store.latitude, store.longtitude]}
+			anchor={[store.location.lat, store.location.lon]}
 			offset={[15, 310]}
 			key={store.storeId + "overlay"}
 		>
@@ -30,7 +30,7 @@ export default function PromoOverlay({
 							openPromo(store, pageIndex);
 						}}
 					>
-						<p className="Text__large--dark">{store.sellerName}</p>
+						<p className="Text__large--dark">{store.company_name}</p>
 						<div className="Buffer__5px" />
 						<p className="Text__medium--dark">{promo.promo_name}</p>
 						<div className="Buffer__5px" />
@@ -46,11 +46,11 @@ export default function PromoOverlay({
 							}}
 						/>
 						<p className="Text__small--dark">
-							{pageIndex + 1} / {store.promos.length}
+							{pageIndex + 1} / {store.promotions.length}
 						</p>
 						<NavigateNextRoundedIcon
 							onClick={() => {
-								if (viewingIndex < store.promos.length - 1) {
+								if (viewingIndex < store.promotions.length - 1) {
 									setViewingIndex(viewingIndex + 1);
 								}
 							}}
