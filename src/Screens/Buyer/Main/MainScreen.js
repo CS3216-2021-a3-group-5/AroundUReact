@@ -134,7 +134,13 @@ export default function MainScreen() {
 	function PromoListItems() {
 		const items = [];
 		getFilteredPromo().forEach((store) => {
-			items.push(<PromoListItem store={store} openPromo={openPromo} />);
+			items.push(
+				<PromoListItem
+					store={store}
+					openPromo={openPromo}
+					key={store.storeId}
+				/>
+			);
 		});
 		return items;
 	}
