@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import { useHistory } from "react-router";
-import { API_URL, REGISTER_ROUTE } from "../../../constants.js"
-import SignInScreen from "../SignIn/SignInScreen.js";
-
+import { API_URL, REGISTER_ROUTE } from "../../../constants.js";
+import { Categories } from "../../../constants.js";
+import CategorySeletor from "../../SharedComponents/CategorySelector";
 
 export default function SignUpScreen() {
 	const history = useHistory();
@@ -13,38 +13,44 @@ export default function SignUpScreen() {
 	const [password, setPassword] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
 	const [name, setName] = useState("");
+	const [category, setCategory] = useState(Categories.WELLNESS);
 
-  const handleRegister = async () => {
-    const isAnyNotFilled = (name === '' || email === '' || contact === '' || password === '' || repeatPassword === '')
-    if (isAnyNotFilled) {
-      alert("please fill up all the fields")
-      return
-    } else if (password !== repeatPassword) {
-      alert("password and repeat password don't match")
-      return
-    }
-    
-    const rawResponse = await fetch(API_URL + REGISTER_ROUTE, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        contact_no: contact,
-        company_name: name,
-      })
-    });
-    const content = await rawResponse.json();
-    if (content.error_code === 0) {
-      history.push("/seller/signin")
-    } else {
-      alert(content.message);
-    }
-    console.log(content);
-  }
+	const handleRegister = async () => {
+		const isAnyNotFilled =
+			name === "" ||
+			email === "" ||
+			contact === "" ||
+			password === "" ||
+			repeatPassword === "";
+		if (isAnyNotFilled) {
+			alert("please fill up all the fields");
+			return;
+		} else if (password !== repeatPassword) {
+			alert("password and repeat password don't match");
+			return;
+		}
+
+		const rawResponse = await fetch(API_URL + REGISTER_ROUTE, {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				email: email,
+				password: password,
+				contact_no: contact,
+				company_name: name,
+			}),
+		});
+		const content = await rawResponse.json();
+		if (content.error_code === 0) {
+			history.push("/seller/signin");
+		} else {
+			alert(content.message);
+		}
+		console.log(content);
+	};
 
 	return (
 		<div className="App">
@@ -65,6 +71,12 @@ export default function SignUpScreen() {
 						autoFocus
 						value={name}
 						onChange={(event) => setName(event.target.value)}
+					/>
+					<div className="Buffer__10px" />
+					<CategorySeletor
+						category={category}
+						setCategory={setCategory}
+						includeAll={false}
 					/>
 					<TextField
 						autoComplete="email"
@@ -120,9 +132,7 @@ export default function SignUpScreen() {
 				<div className="Buffer__50px" />
 				<div
 					className="Toggle__large--primary"
-					onClick={() => {
-            handleRegister()
-          }}
+					onClick={() => handleRegister()}
 				>
 					<p className="Text__medium--light">Create</p>
 				</div>
