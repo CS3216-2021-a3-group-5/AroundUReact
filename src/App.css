@@ -433,7 +433,7 @@ html {
 	margin: 0px;
 }
 
-.Text__overlay-description {
+.Text__overlay-details {
 	color: var(--text);
 	font-size: 12px;
 	overflow: hidden;

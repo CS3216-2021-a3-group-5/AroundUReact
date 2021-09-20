@@ -13,9 +13,9 @@ export const testData = [
 		endDate: Date(),
 		promos: [
 			{
-				promoId: 1,
-				promoName: "5% Off Repairs",
-				description:
+				promotion_id: 1,
+				promo_name: "5% Off Repairs",
+				details:
 					"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Elit at imperdiet dui accumsan. Scelerisque eu ultrices vitae auctor eu augue. Lobortis elementum nibh tellus molestie nunc non. Habitasse platea dictumst vestibulum rhoncus est. A iaculis at erat pellentesque adipiscing commodo elit. Id diam maecenas ultricies mi eget mauris. Lectus arcu bibendum at varius vel pharetra vel turpis nunc. Ullamcorper morbi tincidunt ornare massa eget.",
 			},
 		],
@@ -32,9 +32,9 @@ export const testData = [
 		endDate: Date(),
 		promos: [
 			{
-				promoId: 1,
-				promoName: "1-for-1 Ice-cream",
-				description:
+				promotion_id: 1,
+				promo_name: "1-for-1 Ice-cream",
+				details:
 					"Valid for selected branches only. Ice-cream is only available after 12pm.",
 			},
 		],
@@ -51,15 +51,15 @@ export const testData = [
 		endDate: Date(),
 		promos: [
 			{
-				promoId: 1,
-				promoName: "Closing down sale",
-				description:
+				promotion_id: 1,
+				promo_name: "Closing down sale",
+				details:
 					"Up to 80% off! Dress, shoes and more, lowest price you will find in Singapore.",
 			},
 			{
-				promoId: 2,
-				promoName: "Internation shoe day sale",
-				description: "Buy one get one free for all shoes!",
+				promotion_id: 2,
+				promo_name: "Internation shoe day sale",
+				details: "Buy one get one free for all shoes!",
 			},
 		],
 	},
@@ -75,9 +75,9 @@ export const testData = [
 		endDate: Date(),
 		promos: [
 			{
-				promoId: 1,
-				promoName: "Up to 10% off all packages.",
-				description:
+				promotion_id: 1,
+				promo_name: "Up to 10% off all packages.",
+				details:
 					"8% off all foot reflexology packages, 10% off fish foot spa packages, minimum spend $200.",
 			},
 		],

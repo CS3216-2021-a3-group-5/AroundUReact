@@ -15,12 +15,10 @@ export default function SellerAddEditPromoScreen({ promo }) {
 	const history = useHistory();
 
 	const [image, setImage] = useState(ImageTapToUpload);
-	const [promoName, setPromoName] = useState(
-		promo == null ? "" : promo.promoName
+	const [promo_name, setPromo_name] = useState(
+		promo == null ? "" : promo.promo_name
 	);
-	const [description, setDescription] = useState(
-		promo == null ? "" : promo.description
-	);
+	const [details, setDetails] = useState(promo == null ? "" : promo.details);
 	const [endDate, setEndDate] = useState(new Date());
 	const [stores] = useState(getAllStores());
 	const [selectedStoreIds, setSelectedStoreIds] = useState(
@@ -75,8 +73,8 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				<div className="Buffer__30px" />
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<TextField
-						value={promoName}
-						onChange={(event) => setPromoName(event.target.value)}
+						value={promo_name}
+						onChange={(event) => setPromo_name(event.target.value)}
 						margin="normal"
 						fullWidth
 						id="name"
@@ -86,14 +84,14 @@ export default function SellerAddEditPromoScreen({ promo }) {
 						autoFocus
 					/>
 					<TextField
-						value={description}
-						onChange={(event) => setDescription(event.target.value)}
+						value={details}
+						onChange={(event) => setDetails(event.target.value)}
 						margin="normal"
 						fullWidth
-						id="description"
-						label="Description"
-						name="description"
-						autoComplete="description"
+						id="details"
+						label="Details"
+						name="details"
+						autoComplete="details"
 						multiline
 					/>
 					<div className="Buffer__20px" />

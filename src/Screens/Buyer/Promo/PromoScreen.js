@@ -21,7 +21,8 @@ export default function PromoScreen() {
 			navigator.share({
 				title: "AroundU | " + data.sellerName,
 				text: "Check out this promo!",
-				url: document.location.href + data.promos[position].promoId,
+				url:
+					document.location.href + data.promos[position].promotion_id,
 			});
 		}
 	}
@@ -64,7 +65,7 @@ export default function PromoScreen() {
 					</div>
 					<div className="Buffer__5px" />
 					<p className="Text__large--dark-multiline">
-						{promo.promoName}
+						{promo.promo_name}
 					</p>
 					<div className="Buffer__5px" />
 					<p className="Text__medium--grey-multiline">
@@ -76,7 +77,7 @@ export default function PromoScreen() {
 					</p>
 					<div className="Buffer__10px" />
 					<p className="Text__medium--dark-multiline">
-						{promo.description}
+						{promo.details}
 					</p>
 					<div className="Buffer__30px" />
 					<div

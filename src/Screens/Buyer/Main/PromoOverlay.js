@@ -32,11 +32,9 @@ export default function PromoOverlay({
 					>
 						<p className="Text__large--dark">{store.sellerName}</p>
 						<div className="Buffer__5px" />
-						<p className="Text__medium--dark">{promo.promoName}</p>
+						<p className="Text__medium--dark">{promo.promo_name}</p>
 						<div className="Buffer__5px" />
-						<p className="Text__overlay-description">
-							{promo.description}
-						</p>
+						<p className="Text__overlay-details">{promo.details}</p>
 					</div>
 					<div className="Buffer__5px" />
 					<div className="Container__row">

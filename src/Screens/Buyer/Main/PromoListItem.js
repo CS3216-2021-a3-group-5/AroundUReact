@@ -13,7 +13,7 @@ export default function PromoListItem({ store, openPromo }) {
 				<div className="Container__horizontal-padding-20px">
 					<div className="Container__row">
 						<p className="Text__medium--dark">
-							{store.promos[i].promoName}
+							{store.promos[i].promo_name}
 						</p>
 						<p className="Text__arrow">{">"}</p>
 					</div>

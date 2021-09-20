@@ -45,7 +45,7 @@ export default function SellerPromoScreen() {
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div className="Buffer__20px" />
 					<p className="Text__extra-large--dark-multiline">
-						{data.promoName}
+						{data.promo_name}
 					</p>
 					<div className="Buffer__5px" />
 					<p className="Text__medium--grey-multiline">
@@ -57,7 +57,7 @@ export default function SellerPromoScreen() {
 					</p>
 					<div className="Buffer__10px" />
 					<p className="Text__medium--dark-multiline">
-						{data.description}
+						{data.details}
 					</p>
 					<div className="Buffer__30px" />
 					<p className="Text__medium--dark-multiline-bold">Stores</p>
@@ -100,8 +100,8 @@ export default function SellerPromoScreen() {
 const testData = {
 	category: Categories.ELECTRONICS,
 	storeName: "Urban Mobile",
-	promoId: 1,
-	promoName: "5% Off Repairs",
+	promotion_id: 1,
+	promo_name: "5% Off Repairs",
 	deadline: Date(),
 	stores: [
 		{
@@ -110,6 +110,6 @@ const testData = {
 			openingHours: "10:30am to 9pm daily",
 		},
 	],
-	description:
+	details:
 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Elit at imperdiet dui accumsan. Scelerisque eu ultrices vitae auctor eu augue. Lobortis elementum nibh tellus molestie nunc non. Habitasse platea dictumst vestibulum rhoncus est. A iaculis at erat pellentesque adipiscing commodo elit. Id diam maecenas ultricies mi eget mauris. Lectus arcu bibendum at varius vel pharetra vel turpis nunc. Ullamcorper morbi tincidunt ornare massa eget.",
 };
