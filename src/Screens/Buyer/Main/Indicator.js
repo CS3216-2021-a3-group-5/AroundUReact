@@ -1,4 +1,5 @@
 import { Overlay } from "pigeon-maps";
+import { Categories } from "../../../constants";
 
 import IndicatorSelected from "../../../assets/Indicator_Selected.png";
 import IndicatorFood from "../../../assets/Indicator_Food.png";
@@ -35,14 +36,6 @@ export default function Indicator({
 		</Overlay>
 	);
 }
-
-const Categories = {
-	WELLNESS: "Beauty & Wellness",
-	ELECTRONICS: "Electronics",
-	FOOD: "Food",
-	FASHION: "Fashion",
-	OTHERS: "Others",
-};
 
 function getIndicatorIcon(category) {
 	switch (category) {

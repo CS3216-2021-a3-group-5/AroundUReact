@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Map, Overlay } from "pigeon-maps";
+import { API_URL } from "../../../constants";
 
 import Logo from "../../../assets/Logo_Words.png";
 import Indicator from "./Indicator";
@@ -9,7 +10,7 @@ import PromoOverlay from "./PromoOverlay";
 import CategorySelector from "../../SharedComponents/CategorySelector";
 import RangeSelector from "./RangeSelector";
 
-import UserTestData from "../../TestData/UserTestData";
+import { testData } from "../../TestData/UserTestData";
 
 export default function MainScreen() {
 	const history = useHistory();
@@ -17,9 +18,10 @@ export default function MainScreen() {
 	const [userPosition, setUserPosition] = useState([
 		1.3976242810264037, 103.74739520517032,
 	]);
-	var lastUpdatedCoords = [1.3976242810264037, 103.74739520517032];
+	var [lastUpdatedCoords, setLastUpdatedCoords] = useState([0, 0]);
+	var storeIds = [];
 	const [promos, setPromos] = useState(
-		UserTestData().sort((promo1, promo2) => {
+		testData.sort((promo1, promo2) => {
 			return promo2.latitude - promo1.latitude;
 		})
 	);
@@ -35,7 +37,7 @@ export default function MainScreen() {
 			getLocation();
 		}, 30000);
 		return () => clearInterval(interval);
-	});
+	}, []);
 
 	function getLocation() {
 		navigator.geolocation.getCurrentPosition((position) => {
@@ -52,15 +54,30 @@ export default function MainScreen() {
 	}
 
 	// Pulls promo data from server
-	function getPromos() {
+	async function getPromos() {
 		if (userPosition[0] == null || userPosition[1] == null) return;
 		if (
 			Math.abs(userPosition[0] - lastUpdatedCoords[0]) > 0.0002 ||
 			Math.abs(userPosition[1] - lastUpdatedCoords[1]) > 0.0002
 		) {
-			lastUpdatedCoords = userPosition;
+			setLastUpdatedCoords(userPosition);
+			const response = await fetch(API_URL + "/nearbystores", {
+				method: "POST",
+				mode: "no-cors",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					lat: userPosition[0],
+					lon: userPosition[1],
+				}),
+			});
+			const result = await response.json();
+			console.log(result);
+
 			setPromos(
-				UserTestData().sort((promo1, promo2) => {
+				testData.sort((promo1, promo2) => {
 					return promo2.latitude - promo1.latitude;
 				})
 			);
