@@ -11,10 +11,10 @@ self.addEventListener("install", async (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  console.log("fetching from cache");
+  console.log("fetching cache");
 	event.respondWith(
 		caches.match(event.request).then((response) => {
-			return response || fetch(event.request);
+			return response || fetch(event.request).catch((error) => console.log(error));
 		})
 	);
 });
