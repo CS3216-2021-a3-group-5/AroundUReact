@@ -20,7 +20,7 @@ export default function MainScreen() {
 	var storeIds = [];
 	const [promos, setPromos] = useState(
 		testData.sort((promo1, promo2) => {
-			return promo2.location.lat - promo1.location.lon;
+			return promo2.location.lat - promo1.location.lat;
 		})
 	);
 	const [selectedStoreId, setSelectedStoreId] = useState(-1);
@@ -67,12 +67,15 @@ export default function MainScreen() {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					lat: userPosition[0],
-					lon: userPosition[1],
+					currentLocation: {
+						lat: userPosition[0],
+						lon: userPosition[1],
+					}
 				}),
 			});
 			const result = await response.json();
 			console.log(result);
+
 
 			setPromos(
 				testData.sort((promo1, promo2) => {
