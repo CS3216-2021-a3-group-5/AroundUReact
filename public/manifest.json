@@ -1,19 +1,20 @@
 {
-  "name": "",
+  "name": "Search for deals AroundU",
   "short_name": "AroundU",
   "start_url": "/",
 
   "icons": [
     {
-      "src": "Logo.png",
+      "src": "Logo_512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     },
     {
         "src": "Logo_192.png",
         "type": "image/png",
         "sizes": "192x192"
-      }
+    }
   ],
   "display": "fullscreen",
   "theme_color": "#FFFFFF",

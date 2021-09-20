@@ -13,7 +13,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createTheme } from "@material-ui/core/styles";
 import ScrollToTop from "./ScrollToTop";
 import ShareAdapter from "./Screens/Buyer/Share/ShareAdapter";
-import ImageSplashScreen from "./assets/Splashscreen_Lite.png";
+import ServiceWorkerRegistration from "./serviceWorkerRegistration";
 
 export default function App() {
 	// const [hasPermission, setPermission] = useState(false);
@@ -56,13 +56,12 @@ export default function App() {
 	// 	);
 	// }
 
+	// Get service worker
+	ServiceWorkerRegistration()
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Router>
-				<meta
-					name="viewport"
-					content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0"
-				/>
 				<ScrollToTop />
 				<Switch>
 					<Route path="/promo/:promotion_id">
