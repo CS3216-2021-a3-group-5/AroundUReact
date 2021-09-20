@@ -1,15 +1,44 @@
 import OutletListItem from "./OutletListItem";
 import { Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { API_URL, USER_STORE_INFO } from "../../../constants.js";
 
 export default function SellerOutletListScreen() {
-	const [stores, setStores] = useState(testDataStores);
+	const [stores, setStores] = useState();
 	const history = useHistory();
+
+	useEffect(() => {
+		handleOutletList();
+	}, []);
+
+	const handleOutletList = async () => {
+		console.log("hello2");
+		console.log(localStorage.getItem("accessToken"));
+		const rawResponse = await fetch(API_URL + USER_STORE_INFO, {
+			method: "GET",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+		});
+		console.log("hello2");
+		console.log(rawResponse);
+		/* 		const content = await rawResponse.json();
+		console.log(content);
+		console.log(rawResponse);
+		if (rawResponse.status === 200) {
+			setStores(content);
+		} else {
+			alert(content.message);
+		} */
+	};
 
 	function Outlets() {
 		const itemArray = [];
+		if (stores == null) {
+			return;
+		}
 		stores.forEach((store) => {
 			itemArray.push(<OutletListItem store={store} />);
 		});
