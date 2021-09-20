@@ -1,4 +1,5 @@
 import { TextField, MenuItem } from "@material-ui/core";
+import { Categories } from "../../constants";
 
 export default function CategorySelector({
 	category,
@@ -45,11 +46,3 @@ function CategoryItems() {
 		</MenuItem>,
 	];
 }
-
-const Categories = {
-	WELLNESS: "Beauty & Wellness",
-	ELECTRONICS: "Electronics",
-	FOOD: "Food",
-	FASHION: "Fashion",
-	OTHERS: "Others",
-};

@@ -33,7 +33,7 @@ export default function StoreSelector({
 				<div className="Buffer__20px" />
 			</div>
 		);
-		if (i != stores.length - 1) {
+		if (i !== stores.length - 1) {
 			storeItems.push(<div className="Line" key={"key" + i} />);
 		}
 	}

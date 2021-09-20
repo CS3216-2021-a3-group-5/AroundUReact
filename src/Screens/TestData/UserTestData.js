@@ -1,16 +1,6 @@
-export default function UserTestData() {
-	return testData;
-}
+import { Categories } from "../../constants";
 
-const Categories = {
-	WELLNESS: "Beauty & Wellness",
-	ELECTRONICS: "Electronics",
-	FOOD: "Food",
-	FASHION: "Fashion",
-	OTHERS: "Others",
-};
-
-const testData = [
+export const testData = [
 	{
 		latitude: 1.39704710723121,
 		longtitude: 103.74685004621115,

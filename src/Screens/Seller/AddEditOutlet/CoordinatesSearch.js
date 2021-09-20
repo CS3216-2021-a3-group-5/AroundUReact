@@ -55,7 +55,7 @@ export default function CoordinatesSearch({
 						<div className="Buffer__20px" />
 					</div>
 				);
-				if (i != addresses.length - 1) {
+				if (i !== addresses.length - 1) {
 					addressItems.push(<div className="Line" key={"Key" + i} />);
 				}
 			}

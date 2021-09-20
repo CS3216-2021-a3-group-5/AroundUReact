@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
+import { Categories } from "../../../constants";
 
 export default function SellerPromoScreen() {
 	const history = useHistory();
@@ -30,7 +31,7 @@ export default function SellerPromoScreen() {
 					<div className="Buffer__20px" />
 				</div>
 			);
-			if (i != size - 1) {
+			if (i !== size - 1) {
 				storeItems.push(<div className="Line" key={"line" + i} />);
 			}
 		}
@@ -93,14 +94,6 @@ export default function SellerPromoScreen() {
 		</div>
 	);
 }
-
-const Categories = {
-	WELLNESS: "Beauty & Wellness",
-	ELECTRONICS: "Electronics",
-	FOOD: "Food",
-	FASHION: "Fashion",
-	OTHERS: "Others",
-};
 
 // For testing
 

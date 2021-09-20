@@ -21,7 +21,7 @@ export default function PromoListItem({ store, openPromo }) {
 				<div className="Buffer__20px" />
 			</div>
 		);
-		if (i != size - 1) {
+		if (i !== size - 1) {
 			promoItems.push(<div className="Line" key={"line" + i} />);
 		}
 	}

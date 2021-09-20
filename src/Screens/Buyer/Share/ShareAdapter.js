@@ -6,7 +6,7 @@ export default function ShareAdapter() {
 
 	useEffect(() => {
 		// Pull promo from server and redirect to promo screen
-	});
+	}, []);
 
 	return (
 		<div className="App Container__center--horizontal">
