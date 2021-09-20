@@ -1,5 +1,5 @@
 var CACHE_HOME = "home-cache";
-var urlsToCache = ['/', '/promo'];
+var urlsToCache = ['/'];
 
 self.addEventListener("install", async (event) => {
   console.log("Caching");
@@ -11,10 +11,13 @@ self.addEventListener("install", async (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  console.log("fetching cache");
+  	console.log("Fetching cache for " + event.request.url);
 	event.respondWith(
 		caches.match(event.request).then((response) => {
-			return response || fetch(event.request).catch((error) => console.log(error));
+			if (response) {
+				return response;
+			}
+			return fetch(event.request);
 		})
 	);
 });
