@@ -20,6 +20,9 @@ self.addEventListener("install", async (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+	if (String(event.request.url).endsWith("/nearbystores")) {
+		return
+	}
 	console.log("Fetching cache for " + event.request.url);
 	event.respondWith(
 		caches.match(event.request).then((response) => {

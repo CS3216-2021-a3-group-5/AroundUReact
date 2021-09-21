@@ -12,11 +12,12 @@ import RangeSelector from "./RangeSelector";
 
 import { testData } from "../../TestData/UserTestData";
 
+var lastUpdatedCoords = [0,0]
+
 export default function MainScreen() {
 	const history = useHistory();
 
 	const [userPosition, setUserPosition] = useState([1.32, 103.915]);
-	var [lastUpdatedCoords, setLastUpdatedCoords] = useState([0, 0]);
 	var storeIds = [];
 	const [promos, setPromos] = useState(
 		testData.sort((promo1, promo2) => {
@@ -54,12 +55,13 @@ export default function MainScreen() {
 	// Pulls promo data from server
 	async function getPromos() {
 		if (userPosition[0] == null || userPosition[1] == null) return;
+		console.log(lastUpdatedCoords)
 		if (
 			Math.abs(userPosition[0] - lastUpdatedCoords[0]) > 0.0002 ||
 			Math.abs(userPosition[1] - lastUpdatedCoords[1]) > 0.0002
 		) {
-			setLastUpdatedCoords(userPosition);
-			const response = await fetch(API_URL + "/nearbystores", {
+			lastUpdatedCoords = userPosition;
+			await fetch(API_URL + "/nearbystores", {
 				method: "POST",
 				mode: "no-cors",
 				headers: {
@@ -70,12 +72,13 @@ export default function MainScreen() {
 					currentLocation: {
 						lat: userPosition[0],
 						lon: userPosition[1],
-					}
+					},
 				}),
-			});
-			const result = await response.json();
-			console.log(result);
-
+			})
+				.then((response) => {
+					console.log(response);
+				})
+				.catch(() => {});
 
 			setPromos(
 				testData.sort((promo1, promo2) => {
