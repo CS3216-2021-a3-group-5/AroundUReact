@@ -24,19 +24,14 @@ export default function SignUpScreen() {
 			repeatPassword === "" ||
 			category === "";
 		if (isAnyNotFilled) {
-			alert("please fill up all the fields");
+			alert("please fill up all the fieldssss");
 			return;
 		} else if (password !== repeatPassword) {
 			alert("password and repeat password don't match");
 			return;
 		}
-
 		const rawResponse = await fetch(API_URL + REGISTER_ROUTE, {
 			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
 			body: JSON.stringify({
 				email: email,
 				password: password,

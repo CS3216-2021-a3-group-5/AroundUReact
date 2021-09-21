@@ -10,12 +10,13 @@ export default function SignInScreen({ setLoggedIn }) {
 	const history = useHistory();
 
 	const handleLogin = async () => {
+		const isAnyNotFilled = email === "" || password === "";
+		if (isAnyNotFilled) {
+			alert("please fill up all the fieldssss");
+			return;
+		}
 		const rawResponse = await fetch(API_URL + LOGIN_ROUTE, {
 			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
 			body: JSON.stringify({
 				email: email,
 				password: password,
