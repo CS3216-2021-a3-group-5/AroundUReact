@@ -8,7 +8,6 @@ var urlsToCache = [
 	"/logo_512.png",
 	"/static/media/Logo_Words.e3e56c3d.png",
 	"/Logo_192.png",
-	"/static/media/Splashscreen_Lite.2875cf15.png"
 ];
 
 self.addEventListener("install", async (event) => {
