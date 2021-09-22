@@ -84,9 +84,9 @@ export default function MainScreen() {
 			if (catFilter !== "all" && store.category_name !== catFilter) {
 				return;
 			}
-			// if (store.distanceFrom / 50 > rangeFilter) {
-			// 	return;
-			// }
+			if (store.distanceFrom / 70 > rangeFilter) {
+				return;
+			}
 			filteredPromos.push(store);
 		});
 		return filteredPromos.sort(
