@@ -25,7 +25,7 @@ export default function App() {
 	}
 
 	useEffect(() => {
-		ReactGA.initialize("G-5R36XFDSSQ", {
+		ReactGA.initialize("UA-128751523-2", {
 			debug: true,
 			titleCase: false,
 		});
