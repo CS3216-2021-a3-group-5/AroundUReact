@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Map, Overlay } from "pigeon-maps";
-import { API_URL } from "../../../constants";
+import { API_URL, STORE_FROM_ID, NEARBY_STORE_ID } from "../../../constants";
 import ReactGA from "react-ga";
 
 import Logo from "../../../assets/Logo_Words.png";
@@ -49,7 +49,7 @@ export default function MainScreen() {
 	// Pulls promo data from server
 	async function getPromos(lat, lon) {
 		if (lat == null || lon == null) return;
-		const url = API_URL + "/nearbyStoreId?lat=" + lat + "&lon=" + lon;
+		const url = API_URL + NEARBY_STORE_ID + "?lat=" + lat + "&lon=" + lon;
 		const response = await fetch(url, {
 			method: "GET",
 		});
@@ -72,7 +72,7 @@ export default function MainScreen() {
 	}
 
 	async function getNewPromo(id) {
-		const response = await fetch(API_URL + "/stores/" + id, {
+		const response = await fetch(API_URL + STORE_FROM_ID + id, {
 			method: "GET",
 		});
 		return await response.json();
