@@ -26,6 +26,10 @@ export default function PromoScreen() {
 	console.log(promo);
 
 	function share() {
+		ReactGA.event({
+			category: "Social",
+			action: "Clicked on share",
+		});
 		if (navigator.share) {
 			navigator.share({
 				title: "AroundU | " + data.company_name,
