@@ -1,6 +1,6 @@
-import { useParams, Redirect } from "react-router";
+import { useParams } from "react-router";
 import { useHistory } from "react-router";
-import { API_URL } from "../../../constants";
+import { API_URL, STORE_FROM_ID } from "../../../constants";
 import { useEffect } from "react";
 
 export default function ShareAdapter() {
@@ -14,9 +14,12 @@ export default function ShareAdapter() {
 
 	async function getValue() {
 		try {
-			const response = await fetch(API_URL + "/stores/" + splitIds[0], {
-				method: "GET",
-			});
+			const response = await fetch(
+				API_URL + STORE_FROM_ID + splitIds[0],
+				{
+					method: "GET",
+				}
+			);
 			const result = await response.json();
 			console.log(result);
 			const position = result.stores.promotions.findIndex(
