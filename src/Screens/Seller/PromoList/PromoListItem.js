@@ -7,7 +7,6 @@ export default function PromoListItem({ promo }) {
 		<div
 			style={{ textDecoration: "none" }}
 			onClick={() => {
-				console.log(promo);
 				history.push("/seller/promo", { promo });
 			}}
 		>

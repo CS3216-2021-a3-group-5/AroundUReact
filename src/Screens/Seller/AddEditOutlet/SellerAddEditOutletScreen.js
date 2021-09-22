@@ -4,29 +4,26 @@ import { Map, Draggable } from "pigeon-maps";
 import IndicatorSelected from "../../../assets/Indicator_Selected.png";
 import CoordinatesSearch from "./CoordinatesSearch";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { API_URL, NEW_STORE } from "../../../constants.js";
 
 export default function SellerAddEditOutletScreen({ store }) {
 	const history = useHistory();
+	const location = useLocation();
 
 	const [storeAddress, setStoreAddress] = useState(
 		store == null ? "" : store.address
 	);
 	const [storeCoords, setStoreCoords] = useState(
-		store == null ? [null, null] : [store.latitude, store.longtitude]
+		store == null ? [null, null] : [store.location.lat, store.location.lon]
 	);
 	const [openingHours, setOpeningHours] = useState(
-		store == null ? "" : store.openingHours
+		store == null ? "" : store.opening_hours
 	);
 
 	const [showAddressSelector, setShowAddressSelector] = useState(false);
 
 	const handleAddOutlet = async () => {
-		console.log(storeAddress);
-		console.log(openingHours);
-		console.log(storeCoords[0]);
-		console.log(storeCoords[1]);
 		const rawResponse = await fetch(API_URL + NEW_STORE, {
 			method: "POST",
 			headers: {
@@ -41,6 +38,10 @@ export default function SellerAddEditOutletScreen({ store }) {
 		});
 		const content = await rawResponse.json();
 		alert(content.message);
+	};
+
+	const handleEditOutlet = async () => {
+		console.log("handleEditOutlet();");
 	};
 
 	return (
@@ -113,7 +114,14 @@ export default function SellerAddEditOutletScreen({ store }) {
 				<div
 					className="Toggle__large--secondary"
 					onClick={() => {
-						handleAddOutlet();
+						if (location.state != null && location.state.isEdit) {
+							console.log("is edit");
+							console.log(location.state.isEdit);
+							handleEditOutlet();
+						} else {
+							console.log("is add");
+							handleAddOutlet();
+						}
 						history.goBack();
 					}}
 				>

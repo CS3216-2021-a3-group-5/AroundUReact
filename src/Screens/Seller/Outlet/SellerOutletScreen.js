@@ -44,9 +44,13 @@ export default function SellerOutletScreen({ store }) {
 					/>
 					<EditIcon
 						className="Toggle__header"
-						onClick={() =>
-							history.push("/seller/editoutlet", { store })
-						}
+						onClick={() => {
+							const isEdit = true;
+							history.push("/seller/editoutlet", {
+								store,
+								isEdit,
+							});
+						}}
 					/>
 				</div>
 			</div>

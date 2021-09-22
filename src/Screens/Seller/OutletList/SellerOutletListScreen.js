@@ -36,7 +36,6 @@ export default function SellerOutletListScreen() {
 			return;
 		}
 		stores.forEach((store) => {
-			console.log(store);
 			itemArray.push(<OutletListItem store={store} />);
 		});
 		return itemArray;
