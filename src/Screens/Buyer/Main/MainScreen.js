@@ -12,13 +12,12 @@ import RangeSelector from "./RangeSelector";
 
 import { testData } from "../../TestData/UserTestData";
 
-var lastUpdatedCoords = [0,0]
+var lastUpdatedCoords = [0, 0];
 
 export default function MainScreen() {
 	const history = useHistory();
 
 	const [userPosition, setUserPosition] = useState([1.32, 103.915]);
-	var storeIds = [];
 	const [promos, setPromos] = useState(
 		testData.sort((promo1, promo2) => {
 			return promo2.location.lat - promo1.location.lat;
@@ -55,36 +54,23 @@ export default function MainScreen() {
 	// Pulls promo data from server
 	async function getPromos() {
 		if (userPosition[0] == null || userPosition[1] == null) return;
-		console.log(lastUpdatedCoords)
 		if (
 			Math.abs(userPosition[0] - lastUpdatedCoords[0]) > 0.0002 ||
 			Math.abs(userPosition[1] - lastUpdatedCoords[1]) > 0.0002
 		) {
 			lastUpdatedCoords = userPosition;
-			await fetch(API_URL + "/nearbystores", {
+			const response = await fetch(API_URL + "/nearbystores", {
 				method: "POST",
-				mode: "no-cors",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
 				body: JSON.stringify({
 					currentLocation: {
 						lat: userPosition[0],
 						lon: userPosition[1],
 					},
 				}),
-			})
-				.then((response) => {
-					console.log(response);
-				})
-				.catch(() => {});
-
-			setPromos(
-				testData.sort((promo1, promo2) => {
-					return promo2.location.lat - promo1.location.lat;
-				})
-			);
+			});
+			await response.json().then((result) => {
+				// setPromos(result.stores);
+			});
 		}
 	}
 

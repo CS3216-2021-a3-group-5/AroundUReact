@@ -20,7 +20,7 @@ export default function App() {
 	}
 
 	// Get service worker
-	ServiceWorkerRegistration()
+	// ServiceWorkerRegistration()
 
 	return (
 		<ThemeProvider theme={theme}>
