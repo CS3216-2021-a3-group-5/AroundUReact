@@ -49,14 +49,9 @@ export default function MainScreen() {
 	// Pulls promo data from server
 	async function getPromos(lat, lon) {
 		if (lat == null || lon == null) return;
-		const response = await fetch(API_URL + "/nearbyStoreId", {
-			method: "POST",
-			body: JSON.stringify({
-				currentLocation: {
-					lat: lat,
-					lon: lon,
-				},
-			}),
+		const url = API_URL + "/nearbyStoreId?lat=" + lat + "&lon=" + lon;
+		const response = await fetch(url, {
+			method: "GET",
 		});
 		const result = await response.json();
 		const newPromos = [];
