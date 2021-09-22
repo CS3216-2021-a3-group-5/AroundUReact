@@ -12,7 +12,7 @@ export default function PromoScreen() {
 
 	useEffect(() => {
 		if (location.state !== undefined) {
-			ReactGA.pageview("/promo/" + location.store.store_id);
+			ReactGA.pageview("/promo/" + location.state.store.store_id);
 		}
 	}, []);
 
