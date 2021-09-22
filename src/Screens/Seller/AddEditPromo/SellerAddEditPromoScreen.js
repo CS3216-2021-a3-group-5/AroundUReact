@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useHistory } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
 import DateFnsUtils from "@date-io/date-fns";
@@ -8,6 +6,9 @@ import {
 	KeyboardDatePicker,
 } from "@material-ui/pickers";
 import StoreSelector from "./StoreSelector";
+import { useState } from "react";
+import { useHistory } from "react-router";
+import { API_URL, NEW_PROMO } from "../../../constants.js";
 
 import ImageTapToUpload from "../../../assets/Tap_To_Select.png";
 
@@ -54,7 +55,26 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		return testDataStores;
 	}
 
-	function submit() {}
+	const handleAddPromo = async () => {
+		console.log(promo_name);
+		console.log(details);
+		console.log(endDate);
+		console.log(selectedStoreIds);
+		const rawResponse = await fetch(API_URL + NEW_PROMO, {
+			method: "POST",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify({
+				promo_name: promo_name,
+				end_date: endDate,
+				details: details,
+				store_ids: selectedStoreIds,
+			}),
+		});
+		const content = await rawResponse.json();
+		alert(content.message);
+	};
 
 	return (
 		<div className="App">
@@ -115,7 +135,10 @@ export default function SellerAddEditPromoScreen({ promo }) {
 					<div className="Buffer__30px" />
 					<div
 						className="Toggle__large--primary"
-						onClick={() => submit()}
+						onClick={() => {
+							handleAddPromo();
+							history.goBack();
+						}}
 					>
 						<p className="Text__medium--light">Create</p>
 					</div>
