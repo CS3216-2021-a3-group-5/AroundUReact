@@ -68,7 +68,7 @@ export default function PromoScreen() {
 						</p>
 						<div className="Container__range-text">
 							<p className="Text__medium--dark">
-								{data.range} min
+								{data.store.distanceFrom / 50} min
 							</p>
 						</div>
 					</div>

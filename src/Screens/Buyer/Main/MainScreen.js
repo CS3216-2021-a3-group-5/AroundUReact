@@ -18,7 +18,7 @@ var lastUpdatedCoords = [0, 0];
 export default function MainScreen() {
 	const history = useHistory();
 
-	const [userPosition, setUserPosition] = useState([1.32, 103.915]);
+	const [userPosition, setUserPosition] = useState([0, 0]);
 	const [promos, setPromos] = useState(
 		testData.sort((promo1, promo2) => {
 			return promo2.location.lat - promo1.location.lat;
@@ -32,6 +32,7 @@ export default function MainScreen() {
 	// Gets location every 30s
 	useEffect(() => {
 		ReactGA.pageview("/");
+		getPromos();
 		getLocation();
 		const interval = setInterval(() => {
 			getLocation();
@@ -45,7 +46,7 @@ export default function MainScreen() {
 				position.coords.latitude,
 				position.coords.longitude,
 			]);
-			getPromos();
+			getPromos(position.coords.latitude, position.coords.longitude);
 		});
 	}
 
@@ -54,24 +55,25 @@ export default function MainScreen() {
 	}
 
 	// Pulls promo data from server
-	async function getPromos() {
-		if (userPosition[0] == null || userPosition[1] == null) return;
+	async function getPromos(lat, lon) {
+		if (lat == null || lon == null) return;
+
 		if (
-			Math.abs(userPosition[0] - lastUpdatedCoords[0]) > 0.0002 ||
-			Math.abs(userPosition[1] - lastUpdatedCoords[1]) > 0.0002
+			Math.abs(lat - lastUpdatedCoords[0]) > 0.0002 ||
+			Math.abs(lon - lastUpdatedCoords[1]) > 0.0002
 		) {
-			lastUpdatedCoords = userPosition;
+			lastUpdatedCoords = [lat, lon];
 			const response = await fetch(API_URL + "/nearbystores", {
 				method: "POST",
 				body: JSON.stringify({
 					currentLocation: {
-						lat: userPosition[0],
-						lon: userPosition[1],
+						lat: lat,
+						lon: lon,
 					},
 				}),
 			});
 			await response.json().then((result) => {
-				// setPromos(result.stores);
+				setPromos(result.stores);
 			});
 		}
 	}
@@ -82,13 +84,13 @@ export default function MainScreen() {
 			if (catFilter !== "all" && store.category_name !== catFilter) {
 				return;
 			}
-			if (store.range > rangeFilter) {
+			if (store.distanceFrom / 50 > rangeFilter) {
 				return;
 			}
 			filteredPromos.push(store);
 		});
 		return filteredPromos.sort(
-			(store1, store2) => store1.range - store2.range
+			(store1, store2) => store1.distanceFrom - store2.distanceFrom
 		);
 	}
 
@@ -144,7 +146,7 @@ export default function MainScreen() {
 					<Map
 						center={userPosition}
 						defaultZoom={18}
-						minZoom={18}
+						minZoom={5}
 						maxZoom={19}
 						onClick={() => setSelectedStoreId(-1)}
 					>
