@@ -3,16 +3,19 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShareIcon from "@material-ui/icons/Share";
 import { Map, Overlay } from "pigeon-maps";
 import IndicatorSelected from "../../../assets/Indicator_Selected.png";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactGA from "react-ga";
+import { API_URL, PROMO_IMAGE } from "../../../constants";
 
 export default function PromoScreen() {
 	const history = useHistory();
 	const location = useLocation();
+	const [image, setImage] = useState(null);
 
 	useEffect(() => {
 		if (location.state !== undefined) {
 			ReactGA.pageview("/promo/" + location.state.store.store_id);
+			getImage();
 		}
 	}, []);
 
@@ -23,7 +26,21 @@ export default function PromoScreen() {
 	const data = location.state.store;
 	const position = location.state.position;
 	const promo = data.promotions[position];
-	console.log(promo);
+
+	async function getImage() {
+		if (location.state === undefined) {
+			return null;
+		}
+		const promoId =
+			location.state.store.promotions[location.state.position]
+				.promotion_id;
+		const response = await fetch(API_URL + PROMO_IMAGE + promoId, {
+			method: "GET",
+		});
+		const blob = await response.blob();
+		const loadedImage = URL.createObjectURL(blob);
+		setImage(loadedImage);
+	}
 
 	function share() {
 		ReactGA.event({
@@ -49,7 +66,6 @@ export default function PromoScreen() {
 	}
 
 	function openOnGoogleMaps() {
-		console.log("Opening");
 		window.open(
 			"https://www.google.com/maps/search/" +
 				data.location.lat +
@@ -66,7 +82,7 @@ export default function PromoScreen() {
 	return (
 		<div className="App">
 			<div className="Container__after-header">
-				<img className="Image__promo" />
+				<img className="Image__promo" src={image} />
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div className="Buffer__20px" />
 					<div className="Container__row">
@@ -75,7 +91,7 @@ export default function PromoScreen() {
 						</p>
 						<div className="Container__range-text">
 							<p className="Text__medium--dark">
-								{Math.floor(data.distanceFrom / 50)} min
+								{Math.floor(data.distanceFrom / 70)} min
 							</p>
 						</div>
 					</div>
