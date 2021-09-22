@@ -30,12 +30,13 @@ export default function SignUpScreen() {
 			alert("password and repeat password don't match");
 			return;
 		}
+		console.log(`company ${name} is registering with email ${email}`);
 		const rawResponse = await fetch(API_URL + REGISTER_ROUTE, {
 			method: "POST",
 			body: JSON.stringify({
 				email: email,
 				password: password,
-				contact_no: contact,
+				contact_number: contact,
 				company_name: name,
 				category: category,
 			}),

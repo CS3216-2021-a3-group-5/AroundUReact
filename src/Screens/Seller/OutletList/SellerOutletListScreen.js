@@ -14,7 +14,6 @@ export default function SellerOutletListScreen() {
 	}, []);
 
 	const handleOutletList = async () => {
-		console.log(localStorage.getItem("accessToken"));
 		const rawResponse = await fetch(API_URL + USER_STORE_INFO, {
 			method: "GET",
 			headers: {
@@ -33,7 +32,7 @@ export default function SellerOutletListScreen() {
 	function Outlets() {
 		const itemArray = [];
 		if (stores == null) {
-			console.log("No store");
+			console.log("no store");
 			return;
 		}
 		stores.forEach((store) => {
