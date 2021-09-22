@@ -149,6 +149,16 @@ html {
 	overflow: scroll;
 }
 
+.Container__popup--small {
+	width: 80%;
+	max-width: 400px;
+	opacity: 1;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	background-color: white;
+}
+
 .Container__banner--primary {
 	width: 100%;
 	display: flex;
@@ -302,6 +312,32 @@ html {
 	width: 100px;
 	border-radius: 50px;
 	opacity: 0;
+}
+
+.Toggle__halfwidth--left {
+	width: 50%;
+	height: 50px;
+	border-bottom-left-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.Toggle__halfwidth--left:hover {
+	background-color: var(--line);
+}
+
+.Toggle__halfwidth--right {
+	width: 50%;
+	height: 50px;
+	border-bottom-right-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.Toggle__halfwidth--right:hover {
+	background-color: var(--line);
 }
 
 .Fab {
@@ -517,5 +553,11 @@ html {
 .Line {
 	height: 1px;
 	width: 100%;
+	background-color: var(--line);
+}
+
+.Line--vertical {
+	height: 100%;
+	width: 1px;
 	background-color: var(--line);
 }
