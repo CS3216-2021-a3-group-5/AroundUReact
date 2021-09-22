@@ -14,6 +14,7 @@ import { createTheme } from "@material-ui/core/styles";
 import ScrollToTop from "./ScrollToTop";
 import ShareAdapter from "./Screens/Buyer/Share/ShareAdapter";
 import ReactGA from "react-ga";
+import { Helmet } from "react-helmet";
 import ServiceWorkerRegistration from "./serviceWorkerRegistration";
 
 export default function App() {
@@ -36,10 +37,15 @@ export default function App() {
 
 	return (
 		<ThemeProvider theme={theme}>
+			<Helmet>
+				<meta charSet="utf-8" />
+				<title>AroundU</title>
+				<meta name="description" content="Search for deals AroundU" />
+			</Helmet>
 			<Router>
 				<ScrollToTop />
 				<Switch>
-					<Route path="/promo/:promotion_id">
+					<Route path="/promo/:ids">
 						<ShareAdapter />
 					</Route>
 					<Route path="/promo/">
