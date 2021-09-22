@@ -29,7 +29,6 @@ export default function App() {
 			debug: true,
 			titleCase: false,
 		});
-		ReactGA.pageview(window.location.pathname + window.location.search);
 	}, []);
 
 	// Get service worker

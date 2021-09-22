@@ -3,10 +3,18 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShareIcon from "@material-ui/icons/Share";
 import { Map, Overlay } from "pigeon-maps";
 import IndicatorSelected from "../../../assets/Indicator_Selected.png";
+import { useEffect } from "react";
+import ReactGA from "react-ga";
 
 export default function PromoScreen() {
 	const history = useHistory();
 	const location = useLocation();
+
+	useEffect(() => {
+		if (location.state !== undefined) {
+			ReactGA.pageview("/promo/" + location.store.store_id);
+		}
+	}, []);
 
 	if (location.state === undefined) {
 		return <Redirect to="/" />;
@@ -22,14 +30,15 @@ export default function PromoScreen() {
 				title: "AroundU | " + data.company_name,
 				text: "Check out this promo!",
 				url:
-					document.location.href + data.promotions[position].promotion_id,
+					document.location.href +
+					data.promotions[position].promotion_id,
 			});
 		}
 	}
 
 	function getFormattedDate() {
-		const splitResult = promo.end_date.split("T")
-		return splitResult[0]
+		const splitResult = promo.end_date.split("T");
+		return splitResult[0];
 	}
 
 	function openOnGoogleMaps() {
