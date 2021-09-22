@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useHistory } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
+import DeleteConfirmation from "../../SharedComponents/DeleteConfirmation";
 
 export default function SellerOutletScreen({ store }) {
 	const history = useHistory();
+	const [showPopup, setShowPopup] = useState(false);
 
 	function deleteOutlet() {}
 
@@ -29,7 +32,7 @@ export default function SellerOutletScreen({ store }) {
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div
 						className="Toggle__large--secondary"
-						onClick={() => deleteOutlet()}
+						onClick={() => setShowPopup(true)}
 					>
 						<p className="Text__medium--light">Delete Outlet</p>
 					</div>
@@ -50,6 +53,12 @@ export default function SellerOutletScreen({ store }) {
 					/>
 				</div>
 			</div>
+			{showPopup && (
+				<DeleteConfirmation
+					setShowPopup={setShowPopup}
+					confirmDelete={deleteOutlet}
+				/>
+			)}
 		</div>
 	);
 }
