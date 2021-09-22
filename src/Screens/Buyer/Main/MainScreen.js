@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Map, Overlay } from "pigeon-maps";
 import { API_URL } from "../../../constants";
+import ReactGA from "react-ga";
 
 import Logo from "../../../assets/Logo_Words.png";
 import Indicator from "./Indicator";
@@ -30,6 +31,7 @@ export default function MainScreen() {
 
 	// Gets location every 30s
 	useEffect(() => {
+		ReactGA.pageview("/");
 		getLocation();
 		const interval = setInterval(() => {
 			getLocation();

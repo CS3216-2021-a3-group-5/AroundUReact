@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import { Redirect, useLocation } from "react-router";
+import ReactGA from "react-ga";
 
 import SignInScreen from "../SignIn/SignInScreen";
 import SignUpScreen from "../SignUp/SignUpScreen";
@@ -16,6 +17,10 @@ import SellerOutletScreen from "../Outlet/SellerOutletScreen";
 export default function SellerMainScreen({ screen }) {
 	const [isLoggedIn, setLoggedIn] = useState(checkLogin());
 	const location = useLocation();
+
+	useEffect(() => {
+		ReactGA.pageview(window.location.pathname);
+	}, []);
 
 	// Checks if already logged in
 	function checkLogin() {
