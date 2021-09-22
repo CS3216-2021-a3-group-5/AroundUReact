@@ -20,7 +20,7 @@ export default function SellerOutletScreen({ store }) {
 				</p>
 				<div className="Buffer__10px" />
 				<p className="Text__medium--dark-multiline">
-					{store.openingHours}
+					{store.opening_hours}
 				</p>
 				<div className="Buffer__110px" />
 			</div>

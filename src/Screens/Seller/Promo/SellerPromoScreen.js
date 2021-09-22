@@ -3,7 +3,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
 import { Categories } from "../../../constants";
 
-export default function SellerPromoScreen() {
+export default function SellerPromoScreen({ promo }) {
 	const history = useHistory();
 	const data = getData();
 
@@ -38,6 +38,11 @@ export default function SellerPromoScreen() {
 		return storeItems;
 	}
 
+	function logg() {
+		console.log(promo);
+	}
+	logg();
+
 	return (
 		<div className="App">
 			<div className="Container__after-header">
@@ -45,7 +50,7 @@ export default function SellerPromoScreen() {
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div className="Buffer__20px" />
 					<p className="Text__extra-large--dark-multiline">
-						{data.promo_name}
+						{promo.promo_name}
 					</p>
 					<div className="Buffer__5px" />
 					<p className="Text__medium--grey-multiline">
@@ -57,11 +62,11 @@ export default function SellerPromoScreen() {
 					</p>
 					<div className="Buffer__10px" />
 					<p className="Text__medium--dark-multiline">
-						{data.details}
+						{promo.details}
 					</p>
 					<div className="Buffer__30px" />
 					<p className="Text__medium--dark-multiline-bold">Stores</p>
-					{Stores()}
+					"Stores()"
 					<div className="Buffer__110px" />
 				</div>
 			</div>

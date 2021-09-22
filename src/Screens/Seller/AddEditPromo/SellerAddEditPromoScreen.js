@@ -80,12 +80,18 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		<div className="App">
 			<div className="Container__after-header">
 				<div className="Container__center--horizontal">
-					<input
-						accept="image/*"
-						type="file"
-						onChange={(event) => uploadImage(event)}
-						className="Toggle__promo-image-input"
-					/>
+					<form
+						action="http://localhost:3080/uploadLogo"
+						method="post"
+						enctype="multipart/form-data"
+					>
+						<input
+							accept="image/*"
+							type="file"
+							onChange={(event) => uploadImage(event)}
+							className="Toggle__promo-image-input"
+						/>
+					</form>
 				</div>
 
 				<img className="Image__promo" src={image} />

@@ -47,7 +47,7 @@ export default function SellerMainScreen({ screen }) {
 
 	switch (screen) {
 		case SellerScreens.PROMO: {
-			return <SellerPromoScreen />;
+			return <SellerPromoScreen promo={location.state.promo} />;
 		}
 		case SellerScreens.OUTLET: {
 			return <SellerOutletScreen store={location.state.store} />;

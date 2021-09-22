@@ -36,6 +36,7 @@ export default function SellerHomeScreen() {
 			return;
 		}
 		promos.forEach((promo) => {
+			console.log(promo);
 			itemArray.push(<PromoListItem promo={promo} />);
 		});
 		return itemArray;
