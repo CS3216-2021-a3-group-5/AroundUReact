@@ -8,3 +8,4 @@ Packages used:
 1. npm install date-fns
 1. npm install @date-io/date-fns@^1.3.13 // Do not upgrade
 1. npm install react-ga --save
+1. npm i react-helmet

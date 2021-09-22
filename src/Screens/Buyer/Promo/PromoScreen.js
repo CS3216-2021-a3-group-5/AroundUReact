@@ -32,6 +32,8 @@ export default function PromoScreen() {
 				text: "Check out this promo!",
 				url:
 					document.location.href +
+					data.store_id +
+					"&" +
 					data.promotions[position].promotion_id,
 			});
 		}
