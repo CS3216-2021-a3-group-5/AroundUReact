@@ -1,4 +1,5 @@
 import "./App.css";
+import { useEffect } from "react";
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -12,12 +13,24 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createTheme } from "@material-ui/core/styles";
 import ScrollToTop from "./ScrollToTop";
 import ShareAdapter from "./Screens/Buyer/Share/ShareAdapter";
+import ReactGA from "react-ga";
 import ServiceWorkerRegistration from "./serviceWorkerRegistration";
 
 export default function App() {
-	if (!window.location.host.startsWith("localhost:3000") && window.location.protocol != "https:"){
+	if (
+		!window.location.host.startsWith("localhost:3000") &&
+		window.location.protocol != "https:"
+	) {
 		window.location.protocol = "https";
 	}
+
+	useEffect(() => {
+		ReactGA.initialize("G-5R36XFDSSQ", {
+			debug: true,
+			titleCase: false,
+		});
+		ReactGA.pageview(window.location.pathname + window.location.search);
+	}, []);
 
 	// Get service worker
 	// ServiceWorkerRegistration()
