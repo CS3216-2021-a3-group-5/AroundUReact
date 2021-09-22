@@ -23,6 +23,7 @@ export default function PromoScreen() {
 	const data = location.state.store;
 	const position = location.state.position;
 	const promo = data.promotions[position];
+	console.log(promo);
 
 	function share() {
 		if (navigator.share) {
@@ -68,7 +69,7 @@ export default function PromoScreen() {
 						</p>
 						<div className="Container__range-text">
 							<p className="Text__medium--dark">
-								{data.store.distanceFrom / 50} min
+								{Math.floor(data.distanceFrom / 50)} min
 							</p>
 						</div>
 					</div>

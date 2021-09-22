@@ -42,7 +42,7 @@ export default function PromoListItem({ store, openPromo }) {
 							</p>
 							<div className="Buffer__5px" />
 							<p className="Text__small--dark">
-								{store.range} min
+								{Math.floor(store.distanceFrom / 50)} min
 							</p>
 						</div>
 					</div>
