@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useHistory } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
 import { Map, Draggable } from "pigeon-maps";
 import IndicatorSelected from "../../../assets/Indicator_Selected.png";
 import CoordinatesSearch from "./CoordinatesSearch";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import { API_URL, NEW_STORE } from "../../../constants.js";
 
 export default function SellerAddEditOutletScreen({ store }) {
 	const history = useHistory();
@@ -21,7 +22,26 @@ export default function SellerAddEditOutletScreen({ store }) {
 
 	const [showAddressSelector, setShowAddressSelector] = useState(false);
 
-	function submit() {}
+	const handleAddOutlet = async () => {
+		console.log(storeAddress);
+		console.log(openingHours);
+		console.log(storeCoords[0]);
+		console.log(storeCoords[1]);
+		const rawResponse = await fetch(API_URL + NEW_STORE, {
+			method: "POST",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify({
+				longitude: storeCoords[0],
+				latitude: storeCoords[1],
+				address: storeAddress,
+				opening_hours: openingHours,
+			}),
+		});
+		const content = await rawResponse.json();
+		alert(content.message);
+	};
 
 	return (
 		<div className="App">
@@ -92,7 +112,10 @@ export default function SellerAddEditOutletScreen({ store }) {
 				<div className="Buffer__20px" />
 				<div
 					className="Toggle__large--secondary"
-					onClick={() => submit()}
+					onClick={() => {
+						handleAddOutlet();
+						history.goBack();
+					}}
 				>
 					<p className="Text__medium--light">Create</p>
 				</div>

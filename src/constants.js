@@ -5,6 +5,7 @@ export const REGISTER_ROUTE = "/registerUser";
 export const USER_INFO = "/userInfo";
 export const USER_STORE_INFO = "/userStoreInfo";
 export const USER_PROMOTION_INFO = "/userPromotionInfo";
+export const NEW_STORE = "/newStore";
 
 export const Categories = {
 	WELLNESS: "Beauty & Wellness",

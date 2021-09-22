@@ -62,10 +62,7 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 					<div
 						className="Toggle__large--primary"
 						onClick={() =>
-							history.push({
-								pathname: "/seller/editprofile",
-								state: { profile: profile },
-							})
+							history.push("/seller/editprofile", { profile })
 						}
 					>
 						<p className="Text__medium--light">Edit Profile</p>
