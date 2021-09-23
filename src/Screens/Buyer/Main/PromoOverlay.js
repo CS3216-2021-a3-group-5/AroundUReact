@@ -6,6 +6,7 @@ export default function PromoOverlay({
 	store,
 	viewingIndex,
 	setViewingIndex,
+	getOverlayImage,
 	openPromo,
 	image,
 }) {
@@ -46,6 +47,10 @@ export default function PromoOverlay({
 						<NavigateBeforeRoundedIcon
 							onClick={() => {
 								if (viewingIndex > 0) {
+									getOverlayImage(
+										store.promotions[viewingIndex - 1]
+											.promotion_id
+									);
 									setViewingIndex(viewingIndex - 1);
 								}
 							}}
@@ -59,6 +64,10 @@ export default function PromoOverlay({
 									viewingIndex <
 									store.promotions.length - 1
 								) {
+									getOverlayImage(
+										store.promotions[viewingIndex + 1]
+											.promotion_id
+									);
 									setViewingIndex(viewingIndex + 1);
 								}
 							}}

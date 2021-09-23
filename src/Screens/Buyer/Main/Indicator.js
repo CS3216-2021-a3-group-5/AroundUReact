@@ -1,6 +1,5 @@
 import { Overlay } from "pigeon-maps";
 import { Categories } from "../../../constants";
-import { API_URL, PROMO_IMAGE } from "../../../constants";
 
 import IndicatorSelected from "../../../assets/Indicator_Selected.png";
 import IndicatorFood from "../../../assets/Indicator_Food.png";
@@ -12,19 +11,10 @@ import IndicatorOthers from "../../../assets/Indicator_Others.png";
 export default function Indicator({
 	promo,
 	setViewingIndex,
-	setOverlayImage,
+	getOverlayImage,
 	setSelectedId,
 	isSelected,
 }) {
-	async function getImage(promoId) {
-		const response = await fetch(API_URL + PROMO_IMAGE + promoId, {
-			method: "GET",
-		});
-		const blob = await response.blob();
-		const loadedImage = URL.createObjectURL(blob);
-		setOverlayImage(loadedImage);
-	}
-
 	return (
 		<Overlay
 			anchor={[promo.location.lat, promo.location.lon]}
@@ -42,10 +32,8 @@ export default function Indicator({
 				onClick={() => {
 					setViewingIndex(0);
 					setSelectedId(isSelected ? -1 : promo.store_id);
-					setOverlayImage(
-						isSelected
-							? null
-							: getImage(promo.promotions[0].promotion_id)
+					getOverlayImage(
+						isSelected ? null : promo.promotions[0].promotion_id
 					);
 				}}
 			/>
