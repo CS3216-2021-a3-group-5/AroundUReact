@@ -15,7 +15,7 @@ var urlsToCache = [
 	"/static/js/assets/Indicator_Food.png",
 	"/static/js/assets/Indicator_Others.png",
 	"/static/js/assets/Indicator_Selected.png",
-	"/static/js/assets/Logo_Words.png",
+// 	"/static/js/assets/Logo_Words.png",
 // 	"/static/js/App.js",
 // 	"/static/js/ScrollToTop.js",
 // 	"/static/js/constants.js",
