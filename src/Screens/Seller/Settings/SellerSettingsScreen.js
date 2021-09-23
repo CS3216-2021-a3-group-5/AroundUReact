@@ -18,7 +18,6 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 	}, []);
 
 	const handleProfile = async () => {
-		console.log("Hi");
 		const rawResponse = await fetch(API_URL + USER_INFO, {
 			method: "GET",
 			headers: {
@@ -26,7 +25,6 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 			},
 		});
 		const content = await rawResponse.json();
-		console.log(content);
 		if (rawResponse.status === 200) {
 			setProfile({
 				email: content.email,

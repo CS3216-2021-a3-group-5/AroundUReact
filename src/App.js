@@ -1,4 +1,5 @@
 import "./App.css";
+import { useEffect } from "react";
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -12,22 +13,39 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createTheme } from "@material-ui/core/styles";
 import ScrollToTop from "./ScrollToTop";
 import ShareAdapter from "./Screens/Buyer/Share/ShareAdapter";
+import ReactGA from "react-ga";
+import { Helmet } from "react-helmet";
 import ServiceWorkerRegistration from "./serviceWorkerRegistration";
 
 export default function App() {
-	if (!window.location.host.startsWith("localhost:3000") && window.location.protocol != "https:"){
+	if (
+		!window.location.host.startsWith("localhost:3000") &&
+		window.location.protocol != "https:"
+	) {
 		window.location.protocol = "https";
 	}
 
+	useEffect(() => {
+		ReactGA.initialize("UA-128751523-2", {
+			debug: true,
+			titleCase: false,
+		});
+	}, []);
+
 	// Get service worker
-	ServiceWorkerRegistration()
+	// ServiceWorkerRegistration()
 
 	return (
 		<ThemeProvider theme={theme}>
+			<Helmet>
+				<meta charSet="utf-8" />
+				<title>AroundU</title>
+				<meta name="description" content="Search for deals AroundU" />
+			</Helmet>
 			<Router>
 				<ScrollToTop />
 				<Switch>
-					<Route path="/promo/:promotion_id">
+					<Route path="/promo/:ids">
 						<ShareAdapter />
 					</Route>
 					<Route path="/promo/">

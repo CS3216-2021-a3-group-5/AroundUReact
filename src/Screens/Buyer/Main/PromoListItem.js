@@ -1,8 +1,27 @@
-import { Avatar } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { API_URL, COMPANY_LOGO } from "../../../constants";
 
 export default function PromoListItem({ store, openPromo }) {
+	const [image, setImage] = useState(null);
 	const promoItems = [];
 	const size = store.promotions.length;
+
+	useEffect(() => {
+		getImage();
+	}, []);
+
+	async function getImage() {
+		const response = await fetch(
+			API_URL + COMPANY_LOGO + store.company_name,
+			{
+				method: "GET",
+			}
+		);
+		const blob = await response.blob();
+		const loadedImage = URL.createObjectURL(blob);
+		setImage(loadedImage);
+	}
+
 	for (let i = 0; i < size; i++) {
 		promoItems.push(
 			<div
@@ -34,7 +53,7 @@ export default function PromoListItem({ store, openPromo }) {
 				<div className="Container__home-store-header Container__horizontal-padding-20px">
 					<div className="Buffer__10px" />
 					<div className="Container__row">
-						<Avatar src="" />
+						<img src={image} className="Image__round--small" />
 						<div className="Buffer__20px" />
 						<div className="Container__column">
 							<p className="Text__medium--dark">
@@ -42,7 +61,7 @@ export default function PromoListItem({ store, openPromo }) {
 							</p>
 							<div className="Buffer__5px" />
 							<p className="Text__small--dark">
-								{store.range} min
+								{Math.floor(store.distanceFrom / 70)} min
 							</p>
 						</div>
 					</div>

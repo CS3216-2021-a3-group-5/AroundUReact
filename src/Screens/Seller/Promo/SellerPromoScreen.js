@@ -1,12 +1,17 @@
+import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
 import { Categories } from "../../../constants";
+import DeleteConfirmation from "../../SharedComponents/DeleteConfirmation";
 
 export default function SellerPromoScreen({ promo }) {
 	const history = useHistory();
 	const location = useLocation();
 	const stores = location.state.stores;
+
+	const [showPopup, setShowPopup] = useState(false);
 
 	function getFormattedDate() {
 		let date = new Date(promo.end_date);
@@ -77,7 +82,7 @@ export default function SellerPromoScreen({ promo }) {
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div
 						className="Toggle__large--primary"
-						onClick={() => deletePromo()}
+						onClick={() => setShowPopup(true)}
 					>
 						<p className="Text__medium--light">Delete Promo</p>
 					</div>
@@ -101,6 +106,12 @@ export default function SellerPromoScreen({ promo }) {
 					/>
 				</div>
 			</div>
+			{showPopup && (
+				<DeleteConfirmation
+					setShowPopup={setShowPopup}
+					confirmDelete={deletePromo}
+				/>
+			)}
 		</div>
 	);
 }

@@ -44,10 +44,10 @@ export default function SignUpScreen() {
 		const content = await rawResponse.json();
 		if (rawResponse.status === 200) {
 			history.push("/seller/signin");
+			alert("Successfully registered!");
 		} else {
 			alert(content.message);
 		}
-		console.log(content);
 	};
 
 	return (

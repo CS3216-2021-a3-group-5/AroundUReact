@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Map, Overlay } from "pigeon-maps";
-import { API_URL } from "../../../constants";
+import { API_URL, STORE_FROM_ID, NEARBY_STORE_ID } from "../../../constants";
+import ReactGA from "react-ga";
 
 import Logo from "../../../assets/Logo_Words.png";
 import Indicator from "./Indicator";
@@ -10,27 +11,21 @@ import PromoOverlay from "./PromoOverlay";
 import CategorySelector from "../../SharedComponents/CategorySelector";
 import RangeSelector from "./RangeSelector";
 
-import { testData } from "../../TestData/UserTestData";
-
-var lastUpdatedCoords = [0,0]
-
 export default function MainScreen() {
 	const history = useHistory();
 
-	const [userPosition, setUserPosition] = useState([1.32, 103.915]);
-	var storeIds = [];
-	const [promos, setPromos] = useState(
-		testData.sort((promo1, promo2) => {
-			return promo2.location.lat - promo1.location.lat;
-		})
-	);
+	const [userPosition, setUserPosition] = useState([0, 0]);
+	const [promos, setPromos] = useState([]);
 	const [selectedStoreId, setSelectedStoreId] = useState(-1);
 	const [viewingIndex, setViewingIndex] = useState(0);
 	const [catFilter, setCatFilter] = useState("all");
 	const [rangeFilter, setRangeFilter] = useState(10);
+	const [overlayImage, setOverlayImage] = useState(null);
 
 	// Gets location every 30s
 	useEffect(() => {
+		ReactGA.pageview("/");
+		getPromos();
 		getLocation();
 		const interval = setInterval(() => {
 			getLocation();
@@ -44,7 +39,7 @@ export default function MainScreen() {
 				position.coords.latitude,
 				position.coords.longitude,
 			]);
-			getPromos();
+			getPromos(position.coords.latitude, position.coords.longitude);
 		});
 	}
 
@@ -53,39 +48,35 @@ export default function MainScreen() {
 	}
 
 	// Pulls promo data from server
-	async function getPromos() {
-		if (userPosition[0] == null || userPosition[1] == null) return;
-		console.log(lastUpdatedCoords)
-		if (
-			Math.abs(userPosition[0] - lastUpdatedCoords[0]) > 0.0002 ||
-			Math.abs(userPosition[1] - lastUpdatedCoords[1]) > 0.0002
-		) {
-			lastUpdatedCoords = userPosition;
-			await fetch(API_URL + "/nearbystores", {
-				method: "POST",
-				mode: "no-cors",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					currentLocation: {
-						lat: userPosition[0],
-						lon: userPosition[1],
-					},
-				}),
-			})
-				.then((response) => {
-					console.log(response);
-				})
-				.catch(() => {});
+	async function getPromos(lat, lon) {
+		if (lat == null || lon == null) return;
+		const url = API_URL + NEARBY_STORE_ID + "?lat=" + lat + "&lon=" + lon;
+		const response = await fetch(url, {
+			method: "GET",
+		});
+		const result = await response.json();
+		const newPromos = [];
+		await result.store_id.reduce(async (promise, store) => {
+			await promise;
+			const id = store.store_id;
+			var promo = promos.find((promo) => promo.store_id === id);
+			if (promo === undefined) {
+				const newPromo = await getNewPromo(id);
+				newPromo.stores.distanceFrom = store.distanceFrom;
+				newPromos.push(newPromo.stores);
+			} else {
+				promo.distanceFrom = store.distanceFrom;
+				newPromos.push(promo);
+			}
+		});
+		setPromos(newPromos);
+	}
 
-			setPromos(
-				testData.sort((promo1, promo2) => {
-					return promo2.location.lat - promo1.location.lat;
-				})
-			);
-		}
+	async function getNewPromo(id) {
+		const response = await fetch(API_URL + STORE_FROM_ID + id, {
+			method: "GET",
+		});
+		return await response.json();
 	}
 
 	function getFilteredPromo() {
@@ -94,13 +85,13 @@ export default function MainScreen() {
 			if (catFilter !== "all" && store.category_name !== catFilter) {
 				return;
 			}
-			if (store.range > rangeFilter) {
+			if (store.distanceFrom / 70 > rangeFilter) {
 				return;
 			}
 			filteredPromos.push(store);
 		});
 		return filteredPromos.sort(
-			(store1, store2) => store1.range - store2.range
+			(store1, store2) => store1.distanceFrom - store2.distanceFrom
 		);
 	}
 
@@ -118,6 +109,7 @@ export default function MainScreen() {
 					setViewingIndex: setViewingIndex,
 					setSelectedId: setSelectedStoreId,
 					isSelected: promo.store_id === selectedStoreId,
+					setOverlayImage: setOverlayImage,
 				})
 			);
 		});
@@ -128,6 +120,7 @@ export default function MainScreen() {
 					viewingIndex: viewingIndex,
 					setViewingIndex: setViewingIndex,
 					openPromo: openPromo,
+					image: overlayImage,
 				})
 			);
 		}
@@ -155,8 +148,8 @@ export default function MainScreen() {
 				<div className="Map__large">
 					<Map
 						center={userPosition}
-						defaultZoom={18}
-						minZoom={18}
+						defaultZoom={15}
+						minZoom={15}
 						maxZoom={19}
 						onClick={() => setSelectedStoreId(-1)}
 					>

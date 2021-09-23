@@ -39,7 +39,6 @@ export default function SellerHomeScreen() {
 	function Promos() {
 		const itemArray = [];
 		if (promos == null) {
-			console.log("no promotions");
 			return;
 		}
 		promos.forEach((promo) => {

@@ -11,7 +11,6 @@ var urlsToCache = [
 ];
 
 self.addEventListener("install", async (event) => {
-	console.log("Caching");
 	event.waitUntil(
 		caches.open(CACHE_HOME).then((cache) => {
 			return cache.addAll(urlsToCache);
@@ -21,9 +20,8 @@ self.addEventListener("install", async (event) => {
 
 self.addEventListener("fetch", (event) => {
 	if (String(event.request.url).endsWith("/nearbystores")) {
-		return
+		return;
 	}
-	console.log("Fetching cache for " + event.request.url);
 	event.respondWith(
 		caches.match(event.request).then((response) => {
 			if (response) {

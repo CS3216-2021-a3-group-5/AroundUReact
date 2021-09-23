@@ -32,7 +32,6 @@ export default function SellerOutletListScreen() {
 	function Outlets() {
 		const itemArray = [];
 		if (stores == null) {
-			console.log("no store");
 			return;
 		}
 		stores.forEach((store) => {
