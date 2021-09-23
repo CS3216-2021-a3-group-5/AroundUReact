@@ -21,7 +21,9 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		promo == null ? "" : promo.promo_name
 	);
 	const [details, setDetails] = useState(promo == null ? "" : promo.details);
-	const [endDate, setEndDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(
+		promo == null ? new Date() : promo.end_date
+	);
 	const [stores] = useState(location.state.stores);
 
 	const [selectedStoreIds, setSelectedStoreIds] = useState(
@@ -31,18 +33,18 @@ export default function SellerAddEditPromoScreen({ promo }) {
 	function getSelectedStores() {
 		const selectedStores = new Array(stores.length).fill(false);
 		const selectedIds = [];
+		console.log("leo" + promo);
+		console.log("leo" + stores);
 		if (promo != null) {
-			stores.forEach((store) => {
-				console.log("object");
-				selectedIds.push(store.store_id);
-			});
-		}
-		for (let i = 0; i < stores.length; i++) {
-			if (selectedIds.includes(stores[i].storeId)) {
-				selectedStores[i] = true;
-				console.log("HI");
+			for (let i = 0; i < stores.length; i++) {
+				console.log(stores[i].storeId);
+				if (promo.storeIDs.includes(stores[i].store_id)) {
+					console.log("yes");
+					selectedStores[i] = true;
+				}
 			}
 		}
+		console.log(selectedStores);
 		return selectedStores;
 	}
 

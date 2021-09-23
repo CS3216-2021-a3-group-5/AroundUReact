@@ -5,29 +5,22 @@ import { Categories } from "../../../constants";
 
 export default function SellerPromoScreen({ promo }) {
 	const history = useHistory();
-	const data = getData();
 	const location = useLocation();
-
-	function getData() {
-		return testData;
-	}
+	const stores = location.state.stores;
 
 	function getFormattedDate() {
-		const dateSplit = new Date(data.deadline).toUTCString().split(" ");
+		let date = new Date(promo.end_date);
+		date.setDate(date.getDate() + 1);
+		const dateSplit = date.toUTCString().split(" ");
 		return dateSplit[1] + " " + dateSplit[2] + " " + dateSplit[3];
 	}
 
 	function deletePromo() {}
 
 	function Stores() {
-		const stores = location.state.stores;
 		const size = promo.storeIDs.length;
 		const selectedStores = [];
 		const storeItems = [];
-
-		console.log(`promo 11: ${promo}`);
-		console.log(`stores 11: ${stores[0]}`);
-		console.log(promo.storeIDs);
 
 		for (let i = 0; i < stores.length; i++) {
 			if (promo.storeIDs.includes(stores[i].store_id)) {
@@ -100,7 +93,10 @@ export default function SellerPromoScreen({ promo }) {
 					<EditIcon
 						className="Toggle__header"
 						onClick={() =>
-							history.push("/seller/editpromo/", { data })
+							history.push("/seller/editpromo/", {
+								promo,
+								stores,
+							})
 						}
 					/>
 				</div>
@@ -108,22 +104,3 @@ export default function SellerPromoScreen({ promo }) {
 		</div>
 	);
 }
-
-// For testing
-
-const testData = {
-	category: Categories.ELECTRONICS,
-	storeName: "Urban Mobile",
-	promotion_id: 1,
-	promo_name: "5% Off Repairs",
-	deadline: Date(),
-	stores: [
-		{
-			storeId: 1,
-			address: "21 Choa Chu Kang North 6, 01-44, Singapore 689578",
-			openingHours: "10:30am to 9pm daily",
-		},
-	],
-	details:
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Elit at imperdiet dui accumsan. Scelerisque eu ultrices vitae auctor eu augue. Lobortis elementum nibh tellus molestie nunc non. Habitasse platea dictumst vestibulum rhoncus est. A iaculis at erat pellentesque adipiscing commodo elit. Id diam maecenas ultricies mi eget mauris. Lectus arcu bibendum at varius vel pharetra vel turpis nunc. Ullamcorper morbi tincidunt ornare massa eget.",
-};

@@ -56,7 +56,7 @@ export default function SellerMainScreen({ screen }) {
 			return <SellerAddEditPromoScreen />;
 		}
 		case SellerScreens.EDIT_PROMO: {
-			return <SellerAddEditPromoScreen promo={location.state.data} />;
+			return <SellerAddEditPromoScreen promo={location.state.promo} />;
 		}
 		case SellerScreens.ADD_OUTLET: {
 			return <SellerAddEditOutletScreen />;
