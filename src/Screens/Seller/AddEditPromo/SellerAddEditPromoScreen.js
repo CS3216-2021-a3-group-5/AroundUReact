@@ -33,13 +33,9 @@ export default function SellerAddEditPromoScreen({ promo }) {
 	function getSelectedStores() {
 		const selectedStores = new Array(stores.length).fill(false);
 		const selectedIds = [];
-		console.log("leo" + promo);
-		console.log("leo" + stores);
 		if (promo != null) {
 			for (let i = 0; i < stores.length; i++) {
-				console.log(stores[i].storeId);
 				if (promo.storeIDs.includes(stores[i].store_id)) {
-					console.log("yes");
 					selectedStores[i] = true;
 				}
 			}

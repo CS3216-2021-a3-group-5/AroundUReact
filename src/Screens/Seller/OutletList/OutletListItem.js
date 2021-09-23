@@ -7,7 +7,6 @@ export default function OutletListItem({ store }) {
 		<div
 			style={{ textDecoration: "none" }}
 			onClick={() => {
-				console.log(store);
 				history.push("/seller/outlet", { store });
 			}}
 		>
