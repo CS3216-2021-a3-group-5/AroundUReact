@@ -12,7 +12,7 @@ export default function SellerEditProfileScreen() {
 	const location = useLocation();
 	const profile = location.state.profile;
 	const [image, setImage] = useState();
-	const [companyName, setCompanyName] = useState(profile.company_name);
+	const [companyName] = useState(profile.company_name);
 	const [contactNumber, setContactNumber] = useState(profile.contact_number);
 	const [category, setCategory] = useState(profile.category);
 
@@ -91,7 +91,10 @@ export default function SellerEditProfileScreen() {
 					<div className="Buffer__50px" />
 					<div
 						className="Toggle__large--primary"
-						onClick={() => save()}
+						onClick={() => {
+							save();
+							history.goBack();
+						}}
 					>
 						<p className="Text__medium--light">Update</p>
 					</div>

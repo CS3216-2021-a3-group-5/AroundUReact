@@ -10,7 +10,9 @@ export const UPDATE_USER_INFO = "/company/update";
 export const USER_STORE_INFO = "/store/companyStoreInfo";
 export const USER_PROMOTION_INFO = "/promotion/company";
 export const NEW_STORE = "/store/new";
+export const STORE = "/store";
 export const NEW_PROMO = "/promotion";
+export const PROMO = "/promotion";
 
 export const COMPANY_LOGO = "/image/logo/";
 export const PROMO_IMAGE = "/image/promotionPicture/";
