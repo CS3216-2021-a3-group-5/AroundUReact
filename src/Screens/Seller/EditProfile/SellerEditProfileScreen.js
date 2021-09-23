@@ -3,6 +3,7 @@ import { useHistory, useLocation } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Avatar } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import { API_URL, UPDATE_USER_INFO } from "../../../constants.js";
 
 import CategorySelector from "../../SharedComponents/CategorySelector";
 
@@ -11,11 +12,39 @@ export default function SellerEditProfileScreen() {
 	const location = useLocation();
 	const profile = location.state.profile;
 	const [image, setImage] = useState();
-	const [email, setEmail] = useState(profile.email);
+	const [companyName, setCompanyName] = useState(profile.company_name);
 	const [contactNumber, setContactNumber] = useState(profile.contact_number);
 	const [category, setCategory] = useState(profile.category);
 
-	function save() {}
+	const save = async () => {
+		const isAnyNotFilled =
+			companyName === "" || contactNumber === "" || category === "";
+		if (isAnyNotFilled) {
+			alert("please fill up all the fieldssss");
+			return;
+		}
+		console.log(`Changing company info.`);
+
+		const rawResponse = await fetch(API_URL + UPDATE_USER_INFO, {
+			method: "PUT",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify({
+				company_name: profile.company_name,
+				contact_number: contactNumber,
+				category: category,
+				email: profile.email,
+			}),
+		});
+		const content = await rawResponse.json();
+		if (rawResponse.status === 200) {
+			alert("Successfully updated!");
+		} else {
+			alert(content.message);
+		}
+	};
+
 	function uploadImage(event) {
 		const file = event.target.files[0];
 		const reader = new FileReader();
@@ -42,17 +71,6 @@ export default function SellerEditProfileScreen() {
 				</p>
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div className="Buffer__30px" />
-					<TextField
-						value={email}
-						onChange={(event) => setEmail(event.target.value)}
-						variant="outlined"
-						fullWidth
-						id="email"
-						label="Email"
-						name="email"
-						autoComplete="email"
-					/>
-					<div className="Buffer__20px" />
 					<TextField
 						value={contactNumber}
 						onChange={(event) =>
