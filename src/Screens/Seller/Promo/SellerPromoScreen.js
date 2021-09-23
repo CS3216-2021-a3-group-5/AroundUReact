@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
 import { Categories } from "../../../constants";
@@ -6,6 +6,7 @@ import { Categories } from "../../../constants";
 export default function SellerPromoScreen({ promo }) {
 	const history = useHistory();
 	const data = getData();
+	const location = useLocation();
 
 	function getData() {
 		return testData;
@@ -19,14 +20,27 @@ export default function SellerPromoScreen({ promo }) {
 	function deletePromo() {}
 
 	function Stores() {
+		const stores = location.state.stores;
+		const size = promo.storeIDs.length;
+		const selectedStores = [];
 		const storeItems = [];
-		const size = data.stores.length;
+
+		console.log(`promo 11: ${promo}`);
+		console.log(`stores 11: ${stores[0]}`);
+		console.log(promo.storeIDs);
+
+		for (let i = 0; i < stores.length; i++) {
+			if (promo.storeIDs.includes(stores[i].store_id)) {
+				selectedStores.push(stores[i]);
+			}
+		}
+
 		for (let i = 0; i < size; i++) {
 			storeItems.push(
 				<div key={"Store" + i}>
 					<div className="Buffer__20px" />
 					<p className="Text__medium--dark-multiline">
-						{data.stores[i].address}
+						{selectedStores[i].address}
 					</p>
 					<div className="Buffer__20px" />
 				</div>
@@ -37,11 +51,6 @@ export default function SellerPromoScreen({ promo }) {
 		}
 		return storeItems;
 	}
-
-	function logg() {
-		console.log(promo);
-	}
-	logg();
 
 	return (
 		<div className="App">
@@ -66,7 +75,7 @@ export default function SellerPromoScreen({ promo }) {
 					</p>
 					<div className="Buffer__30px" />
 					<p className="Text__medium--dark-multiline-bold">Stores</p>
-					"Stores()"
+					{Stores()}
 					<div className="Buffer__110px" />
 				</div>
 			</div>

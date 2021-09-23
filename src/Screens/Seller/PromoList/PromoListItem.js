@@ -1,13 +1,13 @@
 import { useHistory } from "react-router-dom";
 
-export default function PromoListItem({ promo }) {
+export default function PromoListItem({ promo, stores }) {
 	const history = useHistory();
 
 	return (
 		<div
 			style={{ textDecoration: "none" }}
 			onClick={() => {
-				history.push("/seller/promo", { promo });
+				history.push("/seller/promo", { promo, stores });
 			}}
 		>
 			<div className="Buffer__20px" />

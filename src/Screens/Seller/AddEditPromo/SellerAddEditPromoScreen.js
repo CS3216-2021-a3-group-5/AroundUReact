@@ -6,14 +6,15 @@ import {
 	KeyboardDatePicker,
 } from "@material-ui/pickers";
 import StoreSelector from "./StoreSelector";
-import { useState } from "react";
-import { useHistory } from "react-router";
-import { API_URL, NEW_PROMO } from "../../../constants.js";
+import { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router";
+import { API_URL, NEW_PROMO, USER_STORE_INFO } from "../../../constants.js";
 
 import ImageTapToUpload from "../../../assets/Tap_To_Select.png";
 
 export default function SellerAddEditPromoScreen({ promo }) {
 	const history = useHistory();
+	const location = useLocation();
 
 	const [image, setImage] = useState(ImageTapToUpload);
 	const [promo_name, setPromo_name] = useState(
@@ -21,7 +22,8 @@ export default function SellerAddEditPromoScreen({ promo }) {
 	);
 	const [details, setDetails] = useState(promo == null ? "" : promo.details);
 	const [endDate, setEndDate] = useState(new Date());
-	const [stores] = useState(getAllStores());
+	const [stores] = useState(location.state.stores);
+
 	const [selectedStoreIds, setSelectedStoreIds] = useState(
 		getSelectedStores()
 	);
@@ -30,13 +32,15 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		const selectedStores = new Array(stores.length).fill(false);
 		const selectedIds = [];
 		if (promo != null) {
-			promo.stores.forEach((store) => {
-				selectedIds.push(store.storeId);
+			stores.forEach((store) => {
+				console.log("object");
+				selectedIds.push(store.store_id);
 			});
 		}
 		for (let i = 0; i < stores.length; i++) {
 			if (selectedIds.includes(stores[i].storeId)) {
 				selectedStores[i] = true;
+				console.log("HI");
 			}
 		}
 		return selectedStores;
@@ -51,15 +55,14 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		};
 	}
 
-	function getAllStores() {
-		return testDataStores;
-	}
-
 	const handleAddPromo = async () => {
-		console.log(promo_name);
-		console.log(details);
-		console.log(endDate);
-		console.log(selectedStoreIds);
+		const storeIds = [];
+		for (let i = 0; i < selectedStoreIds.length; i++) {
+			if (selectedStoreIds[i]) {
+				storeIds.push(stores[i].store_id);
+			}
+		}
+		console.log(storeIds);
 		const rawResponse = await fetch(API_URL + NEW_PROMO, {
 			method: "POST",
 			headers: {
@@ -69,7 +72,7 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				promo_name: promo_name,
 				end_date: endDate,
 				details: details,
-				store_ids: selectedStoreIds,
+				store_ids: storeIds,
 			}),
 		});
 		const content = await rawResponse.json();
