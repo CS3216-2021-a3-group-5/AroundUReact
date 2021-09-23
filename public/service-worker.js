@@ -21,14 +21,15 @@ var urlsToCache = [
 ];
 
 self.addEventListener("install", async (event) => {
-	event.waitUntil(
-		caches
-			.open(CACHE_HOME)
-			.then((cache) => {
-				return cache.addAll(urlsToCache);
-			})
-			.catch((err) => console.log(err))
-	);
+	console.log("Installing");
+	// event.waitUntil(
+	// 	caches
+	// 		.open(CACHE_HOME)
+	// 		.then((cache) => {
+	// 			return cache.addAll(urlsToCache);
+	// 		})
+	// 		.catch((err) => console.log(err))
+	// );
 });
 
 self.addEventListener("fetch", (event) => {
