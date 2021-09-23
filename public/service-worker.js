@@ -8,13 +8,26 @@ var urlsToCache = [
 	"/logo_512.png",
 	"/static/media/Logo_Words.e3e56c3d.png",
 	"/Logo_192.png",
+	"/splashscreens/640_1136.jpg",
+	"/splashscreens/750_1334.jpg",
+	"/splashscreens/828_1792.jpg",
+	"/splashscreens/1125_2436.jpg",
+	"/splashscreens/1242_2208.jpg",
+	"/splashscreens/1242_2688.jpg",
+	"/splashscreens/1536_2048.jpg",
+	"/splashscreens/1668_2224.jpg",
+	"/splashscreens/1668_2388.jpg",
+	"/splashscreens/2048_2732.jpg",
 ];
 
 self.addEventListener("install", async (event) => {
 	event.waitUntil(
-		caches.open(CACHE_HOME).then((cache) => {
-			return cache.addAll(urlsToCache);
-		})
+		caches
+			.open(CACHE_HOME)
+			.then((cache) => {
+				return cache.addAll(urlsToCache);
+			})
+			.catch((err) => console.log(err))
 	);
 });
 
@@ -27,7 +40,7 @@ self.addEventListener("fetch", (event) => {
 			if (response) {
 				return response;
 			}
-			return fetch(event.request);
+			return fetch(event.request).catch((err) => console.log(err));
 		})
 	);
 });
