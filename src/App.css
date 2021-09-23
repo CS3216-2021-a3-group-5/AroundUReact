@@ -358,7 +358,6 @@ html {
 	height: 112.5px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	background-color: black;
 }
 
 .Image__promo {
@@ -366,7 +365,6 @@ html {
 	min-height: 200px;
 	max-height: 400px;
 	aspect-ratio: 16/9;
-	background-color: black;
 	object-fit: cover;
 	border-width: 0.05px;
 	border-style: solid;

@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Map, Overlay } from "pigeon-maps";
-import { API_URL, STORE_FROM_ID, NEARBY_STORE_ID } from "../../../constants";
+import {
+	API_URL,
+	STORE_FROM_ID,
+	NEARBY_STORE_ID,
+	PROMO_IMAGE,
+} from "../../../constants";
 import ReactGA from "react-ga";
 
 import Logo from "../../../assets/Logo_Words.png";
@@ -19,7 +24,7 @@ export default function MainScreen() {
 	const [selectedStoreId, setSelectedStoreId] = useState(-1);
 	const [viewingIndex, setViewingIndex] = useState(0);
 	const [catFilter, setCatFilter] = useState("all");
-	const [rangeFilter, setRangeFilter] = useState(10);
+	const [rangeFilter, setRangeFilter] = useState(15);
 	const [overlayImage, setOverlayImage] = useState(null);
 
 	// Gets location every 30s
@@ -79,6 +84,21 @@ export default function MainScreen() {
 		return await response.json();
 	}
 
+	// Obtain image for overlay
+	async function getOverlayImage(promoId) {
+		if (promoId === null) {
+			setOverlayImage(null);
+			return;
+		}
+		const response = await fetch(API_URL + PROMO_IMAGE + promoId, {
+			method: "GET",
+		});
+		const blob = await response.blob();
+		const loadedImage = URL.createObjectURL(blob);
+		setOverlayImage(loadedImage);
+	}
+
+	// Filter promos
 	function getFilteredPromo() {
 		const filteredPromos = [];
 		promos.forEach((store) => {
@@ -109,7 +129,7 @@ export default function MainScreen() {
 					setViewingIndex: setViewingIndex,
 					setSelectedId: setSelectedStoreId,
 					isSelected: promo.store_id === selectedStoreId,
-					setOverlayImage: setOverlayImage,
+					getOverlayImage: getOverlayImage,
 				})
 			);
 		});
@@ -120,6 +140,7 @@ export default function MainScreen() {
 					viewingIndex: viewingIndex,
 					setViewingIndex: setViewingIndex,
 					openPromo: openPromo,
+					getOverlayImage: getOverlayImage,
 					image: overlayImage,
 				})
 			);
