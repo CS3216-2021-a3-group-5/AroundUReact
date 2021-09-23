@@ -17,7 +17,7 @@ export default function OutletListItem({ store }) {
 						<p className="Text__large--dark">{store.address}</p>
 						<div className="Buffer__5px " />
 						<p className="Text__medium--grey-multiline">
-							{store.openingHours}
+							{store.opening_hours}
 						</p>
 					</div>
 					<p className="Text__arrow">{">"}</p>

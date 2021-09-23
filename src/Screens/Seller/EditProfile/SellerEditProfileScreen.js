@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Avatar } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 
 import CategorySelector from "../../SharedComponents/CategorySelector";
 
-export default function SellerEditProfileScreen({ sellerId }) {
+export default function SellerEditProfileScreen() {
 	const history = useHistory();
+	const location = useLocation();
+	const profile = location.state.profile;
 	const [image, setImage] = useState();
-	const [email, setEmail] = useState();
-	const [contactNumber, setContactNumber] = useState();
-	const [category, setCategory] = useState();
+	const [email, setEmail] = useState(profile.email);
+	const [contactNumber, setContactNumber] = useState(profile.contact_number);
+	const [category, setCategory] = useState(profile.category);
 
 	function save() {}
 	function uploadImage(event) {

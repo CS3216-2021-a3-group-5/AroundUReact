@@ -1,35 +1,44 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
 import { Categories } from "../../../constants";
 import DeleteConfirmation from "../../SharedComponents/DeleteConfirmation";
 
-export default function SellerPromoScreen() {
+export default function SellerPromoScreen({ promo }) {
 	const history = useHistory();
-	const data = getData();
+	const location = useLocation();
+	const stores = location.state.stores;
+
 	const [showPopup, setShowPopup] = useState(false);
 
-	function getData() {
-		return testData;
-	}
-
 	function getFormattedDate() {
-		const dateSplit = new Date(data.deadline).toUTCString().split(" ");
+		let date = new Date(promo.end_date);
+		date.setDate(date.getDate() + 1);
+		const dateSplit = date.toUTCString().split(" ");
 		return dateSplit[1] + " " + dateSplit[2] + " " + dateSplit[3];
 	}
 
 	function deletePromo() {}
 
 	function Stores() {
+		const size = promo.storeIDs.length;
+		const selectedStores = [];
 		const storeItems = [];
-		const size = data.stores.length;
+
+		for (let i = 0; i < stores.length; i++) {
+			if (promo.storeIDs.includes(stores[i].store_id)) {
+				selectedStores.push(stores[i]);
+			}
+		}
+
 		for (let i = 0; i < size; i++) {
 			storeItems.push(
 				<div key={"Store" + i}>
 					<div className="Buffer__20px" />
 					<p className="Text__medium--dark-multiline">
-						{data.stores[i].address}
+						{selectedStores[i].address}
 					</p>
 					<div className="Buffer__20px" />
 				</div>
@@ -48,7 +57,7 @@ export default function SellerPromoScreen() {
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div className="Buffer__20px" />
 					<p className="Text__extra-large--dark-multiline">
-						{data.promo_name}
+						{promo.promo_name}
 					</p>
 					<div className="Buffer__5px" />
 					<p className="Text__medium--grey-multiline">
@@ -60,7 +69,7 @@ export default function SellerPromoScreen() {
 					</p>
 					<div className="Buffer__10px" />
 					<p className="Text__medium--dark-multiline">
-						{data.details}
+						{promo.details}
 					</p>
 					<div className="Buffer__30px" />
 					<p className="Text__medium--dark-multiline-bold">Stores</p>
@@ -89,7 +98,10 @@ export default function SellerPromoScreen() {
 					<EditIcon
 						className="Toggle__header"
 						onClick={() =>
-							history.push("/seller/editpromo/", { data })
+							history.push("/seller/editpromo/", {
+								promo,
+								stores,
+							})
 						}
 					/>
 				</div>
@@ -103,22 +115,3 @@ export default function SellerPromoScreen() {
 		</div>
 	);
 }
-
-// For testing
-
-const testData = {
-	category: Categories.ELECTRONICS,
-	storeName: "Urban Mobile",
-	promotion_id: 1,
-	promo_name: "5% Off Repairs",
-	deadline: Date(),
-	stores: [
-		{
-			storeId: 1,
-			address: "21 Choa Chu Kang North 6, 01-44, Singapore 689578",
-			openingHours: "10:30am to 9pm daily",
-		},
-	],
-	details:
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. Elit at imperdiet dui accumsan. Scelerisque eu ultrices vitae auctor eu augue. Lobortis elementum nibh tellus molestie nunc non. Habitasse platea dictumst vestibulum rhoncus est. A iaculis at erat pellentesque adipiscing commodo elit. Id diam maecenas ultricies mi eget mauris. Lectus arcu bibendum at varius vel pharetra vel turpis nunc. Ullamcorper morbi tincidunt ornare massa eget.",
-};

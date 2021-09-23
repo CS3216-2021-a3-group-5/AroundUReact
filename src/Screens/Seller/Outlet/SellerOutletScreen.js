@@ -23,7 +23,7 @@ export default function SellerOutletScreen({ store }) {
 				</p>
 				<div className="Buffer__10px" />
 				<p className="Text__medium--dark-multiline">
-					{store.openingHours}
+					{store.opening_hours}
 				</p>
 				<div className="Buffer__110px" />
 			</div>
@@ -47,9 +47,13 @@ export default function SellerOutletScreen({ store }) {
 					/>
 					<EditIcon
 						className="Toggle__header"
-						onClick={() =>
-							history.push("/seller/editoutlet", { store })
-						}
+						onClick={() => {
+							const isEdit = true;
+							history.push("/seller/editoutlet", {
+								store,
+								isEdit,
+							});
+						}}
 					/>
 				</div>
 			</div>

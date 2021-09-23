@@ -16,7 +16,7 @@ export default function StoreSelector({
 						<p className="Text__medium--dark">{store.address}</p>
 						<div className="Buffer__5px " />
 						<p className="Text__small--dark">
-							{store.openingHours}
+							{store.opening_hours}
 						</p>
 					</div>
 					<Checkbox

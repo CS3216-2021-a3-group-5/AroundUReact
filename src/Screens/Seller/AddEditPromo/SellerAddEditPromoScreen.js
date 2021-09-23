@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useHistory } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
 import DateFnsUtils from "@date-io/date-fns";
@@ -8,19 +6,26 @@ import {
 	KeyboardDatePicker,
 } from "@material-ui/pickers";
 import StoreSelector from "./StoreSelector";
+import { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router";
+import { API_URL, NEW_PROMO, USER_STORE_INFO } from "../../../constants.js";
 
 import ImageTapToUpload from "../../../assets/Tap_To_Select.png";
 
 export default function SellerAddEditPromoScreen({ promo }) {
 	const history = useHistory();
+	const location = useLocation();
 
 	const [image, setImage] = useState(ImageTapToUpload);
 	const [promo_name, setPromo_name] = useState(
 		promo == null ? "" : promo.promo_name
 	);
 	const [details, setDetails] = useState(promo == null ? "" : promo.details);
-	const [endDate, setEndDate] = useState(new Date());
-	const [stores] = useState(getAllStores());
+	const [endDate, setEndDate] = useState(
+		promo == null ? new Date() : promo.end_date
+	);
+	const [stores] = useState(location.state.stores);
+
 	const [selectedStoreIds, setSelectedStoreIds] = useState(
 		getSelectedStores()
 	);
@@ -29,15 +34,13 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		const selectedStores = new Array(stores.length).fill(false);
 		const selectedIds = [];
 		if (promo != null) {
-			promo.stores.forEach((store) => {
-				selectedIds.push(store.storeId);
-			});
-		}
-		for (let i = 0; i < stores.length; i++) {
-			if (selectedIds.includes(stores[i].storeId)) {
-				selectedStores[i] = true;
+			for (let i = 0; i < stores.length; i++) {
+				if (promo.storeIDs.includes(stores[i].store_id)) {
+					selectedStores[i] = true;
+				}
 			}
 		}
+		console.log(selectedStores);
 		return selectedStores;
 	}
 
@@ -50,22 +53,46 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		};
 	}
 
-	function getAllStores() {
-		return testDataStores;
-	}
-
-	function submit() {}
+	const handleAddPromo = async () => {
+		const storeIds = [];
+		for (let i = 0; i < selectedStoreIds.length; i++) {
+			if (selectedStoreIds[i]) {
+				storeIds.push(stores[i].store_id);
+			}
+		}
+		console.log(storeIds);
+		const rawResponse = await fetch(API_URL + NEW_PROMO, {
+			method: "POST",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify({
+				promo_name: promo_name,
+				end_date: endDate,
+				details: details,
+				store_ids: storeIds,
+			}),
+		});
+		const content = await rawResponse.json();
+		alert(content.message);
+	};
 
 	return (
 		<div className="App">
 			<div className="Container__after-header">
 				<div className="Container__center--horizontal">
-					<input
-						accept="image/*"
-						type="file"
-						onChange={(event) => uploadImage(event)}
-						className="Toggle__promo-image-input"
-					/>
+					<form
+						action="http://localhost:3080/uploadLogo"
+						method="post"
+						enctype="multipart/form-data"
+					>
+						<input
+							accept="image/*"
+							type="file"
+							onChange={(event) => uploadImage(event)}
+							className="Toggle__promo-image-input"
+						/>
+					</form>
 				</div>
 
 				<img className="Image__promo" src={image} />
@@ -115,7 +142,10 @@ export default function SellerAddEditPromoScreen({ promo }) {
 					<div className="Buffer__30px" />
 					<div
 						className="Toggle__large--primary"
-						onClick={() => submit()}
+						onClick={() => {
+							handleAddPromo();
+							history.goBack();
+						}}
 					>
 						<p className="Text__medium--light">Create</p>
 					</div>

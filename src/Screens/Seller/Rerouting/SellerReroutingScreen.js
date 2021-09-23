@@ -52,7 +52,7 @@ export default function SellerMainScreen({ screen }) {
 
 	switch (screen) {
 		case SellerScreens.PROMO: {
-			return <SellerPromoScreen />;
+			return <SellerPromoScreen promo={location.state.promo} />;
 		}
 		case SellerScreens.OUTLET: {
 			return <SellerOutletScreen store={location.state.store} />;
@@ -61,7 +61,7 @@ export default function SellerMainScreen({ screen }) {
 			return <SellerAddEditPromoScreen />;
 		}
 		case SellerScreens.EDIT_PROMO: {
-			return <SellerAddEditPromoScreen promo={location.state.data} />;
+			return <SellerAddEditPromoScreen promo={location.state.promo} />;
 		}
 		case SellerScreens.ADD_OUTLET: {
 			return <SellerAddEditOutletScreen />;

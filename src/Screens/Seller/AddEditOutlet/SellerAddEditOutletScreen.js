@@ -1,27 +1,48 @@
-import { useState } from "react";
-import { useHistory } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
 import { Map, Draggable } from "pigeon-maps";
 import IndicatorSelected from "../../../assets/Indicator_Selected.png";
 import CoordinatesSearch from "./CoordinatesSearch";
+import { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router";
+import { API_URL, NEW_STORE } from "../../../constants.js";
 
 export default function SellerAddEditOutletScreen({ store }) {
 	const history = useHistory();
+	const location = useLocation();
 
 	const [storeAddress, setStoreAddress] = useState(
 		store == null ? "" : store.address
 	);
 	const [storeCoords, setStoreCoords] = useState(
-		store == null ? [null, null] : [store.latitude, store.longtitude]
+		store == null ? [null, null] : [store.location.lat, store.location.lon]
 	);
 	const [openingHours, setOpeningHours] = useState(
-		store == null ? "" : store.openingHours
+		store == null ? "" : store.opening_hours
 	);
 
 	const [showAddressSelector, setShowAddressSelector] = useState(false);
 
-	function submit() {}
+	const handleAddOutlet = async () => {
+		const rawResponse = await fetch(API_URL + NEW_STORE, {
+			method: "POST",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify({
+				longitude: storeCoords[0],
+				latitude: storeCoords[1],
+				address: storeAddress,
+				opening_hours: openingHours,
+			}),
+		});
+		const content = await rawResponse.json();
+		alert(content.message);
+	};
+
+	const handleEditOutlet = async () => {
+		console.log("handleEditOutlet();");
+	};
 
 	return (
 		<div className="App">
@@ -92,7 +113,14 @@ export default function SellerAddEditOutletScreen({ store }) {
 				<div className="Buffer__20px" />
 				<div
 					className="Toggle__large--secondary"
-					onClick={() => submit()}
+					onClick={() => {
+						if (location.state != null && location.state.isEdit) {
+							handleEditOutlet();
+						} else {
+							handleAddOutlet();
+						}
+						history.goBack();
+					}}
 				>
 					<p className="Text__medium--light">Create</p>
 				</div>

@@ -14,7 +14,6 @@ export default function SellerOutletListScreen() {
 	}, []);
 
 	const handleOutletList = async () => {
-		console.log(localStorage.getItem("accessToken"));
 		const rawResponse = await fetch(API_URL + USER_STORE_INFO, {
 			method: "GET",
 			headers: {
@@ -33,7 +32,6 @@ export default function SellerOutletListScreen() {
 	function Outlets() {
 		const itemArray = [];
 		if (stores == null) {
-			console.log("No store");
 			return;
 		}
 		stores.forEach((store) => {
@@ -64,20 +62,3 @@ export default function SellerOutletListScreen() {
 		</div>
 	);
 }
-
-const testDataStores = [
-	{
-		storeId: 1,
-		address: "21 Choa Chu Kang North 6, 01-44, Singapore 689578",
-		latitude: 1.39704710723121,
-		longtitude: 103.74685004621115,
-		openingHours: "10:30am to 9pm daily",
-	},
-	{
-		storeId: 2,
-		address: "1 Jelebu Rd, Singapore 677743",
-		latitude: 1.3801446363034873,
-		longtitude: 103.76430889753605,
-		openingHours: "11:00am to 9pm daily",
-	},
-];
