@@ -2,7 +2,7 @@ var CACHE_HOME = "home-cache";
 var urlsToCache = [
 	"/",
 	"/static/css/main.8bef2b5f.chunk.css",
-// 	"/static/js/Screens/Buyer/Main/Indicator.js",
+	"/static/js/Screens/Buyer/Main/Indicator.js",
 // 	"/static/js/Screens/Buyer/Main/MainScreen.js",
 // 	"/static/js/Screens/Buyer/Main/PromoListItem.js",
 // 	"/static/js/Screens/Buyer/Main/PromoOverlay.js",
@@ -44,7 +44,10 @@ self.addEventListener("install", async (event) => {
 		caches
 			.open(CACHE_HOME)
 			.then((cache) => {
-				return cache.addAll(urlsToCache);
+				urlsToCache.forEach((url) =>
+					cache.add(url).catch((err) => console.log(err))
+				);
+				return cache.add("/");
 			})
 			.catch((err) => console.log(err))
 	);
