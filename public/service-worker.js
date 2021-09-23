@@ -1,8 +1,6 @@
 var CACHE_HOME = "home-cache";
 var urlsToCache = [
-	"/",
 	"/static/css/main.8bef2b5f.chunk.css",
-	"/static/js/Screens/Buyer/Main/Indicator.js",
 	"/static/js/main.b1f900f4.chunk.js",
 	"/static/js/2.1d607b2b.chunk.js",
 	"/manifest.json",
