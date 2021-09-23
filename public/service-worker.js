@@ -45,7 +45,7 @@ self.addEventListener("install", async (event) => {
 			.open(CACHE_HOME)
 			.then((cache) => {
 				urlsToCache.forEach((url) =>
-					cache.add(url).catch((err) => console.log(err))
+					cache.add(url).catch((err) => console.log(url))
 				);
 				return cache.add("/");
 			})
