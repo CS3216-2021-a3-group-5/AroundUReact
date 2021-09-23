@@ -25,6 +25,7 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 			},
 		});
 		const content = await rawResponse.json();
+		console.log(content);
 		if (rawResponse.status === 200) {
 			setProfile({
 				email: content.email,
@@ -52,8 +53,17 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 					{profile.company_name}
 				</p>
 				<div className="Buffer__5px" />
+				<div className="Buffer__5px" />
 				<p className="Text__large--dark-multiline">
-					{profile.category}
+					Category: {profile.category}
+				</p>
+				<div className="Buffer__5px" />
+				<p className="Text__large--dark-multiline">
+					Email: {profile.email}
+				</p>
+				<div className="Buffer__5px" />
+				<p className="Text__large--dark-multiline">
+					Contact Number: {profile.contact_number}
 				</p>
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div className="Buffer__50px" />

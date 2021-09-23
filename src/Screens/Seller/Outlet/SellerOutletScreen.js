@@ -3,12 +3,25 @@ import { useHistory } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteConfirmation from "../../SharedComponents/DeleteConfirmation";
+import { API_URL, STORE } from "../../../constants.js";
 
 export default function SellerOutletScreen({ store }) {
 	const history = useHistory();
 	const [showPopup, setShowPopup] = useState(false);
 
-	function deleteOutlet() {}
+	const handleDeleteOutlet = async () => {
+		const rawResponse = await fetch(API_URL + STORE, {
+			method: "DELETE",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify({
+				store_id: store.store_id,
+			}),
+		});
+		const content = await rawResponse.json();
+		alert(content.message);
+	};
 
 	return (
 		<div className="App">
@@ -60,7 +73,10 @@ export default function SellerOutletScreen({ store }) {
 			{showPopup && (
 				<DeleteConfirmation
 					setShowPopup={setShowPopup}
-					confirmDelete={deleteOutlet}
+					confirmDelete={() => {
+						handleDeleteOutlet();
+						history.goBack();
+					}}
 				/>
 			)}
 		</div>

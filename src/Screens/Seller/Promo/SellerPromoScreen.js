@@ -5,6 +5,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
 import { Categories } from "../../../constants";
 import DeleteConfirmation from "../../SharedComponents/DeleteConfirmation";
+import { API_URL, PROMO } from "../../../constants.js";
 
 export default function SellerPromoScreen({ promo }) {
 	const history = useHistory();
@@ -20,7 +21,19 @@ export default function SellerPromoScreen({ promo }) {
 		return dateSplit[1] + " " + dateSplit[2] + " " + dateSplit[3];
 	}
 
-	function deletePromo() {}
+	const handleDeletePromo = async () => {
+		const rawResponse = await fetch(API_URL + PROMO, {
+			method: "DELETE",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify({
+				promotion_id: promo.promotion_id,
+			}),
+		});
+		const content = await rawResponse.json();
+		alert(content.message);
+	};
 
 	function Stores() {
 		const size = promo.storeIDs.length;
@@ -97,19 +110,24 @@ export default function SellerPromoScreen({ promo }) {
 					/>
 					<EditIcon
 						className="Toggle__header"
-						onClick={() =>
+						onClick={() => {
+							const isEdit = true;
 							history.push("/seller/editpromo/", {
 								promo,
 								stores,
-							})
-						}
+								isEdit,
+							});
+						}}
 					/>
 				</div>
 			</div>
 			{showPopup && (
 				<DeleteConfirmation
 					setShowPopup={setShowPopup}
-					confirmDelete={deletePromo}
+					confirmDelete={() => {
+						handleDeletePromo();
+						history.goBack();
+					}}
 				/>
 			)}
 		</div>

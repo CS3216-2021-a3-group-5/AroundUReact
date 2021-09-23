@@ -5,7 +5,7 @@ import IndicatorSelected from "../../../assets/Indicator_Selected.png";
 import CoordinatesSearch from "./CoordinatesSearch";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
-import { API_URL, NEW_STORE } from "../../../constants.js";
+import { API_URL, NEW_STORE, STORE } from "../../../constants.js";
 
 export default function SellerAddEditOutletScreen({ store }) {
 	const history = useHistory();
@@ -41,7 +41,24 @@ export default function SellerAddEditOutletScreen({ store }) {
 	};
 
 	const handleEditOutlet = async () => {
-		console.log("handleEditOutlet();");
+		const rawResponse = await fetch(API_URL + STORE, {
+			method: "PUT",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify({
+				store_id: store.store_id,
+				address: storeAddress,
+				location: {
+					lat: storeCoords[0],
+					lon: storeCoords[1],
+				},
+				opening_hours: openingHours,
+				promotionIDs: [],
+			}),
+		});
+		const content = await rawResponse.json();
+		alert(content.message);
 	};
 
 	return (
@@ -116,13 +133,18 @@ export default function SellerAddEditOutletScreen({ store }) {
 					onClick={() => {
 						if (location.state != null && location.state.isEdit) {
 							handleEditOutlet();
+							history.goBack();
 						} else {
 							handleAddOutlet();
 						}
 						history.goBack();
 					}}
 				>
-					<p className="Text__medium--light">Create</p>
+					<p className="Text__medium--light">
+						{location.state != null && location.state.isEdit
+							? "Update"
+							: "Create"}
+					</p>
 				</div>
 				<div className="Buffer__30px" />
 			</div>

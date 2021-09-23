@@ -8,7 +8,7 @@ import {
 import StoreSelector from "./StoreSelector";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
-import { API_URL, NEW_PROMO, USER_STORE_INFO } from "../../../constants.js";
+import { API_URL, NEW_PROMO, PROMO } from "../../../constants.js";
 
 import ImageTapToUpload from "../../../assets/Tap_To_Select.png";
 
@@ -60,7 +60,8 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				storeIds.push(stores[i].store_id);
 			}
 		}
-		console.log(storeIds);
+		let date = new Date(endDate);
+		date.setHours(date.getHours() + 8);
 		const rawResponse = await fetch(API_URL + NEW_PROMO, {
 			method: "POST",
 			headers: {
@@ -68,7 +69,33 @@ export default function SellerAddEditPromoScreen({ promo }) {
 			},
 			body: JSON.stringify({
 				promo_name: promo_name,
-				end_date: endDate,
+				end_date: date,
+				details: details,
+				store_ids: storeIds,
+			}),
+		});
+		const content = await rawResponse.json();
+		alert(content.message);
+	};
+
+	const handleEditPromo = async () => {
+		const storeIds = [];
+		for (let i = 0; i < selectedStoreIds.length; i++) {
+			if (selectedStoreIds[i]) {
+				storeIds.push(stores[i].store_id);
+			}
+		}
+		let date = new Date(endDate);
+		date.setHours(date.getHours() + 8);
+		const rawResponse = await fetch(API_URL + PROMO, {
+			method: "PUT",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify({
+				promotion_id: promo.promotion_id,
+				promo_name: promo_name,
+				end_date: date,
 				details: details,
 				store_ids: storeIds,
 			}),
@@ -81,18 +108,12 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		<div className="App">
 			<div className="Container__after-header">
 				<div className="Container__center--horizontal">
-					<form
-						action="http://localhost:3080/uploadLogo"
-						method="post"
-						enctype="multipart/form-data"
-					>
-						<input
-							accept="image/*"
-							type="file"
-							onChange={(event) => uploadImage(event)}
-							className="Toggle__promo-image-input"
-						/>
-					</form>
+					<input
+						accept="image/*"
+						type="file"
+						onChange={(event) => uploadImage(event)}
+						className="Toggle__promo-image-input"
+					/>
 				</div>
 
 				<img className="Image__promo" src={image} />
@@ -143,11 +164,23 @@ export default function SellerAddEditPromoScreen({ promo }) {
 					<div
 						className="Toggle__large--primary"
 						onClick={() => {
-							handleAddPromo();
+							if (
+								location.state != null &&
+								location.state.isEdit
+							) {
+								handleEditPromo();
+								history.goBack();
+							} else {
+								handleAddPromo();
+							}
 							history.goBack();
 						}}
 					>
-						<p className="Text__medium--light">Create</p>
+						<p className="Text__medium--light">
+							{location.state != null && location.state.isEdit
+								? "Update"
+								: "Create"}
+						</p>
 					</div>
 					<div className="Buffer__30px" />
 				</div>
