@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:3080";
+export const API_URL = "https://aroundu-server.herokuapp.com";
 
 export const NEARBY_STORE_ID = "/store/nearbyId";
 export const STORE_FROM_ID = "/store/";
