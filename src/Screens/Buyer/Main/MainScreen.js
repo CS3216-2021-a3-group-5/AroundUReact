@@ -20,6 +20,7 @@ export default function MainScreen() {
 	const [viewingIndex, setViewingIndex] = useState(0);
 	const [catFilter, setCatFilter] = useState("all");
 	const [rangeFilter, setRangeFilter] = useState(10);
+	const [overlayImage, setOverlayImage] = useState(null);
 
 	// Gets location every 30s
 	useEffect(() => {
@@ -108,6 +109,7 @@ export default function MainScreen() {
 					setViewingIndex: setViewingIndex,
 					setSelectedId: setSelectedStoreId,
 					isSelected: promo.store_id === selectedStoreId,
+					setOverlayImage: setOverlayImage,
 				})
 			);
 		});
@@ -118,6 +120,7 @@ export default function MainScreen() {
 					viewingIndex: viewingIndex,
 					setViewingIndex: setViewingIndex,
 					openPromo: openPromo,
+					image: overlayImage,
 				})
 			);
 		}
@@ -145,8 +148,8 @@ export default function MainScreen() {
 				<div className="Map__large">
 					<Map
 						center={userPosition}
-						defaultZoom={18}
-						minZoom={10}
+						defaultZoom={15}
+						minZoom={15}
 						maxZoom={19}
 						onClick={() => setSelectedStoreId(-1)}
 					>

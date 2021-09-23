@@ -7,10 +7,12 @@ export default function PromoOverlay({
 	viewingIndex,
 	setViewingIndex,
 	openPromo,
+	image,
 }) {
 	if (store.promotions.length < 1) return;
 	var pageIndex = Math.min(store.promotions.length - 1, viewingIndex);
 	const promo = store.promotions[pageIndex];
+
 	return (
 		<Overlay
 			anchor={[store.location.lat, store.location.lon]}
@@ -18,8 +20,9 @@ export default function PromoOverlay({
 			key={store.storeId + "overlay"}
 		>
 			<div className="Container__promo-overlay">
-				<div
+				<img
 					className="Image__promo-overlay"
+					src={image}
 					onClick={() => {
 						openPromo(store, pageIndex);
 					}}
@@ -30,7 +33,9 @@ export default function PromoOverlay({
 							openPromo(store, pageIndex);
 						}}
 					>
-						<p className="Text__large--dark">{store.company_name}</p>
+						<p className="Text__large--dark">
+							{store.company_name}
+						</p>
 						<div className="Buffer__5px" />
 						<p className="Text__medium--dark">{promo.promo_name}</p>
 						<div className="Buffer__5px" />
@@ -50,7 +55,10 @@ export default function PromoOverlay({
 						</p>
 						<NavigateNextRoundedIcon
 							onClick={() => {
-								if (viewingIndex < store.promotions.length - 1) {
+								if (
+									viewingIndex <
+									store.promotions.length - 1
+								) {
 									setViewingIndex(viewingIndex + 1);
 								}
 							}}
