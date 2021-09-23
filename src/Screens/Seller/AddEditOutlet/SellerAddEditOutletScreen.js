@@ -115,11 +115,8 @@ export default function SellerAddEditOutletScreen({ store }) {
 					className="Toggle__large--secondary"
 					onClick={() => {
 						if (location.state != null && location.state.isEdit) {
-							console.log("is edit");
-							console.log(location.state.isEdit);
 							handleEditOutlet();
 						} else {
-							console.log("is add");
 							handleAddOutlet();
 						}
 						history.goBack();
