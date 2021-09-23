@@ -18,9 +18,10 @@ import RangeSelector from "./RangeSelector";
 
 export default function MainScreen() {
 	const history = useHistory();
-
-	const [userPosition, setUserPosition] = useState([0, 0]);
-	const [promos, setPromos] = useState([]);
+	const [userPosition, setUserPosition] = useState(
+		localStorage.location || [0, 0]
+	);
+	const [promos, setPromos] = useState(getLocalStorage());
 	const [selectedStoreId, setSelectedStoreId] = useState(-1);
 	const [viewingIndex, setViewingIndex] = useState(0);
 	const [catFilter, setCatFilter] = useState("all");
@@ -38,12 +39,23 @@ export default function MainScreen() {
 		return () => clearInterval(interval);
 	}, []);
 
+	function getLocalStorage() {
+		if (localStorage.data === undefined) {
+			return [];
+		}
+		return JSON.parse(localStorage.data);
+	}
+
 	function getLocation() {
 		navigator.geolocation.getCurrentPosition((position) => {
 			setUserPosition([
 				position.coords.latitude,
 				position.coords.longitude,
 			]);
+			localStorage.location = [
+				position.coords.latitude,
+				position.coords.longitude,
+			];
 			getPromos(position.coords.latitude, position.coords.longitude);
 		});
 	}
@@ -74,6 +86,7 @@ export default function MainScreen() {
 				newPromos.push(promo);
 			}
 		});
+		localStorage.data = JSON.stringify(newPromos);
 		setPromos(newPromos);
 	}
 
@@ -105,7 +118,7 @@ export default function MainScreen() {
 			if (catFilter !== "all" && store.category_name !== catFilter) {
 				return;
 			}
-			if (store.distanceFrom / 70 > rangeFilter) {
+			if (Math.floor(store.distanceFrom / 70) > rangeFilter) {
 				return;
 			}
 			filteredPromos.push(store);
