@@ -1,7 +1,6 @@
 var CACHE_HOME = "home-cache";
 var urlsToCache = [
 	"/",
-	"/static/js/*",
 	"/manifest.json",
 	"/logo_512.png",
 	"/static/media/Logo_Words.e3e56c3d.png",
