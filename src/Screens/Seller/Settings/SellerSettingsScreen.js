@@ -11,7 +11,6 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 		const response = await fetch(API_URL + COMPANY_LOGO + company_name, {
 			method: "GET",
 		});
-		console.log(response);
 		const blob = await response.blob();
 		const loadedImage = URL.createObjectURL(blob);
 		setImage(loadedImage);
