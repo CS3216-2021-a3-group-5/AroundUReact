@@ -30,8 +30,8 @@ export default function SellerAddEditOutletScreen({ store }) {
 				Authorization: localStorage.getItem("accessToken"),
 			},
 			body: JSON.stringify({
-				longitude: storeCoords[0],
-				latitude: storeCoords[1],
+				latitude: storeCoords[0],
+				longitude: storeCoords[1],
 				address: storeAddress,
 				opening_hours: openingHours,
 			}),

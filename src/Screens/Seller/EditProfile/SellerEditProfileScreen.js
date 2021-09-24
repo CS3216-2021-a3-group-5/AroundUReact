@@ -23,23 +23,23 @@ export default function SellerEditProfileScreen() {
 			alert("please fill up all the fieldssss");
 			return;
 		}
-		console.log(`Changing company info.`);
-
+		const newProfile = JSON.stringify({
+			company_name: profile.company_name,
+			contact_number: contactNumber,
+			category: category,
+			email: profile.email,
+		});
 		const rawResponse = await fetch(API_URL + UPDATE_USER_INFO, {
 			method: "PUT",
 			headers: {
 				Authorization: localStorage.getItem("accessToken"),
 			},
-			body: JSON.stringify({
-				company_name: profile.company_name,
-				contact_number: contactNumber,
-				category: category,
-				email: profile.email,
-			}),
+			body: newProfile,
 		});
 		const content = await rawResponse.json();
 		if (rawResponse.status === 200) {
-			alert("Successfully updated!");
+			localStorage.setItem("profile", newProfile);
+			history.goBack();
 		} else {
 			alert(content.message);
 		}

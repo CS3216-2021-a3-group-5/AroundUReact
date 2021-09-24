@@ -422,6 +422,17 @@ html {
 	margin: 0px;
 }
 
+.Text__medium--grey {
+	color: var(--grey-text);
+	font-size: 16px;
+	overflow: hidden;
+	margin: 0px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+}
+
 .Text__medium--grey-multiline {
 	color: var(--grey-text);
 	font-size: 16px;
@@ -457,6 +468,17 @@ html {
 	font-size: 20px;
 	overflow: hidden;
 	margin: 0px;
+}
+
+.Text__extra-large--dark {
+	color: var(--text);
+	font-size: 40px;
+	overflow: hidden;
+	margin: 0px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
 }
 
 .Text__extra-large--dark-multiline {

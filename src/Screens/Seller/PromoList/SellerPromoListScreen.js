@@ -9,7 +9,7 @@ import {
 	USER_STORE_INFO,
 } from "../../../constants.js";
 
-export default function SellerHomeScreen() {
+export default function SellerPromoListScreen() {
 	const [promos, setPromos] = useState();
 	const [stores, setStores] = useState();
 
@@ -42,7 +42,13 @@ export default function SellerHomeScreen() {
 			return;
 		}
 		promos.forEach((promo) => {
-			itemArray.push(<PromoListItem promo={promo} stores={stores} />);
+			itemArray.push(
+				<PromoListItem
+					promo={promo}
+					stores={stores}
+					key={promo.promotion_id}
+				/>
+			);
 		});
 		return itemArray;
 	}
@@ -69,7 +75,7 @@ export default function SellerHomeScreen() {
 			</div>
 			<div className="Buffer__5px" />
 			<div className="Container__large-screen-optimize">{Promos()}</div>
-			<div className="Buffer__50px" />
+			<div className="Buffer__110px" />
 			<div
 				className="Fab"
 				onClick={() => {
