@@ -1,8 +1,8 @@
 var CACHE_HOME = "home-cache";
 var urlsToCache = [
-	"/static/css/main.8bef2b5f.chunk.css",
-	"/static/js/main.b1f900f4.chunk.js",
-	"/static/js/2.1d607b2b.chunk.js",
+	"/static/js/bundle.js",
+	"/static/js/vendors~main.chunk.js",
+	"/static/js/main.chunk.js",
 	"/manifest.json",
 	"/logo_512.png",
 	"/static/media/Logo_Words.e3e56c3d.png",
