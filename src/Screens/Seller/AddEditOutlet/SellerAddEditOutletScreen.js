@@ -60,9 +60,12 @@ export default function SellerAddEditOutletScreen({ store }) {
 			openingHours === "" ||
 			storeCoords[0] === null;
 		if (isAnyNotFilled) {
-			alert("Please fill up all the fields");
+			alert("Please fill up all the fields.");
 			return;
 		}
+		console.log(storeAddress);
+		console.log(openingHours);
+		console.log(storeCoords);
 		const rawResponse = await fetch(API_URL + STORE, {
 			method: "PUT",
 			headers: {
@@ -80,7 +83,9 @@ export default function SellerAddEditOutletScreen({ store }) {
 			}),
 		});
 		if (rawResponse.status === 200) {
+			alert("Update success.");
 			await updateLocal();
+			history.goBack();
 			history.goBack();
 		} else {
 			alert("Unable to edit.");
@@ -94,9 +99,15 @@ export default function SellerAddEditOutletScreen({ store }) {
 			return;
 		}
 		const currentStores = JSON.parse(current);
-		const index = currentStores.find(
-			(currentStore) => currentStore.store_id == store.store_id
-		);
+		console.log("currentStores" + currentStores);
+		let index = -1;
+		for (let i = 0; i < currentStores.length; i++) {
+			if (currentStores[i].store_id == store.store_id) {
+				index = i;
+				console.log(index);
+				break;
+			}
+		}
 		if (index === -1) {
 			await getStores();
 			return;
@@ -112,7 +123,7 @@ export default function SellerAddEditOutletScreen({ store }) {
 			promotionIDs: store.promotionIDs,
 			store_id: store.store_id,
 		};
-		localStorage.setItem("stores", JSON.stringify(currentStores));
+		await localStorage.setItem("stores", JSON.stringify(currentStores));
 		console.log("Updated");
 	}
 

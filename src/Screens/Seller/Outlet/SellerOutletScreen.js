@@ -25,6 +25,7 @@ export default function SellerOutletScreen({ store }) {
 		if (rawResponse.status === 200) {
 			updateLocal();
 			history.goBack();
+			alert("Deletion success.");
 		} else {
 			alert("Unable to delete.");
 		}
