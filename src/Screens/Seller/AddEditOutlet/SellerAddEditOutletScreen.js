@@ -38,7 +38,7 @@ export default function SellerAddEditOutletScreen({ store }) {
 			}),
 		});
 		if (rawResponse.status === 200) {
-			getStores();
+			await getStores();
 			history.goBack();
 		} else {
 			alert("Unable to create.");
@@ -63,17 +63,17 @@ export default function SellerAddEditOutletScreen({ store }) {
 			}),
 		});
 		if (rawResponse.status === 200) {
-			updateLocal();
+			await updateLocal();
 			history.goBack();
 		} else {
 			alert("Unable to edit.");
 		}
 	};
 
-	function updateLocal() {
+	async function updateLocal() {
 		const current = localStorage.getItem("stores");
 		if (current === null) {
-			getStores();
+			await getStores();
 			return;
 		}
 		const currentStores = JSON.parse(current);
@@ -81,7 +81,7 @@ export default function SellerAddEditOutletScreen({ store }) {
 			(currentStore) => currentStore.store_id == store.store_id
 		);
 		if (index === -1) {
-			getStores();
+			await getStores();
 			return;
 		}
 		currentStores[index] = {
