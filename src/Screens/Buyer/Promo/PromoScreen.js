@@ -61,8 +61,10 @@ export default function PromoScreen() {
 	}
 
 	function getFormattedDate() {
-		const splitResult = promo.end_date.split("T");
-		return splitResult[0];
+		let date = new Date(promo.end_date);
+		date.setDate(date.getDate());
+		const dateSplit = date.toUTCString().split(" ");
+		return dateSplit[1] + " " + dateSplit[2] + " " + dateSplit[3];
 	}
 
 	function openOnGoogleMaps() {

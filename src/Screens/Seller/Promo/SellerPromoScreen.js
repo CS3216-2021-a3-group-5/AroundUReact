@@ -20,7 +20,7 @@ export default function SellerPromoScreen({ promo }) {
 
 	function getFormattedDate() {
 		let date = new Date(promo.end_date);
-		date.setDate(date.getDate() + 1);
+		date.setDate(date.getDate());
 		const dateSplit = date.toUTCString().split(" ");
 		return dateSplit[1] + " " + dateSplit[2] + " " + dateSplit[3];
 	}
