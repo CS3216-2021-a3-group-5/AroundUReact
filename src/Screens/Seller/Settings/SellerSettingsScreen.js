@@ -48,22 +48,21 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 			<div className="Buffer__110px" />
 			<div className="Container__center--horizontal">
 				<Avatar src={avatar} style={{ height: 100, width: 100 }} />
-				<div className="Buffer__30px" />
+				<div className="Buffer__20px" />
 				<p className="Text__extra-large--dark-multiline">
 					{profile.company_name}
 				</p>
-				<div className="Buffer__5px" />
-				<div className="Buffer__5px" />
-				<p className="Text__large--dark-multiline">
-					Category: {profile.category}
-				</p>
-				<div className="Buffer__5px" />
+				<div className="Buffer__10px" />
 				<p className="Text__large--dark-multiline">
 					Email: {profile.email}
 				</p>
 				<div className="Buffer__5px" />
-				<p className="Text__large--dark-multiline">
+				<p className="Text__medium--grey-multiline">
 					Contact Number: {profile.contact_number}
+				</p>
+				<div className="Buffer__5px" />
+				<p className="Text__medium--grey-multiline">
+					Category: {profile.category}
 				</p>
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div className="Buffer__50px" />
