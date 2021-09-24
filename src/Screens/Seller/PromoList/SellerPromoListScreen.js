@@ -1,40 +1,42 @@
 import PromoListItem from "./PromoListItem";
 import { Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router";
-import {
-	API_URL,
-	USER_PROMOTION_INFO,
-	USER_STORE_INFO,
-} from "../../../constants.js";
 
 export default function SellerPromoListScreen() {
-	const [promos, setPromos] = useState();
-	const [stores, setStores] = useState();
+	const [promos, setPromos] = useState(getPromos());
+	const [stores, setStores] = useState(getStores());
 
 	const history = useHistory();
 
-	useEffect(() => {
-		handlePromoList();
-		handleOutletList();
-	}, []);
-
-	const handlePromoList = async () => {
-		const rawResponse = await fetch(API_URL + USER_PROMOTION_INFO, {
-			method: "GET",
-			headers: {
-				Authorization: localStorage.getItem("accessToken"),
-			},
-		});
-		const content = await rawResponse.json();
-		console.log(content);
-		if (rawResponse.status === 200) {
-			setPromos(content.promotions);
-		} else {
-			alert(content.message);
+	function getPromos() {
+		const result = localStorage.getItem("promos");
+		if (result === null) {
+			setTimeout(() => {
+				const result = localStorage.getItem("promos");
+				if (result !== null) {
+					setPromos(JSON.parse(result));
+				}
+			}, 1000);
+			return [];
 		}
-	};
+		return JSON.parse(result);
+	}
+
+	function getStores() {
+		const result = localStorage.getItem("stores");
+		if (result === null) {
+			setTimeout(() => {
+				const result = localStorage.getItem("stores");
+				if (result !== null) {
+					setStores(JSON.parse(result));
+				}
+			}, 1000);
+			return [];
+		}
+		return JSON.parse(result);
+	}
 
 	function Promos() {
 		const itemArray = [];
@@ -52,21 +54,6 @@ export default function SellerPromoListScreen() {
 		});
 		return itemArray;
 	}
-
-	const handleOutletList = async () => {
-		const rawResponse = await fetch(API_URL + USER_STORE_INFO, {
-			method: "GET",
-			headers: {
-				Authorization: localStorage.getItem("accessToken"),
-			},
-		});
-		const content = await rawResponse.json();
-		if (rawResponse.status === 200) {
-			setStores(content.stores);
-		} else {
-			alert(content.message);
-		}
-	};
 
 	return (
 		<div className="App">

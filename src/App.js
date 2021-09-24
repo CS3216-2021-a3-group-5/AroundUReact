@@ -16,6 +16,7 @@ import ShareAdapter from "./Screens/Buyer/Share/ShareAdapter";
 import ReactGA from "react-ga";
 import { Helmet } from "react-helmet";
 import ServiceWorkerRegistration from "./serviceWorkerRegistration";
+import { getSellerContent } from "./Screens/SharedComponents/SellerInitialization";
 
 export default function App() {
 	if (
@@ -25,15 +26,16 @@ export default function App() {
 		window.location.protocol = "https";
 	}
 
+	// Get service worker
+	// ServiceWorkerRegistration();
+
 	useEffect(() => {
+		getSellerContent();
 		ReactGA.initialize("UA-128751523-2", {
 			debug: true,
 			titleCase: false,
 		});
 	}, []);
-
-	// Get service worker
-	ServiceWorkerRegistration();
 
 	return (
 		<ThemeProvider theme={theme}>
