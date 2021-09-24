@@ -20,10 +20,10 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 	function getLocalProfile() {
 		const checkProfile = localStorage.getItem("profile");
 		if (checkProfile === null) {
-			handleProfile().then(getImage());
+			handleProfile().then((company_name) => getImage(company_name));
 		} else {
 			setProfile(JSON.parse(checkProfile));
-			getImage();
+			getImage(JSON.parse(localStorage.getItem("profile")).company_name);
 		}
 	}
 
@@ -45,15 +45,13 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 			};
 			setProfile(newProfile);
 			localStorage.setItem("profile", JSON.stringify(newProfile));
+			return content.company_name;
 		} else {
 			alert(content.message);
 		}
 	};
 
-	const getImage = async () => {
-		const company_name = JSON.parse(
-			localStorage.getItem("profile")
-		).company_name;
+	const getImage = async (company_name) => {
 		const response = await fetch(API_URL + COMPANY_LOGO + company_name, {
 			method: "GET",
 		});

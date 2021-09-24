@@ -17,7 +17,7 @@ export default function SellerAddEditPromoScreen({ promo }) {
 	const location = useLocation();
 
 	const [image, setImage] = useState(
-		location.state.image == null ? "" : ImageTapToUpload
+		location.state.image == null ? ImageTapToUpload : location.state.image
 	);
 	const [promo_name, setPromo_name] = useState(
 		promo == null ? "" : promo.promo_name
@@ -55,24 +55,21 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		};
 	}
 
-	const storeImage = async (image) => {
+	const storeImage = async (image, id) => {
+		console.log("store image in add edit promo");
 		const data = await new FormData();
-		data.append("image", image);
-		// data.append("filename", profile.company_name);
-		const response = await fetch(
-			API_URL + PROMO_IMAGE + promo.promotion_id,
-			{
-				method: "POST",
-				headers: {
-					Authorization: localStorage.getItem("accessToken"),
-				},
-				body: {
-					file: data,
-				},
-			}
-		);
-		// const blob = await response.blob();
-		// const loadedImage = URL.createObjectURL(blob);
+		var blob = await new Blob([image], { type: "img/png" });
+		data.append("image", blob);
+		const rawResponse = await fetch(API_URL + PROMO_IMAGE + id, {
+			method: "POST",
+			headers: {
+				Authorization: localStorage.getItem("accessToken"),
+			},
+			body: {
+				body: data,
+			},
+		});
+		console.log(`Promo image upload status code: ${rawResponse.status}`);
 	};
 
 	const handleAddPromo = async () => {
@@ -109,10 +106,13 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				store_ids: storeIds,
 			}),
 		});
+		const content = await rawResponse.json();
 		if (rawResponse.status === 200) {
 			alert("Creation success.");
 		}
 		history.goBack();
+		console.log(content.promotion_id);
+		return content.promotion_id;
 	};
 
 	const handleEditPromo = async () => {
@@ -155,6 +155,7 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		}
 		history.goBack();
 		history.goBack();
+		return promo.promotion_id;
 	};
 
 	return (
@@ -221,11 +222,13 @@ export default function SellerAddEditPromoScreen({ promo }) {
 								location.state != null &&
 								location.state.isEdit
 							) {
-								handleEditPromo();
-								//storeImage(image);
+								handleEditPromo().then((id) =>
+									storeImage(image, id)
+								);
 							} else {
-								handleAddPromo();
-								//storeImage(image);
+								handleAddPromo().then((id) =>
+									storeImage(image, id)
+								);
 							}
 						}}
 					>

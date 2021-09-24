@@ -19,13 +19,12 @@ export default function SellerEditProfileScreen() {
 	const save = async () => {
 		const isAnyNotFilled = contactNumber === "" || category === "";
 		if (isAnyNotFilled) {
-			alert("Please fill up all the fields");
+			alert("Please fill up all the fields.");
 			return;
 		} else if (!validateContact(contactNumber)) {
 			alert("You have entered an invalid contact number!");
 			return;
 		}
-		console.log(`new contact num ${contactNumber}`);
 		const newProfile = JSON.stringify({
 			company_name: profile.company_name,
 			contact_number: contactNumber,
@@ -39,8 +38,6 @@ export default function SellerEditProfileScreen() {
 			},
 			body: newProfile,
 		});
-		const content = await rawResponse.json();
-
 		if (rawResponse.status === 200) {
 			const newProfile = {
 				email: profile.email,
@@ -67,8 +64,10 @@ export default function SellerEditProfileScreen() {
 
 	const storeImage = async (image) => {
 		const data = await new FormData();
-		data.append("image", image);
-		data.append("filename", profile.company_name);
+		//var blob = image.querySelector('input[type="file"]').files[0];
+		var blob = await new Blob([image], { type: "img/png" });
+		console.log(blob);
+		await data.append("image", blob);
 		const rawResponse = await fetch(
 			API_URL + COMPANY_LOGO + profile.company_name,
 			{
@@ -79,11 +78,7 @@ export default function SellerEditProfileScreen() {
 				body: data,
 			}
 		);
-		console.log("Hello there");
-		const content = await rawResponse.json();
-		console.log(content);
-		// const blob = await response.blob();
-		// const loadedImage = URL.createObjectURL(blob);
+		console.log(`Store avatar upload status code: ${rawResponse.status}`);
 	};
 
 	function uploadImage(event) {
