@@ -67,10 +67,11 @@ export default function SellerEditProfileScreen() {
 	}
 
 	const storeImage = async (image) => {
+		if (fileImage === null) return;
 		const data = await new FormData();
 		//var blob = image.querySelector('input[type="file"]').files[0];
 		// var blob = await new Blob([image], { type: "img/png" });
-		await data.append("image", image);
+		await data.append("image", fileImage);
 		const rawResponse = await fetch(
 			API_URL + COMPANY_LOGO + profile.company_name,
 			{
