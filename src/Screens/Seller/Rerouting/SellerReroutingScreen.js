@@ -5,7 +5,7 @@ import ReactGA from "react-ga";
 
 import SignInScreen from "../SignIn/SignInScreen";
 import SignUpScreen from "../SignUp/SignUpScreen";
-import SellerHomeScreen from "../PromoList/SellerPromoListScreen";
+import SellerPromoListScreen from "../PromoList/SellerPromoListScreen";
 import SellerOutletListScreen from "../OutletList/SellerOutletListScreen";
 import SellerSettingsScreen from "../Settings/SellerSettingsScreen";
 import SellerPromoScreen from "../Promo/SellerPromoScreen";
@@ -24,7 +24,7 @@ export default function SellerMainScreen({ screen }) {
 
 	// Checks if already logged in
 	function checkLogin() {
-		return false;
+		return localStorage.getItem("accessToken") !== null;
 	}
 
 	function Screen() {
@@ -34,7 +34,7 @@ export default function SellerMainScreen({ screen }) {
 			case SellerScreens.SETTINGS:
 				return <SellerSettingsScreen setLoggedIn={setLoggedIn} />;
 			default:
-				return <SellerHomeScreen />;
+				return <SellerPromoListScreen />;
 		}
 	}
 

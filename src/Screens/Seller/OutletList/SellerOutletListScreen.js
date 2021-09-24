@@ -35,7 +35,9 @@ export default function SellerOutletListScreen() {
 			return;
 		}
 		stores.forEach((store) => {
-			itemArray.push(<OutletListItem store={store} />);
+			itemArray.push(
+				<OutletListItem store={store} key={"Store" + store.store_id} />
+			);
 		});
 		return itemArray;
 	}
@@ -47,7 +49,7 @@ export default function SellerOutletListScreen() {
 			</div>
 			<div className="Buffer__5px" />
 			<div className="Container__large-screen-optimize">{Outlets()}</div>
-			<div className="Buffer__50px" />
+			<div className="Buffer__110px" />
 			<div className="Fab">
 				<Fab
 					color="secondary"

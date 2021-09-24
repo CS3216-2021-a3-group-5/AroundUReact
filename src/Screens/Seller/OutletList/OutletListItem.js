@@ -11,17 +11,15 @@ export default function OutletListItem({ store }) {
 			}}
 		>
 			<div className="Buffer__20px" />
-			<div className="Container__horizontal-padding-20px">
-				<div className="Container__row">
-					<div className="Container__column">
-						<p className="Text__large--dark">{store.address}</p>
-						<div className="Buffer__5px " />
-						<p className="Text__medium--grey-multiline">
-							{store.opening_hours}
-						</p>
-					</div>
-					<p className="Text__arrow">{">"}</p>
+			<div className="Container__horizontal-padding-20px Container__row">
+				<div className="Container__column">
+					<p className="Text__large--dark">{store.address}</p>
+					<div className="Buffer__5px " />
+					<p className="Text__medium--grey-multiline">
+						{store.opening_hours}
+					</p>
 				</div>
+				<p className="Text__arrow">{">"}</p>
 			</div>
 			<div className="Buffer__20px" />
 			<div className="Line" />

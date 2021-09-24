@@ -11,7 +11,7 @@ export default function DeleteConfirmation({ setShowPopup, confirmDelete }) {
 				}}
 			>
 				<div className="Buffer__20px" />
-				<p className="Text__large--dark-multiline">
+				<p className="Text__medium--dark-multiline">
 					Are you sure you want to delete?
 				</p>
 				<div className="Buffer__20px" />
