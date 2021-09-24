@@ -58,23 +58,21 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		};
 	}
 
-	const storeImage = async (image, id) => {
+	async function storeImage(id) {
+		console.log(id);
 		if (fileImage === null) return;
 		const data = await new FormData();
 		console.log(API_URL + PROMO_IMAGE + id);
 		await data.append("image", fileImage);
-		console.log(fileImage);
 		const rawResponse = await fetch(API_URL + PROMO_IMAGE + id, {
 			method: "POST",
 			headers: {
 				Authorization: localStorage.getItem("accessToken"),
 			},
-			body: {
-				body: data,
-			},
+			body: data,
 		});
 		console.log(`Promo image upload status code: ${rawResponse.status}`);
-	};
+	}
 
 	const handleAddPromo = async () => {
 		const isAnyNotFilled =
@@ -116,12 +114,11 @@ export default function SellerAddEditPromoScreen({ promo }) {
 			}),
 		});
 
-		const content = await rawResponse.json();
-
 		if (rawResponse.status === 200) {
 			await getPromotions();
+			const result = await rawResponse.json();
+			await storeImage(result.promotion_id);
 			history.goBack();
-			return content.promotion_id;
 		} else {
 			alert("Unable to create.");
 		}
@@ -168,12 +165,12 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				store_ids: storeIds,
 			}),
 		});
+
 		if (rawResponse.status === 200) {
-			alert("Update success.");
+			await storeImage(promo.promotion_id);
 			await updateLocal(storeIds, date);
 			history.goBack();
 			history.goBack();
-			return promo.promotion_id;
 		} else {
 			alert("Unable to update.");
 		}
@@ -268,13 +265,9 @@ export default function SellerAddEditPromoScreen({ promo }) {
 								location.state != null &&
 								location.state.isEdit
 							) {
-								handleEditPromo().then((id) =>
-									storeImage(image, id)
-								);
+								handleEditPromo();
 							} else {
-								handleAddPromo().then((id) =>
-									storeImage(image, id)
-								);
+								handleAddPromo();
 							}
 						}}
 					>

@@ -27,7 +27,7 @@ export default function App() {
 	}
 
 	// Get service worker
-	// ServiceWorkerRegistration();
+	ServiceWorkerRegistration();
 
 	useEffect(() => {
 		getSellerContent();
