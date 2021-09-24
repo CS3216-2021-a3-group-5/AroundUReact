@@ -15,6 +15,9 @@ import PromoListItem from "./PromoListItem";
 import PromoOverlay from "./PromoOverlay";
 import CategorySelector from "../../SharedComponents/CategorySelector";
 import RangeSelector from "./RangeSelector";
+import LoadingScreen from "./LoadingScreen";
+
+var showLoading = true;
 
 export default function MainScreen() {
 	const history = useHistory();
@@ -43,6 +46,7 @@ export default function MainScreen() {
 		if (localStorage.data === undefined) {
 			return [];
 		}
+		showLoading = false;
 		return JSON.parse(localStorage.data);
 	}
 
@@ -86,6 +90,7 @@ export default function MainScreen() {
 				newPromos.push(promo);
 			}
 		});
+		showLoading = false;
 		localStorage.data = JSON.stringify(newPromos);
 		setPromos(newPromos);
 	}
@@ -229,6 +234,7 @@ export default function MainScreen() {
 					</div>
 				</div>
 			</div>
+			{showLoading && <LoadingScreen />}
 		</div>
 	);
 }
