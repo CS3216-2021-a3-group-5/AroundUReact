@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
-import { Categories } from "../../../constants";
 import DeleteConfirmation from "../../SharedComponents/DeleteConfirmation";
 import { API_URL, PROMO, PROMO_IMAGE } from "../../../constants.js";
+import { getSellerContent } from "../../SharedComponents/SellerInitialization";
 
 export default function SellerPromoScreen({ promo }) {
 	const history = useHistory();
@@ -36,9 +35,12 @@ export default function SellerPromoScreen({ promo }) {
 				promotion_id: promo.promotion_id,
 			}),
 		});
-		const content = await rawResponse.json();
-		alert(content.message);
-		history.goBack();
+		if (rawResponse.status === 200) {
+			await getSellerContent();
+			history.goBack();
+		} else {
+			alert("Unable to delete.");
+		}
 	};
 
 	function Stores() {
@@ -86,9 +88,9 @@ export default function SellerPromoScreen({ promo }) {
 
 	return (
 		<div className="App">
-			<div className="Container__after-header">
-				<img className="Image__promo" src={image} />
-				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
+			<div className="Container__after-header Container__large-screen-optimize">
+				<div className="Container__horizontal-padding-20px">
+					<img className="Image__promo" src={image} />
 					<div className="Buffer__20px" />
 					<p className="Text__extra-large--dark-multiline">
 						{promo.promo_name}

@@ -6,7 +6,7 @@ import DeleteConfirmation from "../../SharedComponents/DeleteConfirmation";
 import { API_URL, STORE } from "../../../constants.js";
 import { Map, Overlay } from "pigeon-maps";
 import IndicatorSelected from "../../../assets/Indicator_Selected.png";
-import { getStores } from "../../SharedComponents/SellerInitialization";
+import { getSellerContent } from "../../SharedComponents/SellerInitialization";
 
 export default function SellerOutletScreen({ store }) {
 	const history = useHistory();
@@ -23,32 +23,13 @@ export default function SellerOutletScreen({ store }) {
 			}),
 		});
 		if (rawResponse.status === 200) {
-			updateLocal();
+			await getSellerContent();
 			history.goBack();
 			alert("Deletion success.");
 		} else {
 			alert("Unable to delete.");
 		}
 	};
-
-	function updateLocal() {
-		const current = localStorage.getItem("stores");
-		if (current === null) {
-			getStores();
-			return;
-		}
-		const currentStores = JSON.parse(current);
-		const index = currentStores.find(
-			(currentStore) => currentStore.store_id == store.store_id
-		);
-		if (index === -1) {
-			getStores();
-			return;
-		}
-		currentStores.splice(index, 1);
-		localStorage.setItem("stores", JSON.stringify(currentStores));
-		console.log("Deleted");
-	}
 
 	function openOnGoogleMaps() {
 		window.open(
