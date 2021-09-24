@@ -150,7 +150,9 @@ export default function SellerAddEditPromoScreen({ promo }) {
 			}),
 		});
 		if (rawResponse.status === 200) {
+			alert("Update success.");
 			await updateLocal(storeIds, date);
+			history.goBack();
 			history.goBack();
 		} else {
 			alert("Unable to create.");
@@ -164,18 +166,23 @@ export default function SellerAddEditPromoScreen({ promo }) {
 			return;
 		}
 		const currentPromotions = JSON.parse(current);
-		const index = currentPromotions.find(
-			(currentPromotion) =>
-				currentPromotion.promotion_id == promo.promotion_id
-		);
+		let index = -1;
+		for (let i = 0; i < currentPromotions.length; i++) {
+			if (currentPromotions[i].promotion_id == promo.promotion_id) {
+				index = i;
+				console.log(index);
+				break;
+			}
+		}
 		if (index === -1) {
 			await getPromotions();
 			return;
 		}
 		currentPromotions[index].promo_name = promo_name;
 		currentPromotions[index].end_date = date;
-		currentPromotions[index].store_ids = storeIds;
-		localStorage.setItem("promos", JSON.stringify(currentPromotions));
+		currentPromotions[index].storeIDs = storeIds;
+
+		await localStorage.setItem("promos", JSON.stringify(currentPromotions));
 	}
 
 	return (
