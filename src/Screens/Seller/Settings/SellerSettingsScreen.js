@@ -44,7 +44,10 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 
 	function logout() {
 		setLoggedIn(false);
-		localStorage.clear();
+		localStorage.removeItem("accessToken");
+		localStorage.removeItem("promos");
+		localStorage.removeItem("profile");
+		localStorage.removeItem("stores");
 	}
 
 	return (
