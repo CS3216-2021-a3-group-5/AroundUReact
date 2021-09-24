@@ -6,9 +6,10 @@ import {
 	KeyboardDatePicker,
 } from "@material-ui/pickers";
 import StoreSelector from "./StoreSelector";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import { API_URL, NEW_PROMO, PROMO, PROMO_IMAGE } from "../../../constants.js";
+import { getPromotions } from "../../SharedComponents/SellerInitialization";
 
 import ImageTapToUpload from "../../../assets/Tap_To_Select.png";
 
@@ -34,7 +35,6 @@ export default function SellerAddEditPromoScreen({ promo }) {
 
 	function getSelectedStores() {
 		const selectedStores = new Array(stores.length).fill(false);
-		const selectedIds = [];
 		if (promo != null) {
 			for (let i = 0; i < stores.length; i++) {
 				if (promo.storeIDs.includes(stores[i].store_id)) {
@@ -96,8 +96,12 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				store_ids: storeIds,
 			}),
 		});
-		const content = await rawResponse.json();
-		alert(content.message);
+		if (rawResponse.status === 200) {
+			await getPromotions();
+			history.goBack();
+		} else {
+			alert("Unable to create.");
+		}
 	};
 
 	const handleEditPromo = async () => {
@@ -122,13 +126,38 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				store_ids: storeIds,
 			}),
 		});
-		const content = await rawResponse.json();
-		alert(content.message);
+		if (rawResponse.status === 200) {
+			await updateLocal(storeIds, date);
+			history.goBack();
+		} else {
+			alert("Unable to create.");
+		}
 	};
+
+	async function updateLocal(storeIds, date) {
+		const current = localStorage.getItem("promos");
+		if (current === null) {
+			await getPromotions();
+			return;
+		}
+		const currentPromotions = JSON.parse(current);
+		const index = currentPromotions.find(
+			(currentPromotion) =>
+				currentPromotion.promotion_id == promo.promotion_id
+		);
+		if (index === -1) {
+			await getPromotions();
+			return;
+		}
+		currentPromotions[index].promo_name = promo_name;
+		currentPromotions[index].end_date = date;
+		currentPromotions[index].store_ids = storeIds;
+		localStorage.setItem("promos", JSON.stringify(currentPromotions));
+	}
 
 	return (
 		<div className="App">
-			<div className="Container__after-header">
+			<div className="Container__after-header Container__large-screen-optimize">
 				<div className="Container__center--horizontal">
 					<input
 						accept="image/*"
@@ -141,7 +170,7 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				<img className="Image__promo" src={image} />
 
 				<div className="Buffer__30px" />
-				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
+				<div className="Container__horizontal-padding-20px">
 					<TextField
 						value={promo_name}
 						onChange={(event) => setPromo_name(event.target.value)}
@@ -192,12 +221,10 @@ export default function SellerAddEditPromoScreen({ promo }) {
 							) {
 								handleEditPromo();
 								//storeImage(image);
-								history.goBack();
 							} else {
 								handleAddPromo();
 								//storeImage(image);
 							}
-							history.goBack();
 						}}
 					>
 						<p className="Text__medium--light">

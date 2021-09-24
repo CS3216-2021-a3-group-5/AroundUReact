@@ -1,10 +1,29 @@
-import { API_URL, USER_STORE_INFO, USER_INFO } from "../../constants";
+import {
+	API_URL,
+	USER_STORE_INFO,
+	USER_PROMOTION_INFO,
+	USER_INFO,
+} from "../../constants";
 
 export async function getSellerContent() {
 	if (localStorage.getItem("accessToken") === null) return;
-	getStores();
-	getPromotions();
-	getProfile();
+	await getPromotions();
+	await getStores();
+	await getProfile();
+}
+
+export async function getPromotions() {
+	const rawResponse = await fetch(API_URL + USER_PROMOTION_INFO, {
+		method: "GET",
+		headers: {
+			Authorization: localStorage.getItem("accessToken"),
+		},
+	});
+	const content = await rawResponse.json();
+	const stringedJson = JSON.stringify(content.promotions);
+	if (rawResponse.status === 200) {
+		localStorage.setItem("promos", stringedJson);
+	}
 }
 
 export async function getStores() {
@@ -20,8 +39,6 @@ export async function getStores() {
 		localStorage.setItem("stores", stringedJson);
 	}
 }
-
-async function getPromotions() {}
 
 export async function getProfile() {
 	const rawResponse = await fetch(API_URL + USER_INFO, {
