@@ -80,6 +80,7 @@ export default function SellerAddEditOutletScreen({ store }) {
 			alert("Update success.");
 		}
 		history.goBack();
+		history.goBack();
 	};
 
 	return (

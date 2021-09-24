@@ -81,6 +81,9 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		if (isAnyNotFilled) {
 			alert("Please fill up all the fields.");
 			return;
+		} else if (selectedStoreIds.length == 0) {
+			alert("Please create an outlet first.");
+			return;
 		}
 		const storeIds = [];
 		for (let i = 0; i < selectedStoreIds.length; i++) {
@@ -106,9 +109,10 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				store_ids: storeIds,
 			}),
 		});
-		const content = await rawResponse.json();
+		if (rawResponse.status === 200) {
+			alert("Creation success.");
+		}
 		history.goBack();
-		alert(content.message);
 	};
 
 	const handleEditPromo = async () => {
@@ -116,6 +120,9 @@ export default function SellerAddEditPromoScreen({ promo }) {
 			promo_name === "" || endDate === "" || details === "";
 		if (isAnyNotFilled) {
 			alert("Please fill up all the fields.");
+			return;
+		} else if (selectedStoreIds.length == 0) {
+			alert("Please create an outlet first.");
 			return;
 		}
 		const storeIds = [];
@@ -143,10 +150,11 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				store_ids: storeIds,
 			}),
 		});
-		const content = await rawResponse.json();
+		if (rawResponse.status === 200) {
+			alert("Update success.");
+		}
 		history.goBack();
 		history.goBack();
-		alert(content.message);
 	};
 
 	return (
