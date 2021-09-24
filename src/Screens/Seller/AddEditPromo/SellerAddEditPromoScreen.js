@@ -13,6 +13,8 @@ import { getPromotions } from "../../SharedComponents/SellerInitialization";
 
 import ImageTapToUpload from "../../../assets/Tap_To_Select.png";
 
+var fileImage = null;
+
 export default function SellerAddEditPromoScreen({ promo }) {
 	const history = useHistory();
 	const location = useLocation();
@@ -48,6 +50,7 @@ export default function SellerAddEditPromoScreen({ promo }) {
 
 	function uploadImage(event) {
 		const file = event.target.files[0];
+		fileImage = file;
 		const reader = new FileReader();
 		const url = reader.readAsDataURL(file);
 		reader.onloadend = () => {
@@ -56,10 +59,11 @@ export default function SellerAddEditPromoScreen({ promo }) {
 	}
 
 	const storeImage = async (image, id) => {
-		console.log("store image in add edit promo");
+		if (fileImage === null) return;
 		const data = await new FormData();
-		var blob = await new Blob([image], { type: "img/png" });
-		data.append("image", blob);
+		console.log(API_URL + PROMO_IMAGE + id);
+		await data.append("image", fileImage);
+		console.log(fileImage);
 		const rawResponse = await fetch(API_URL + PROMO_IMAGE + id, {
 			method: "POST",
 			headers: {
@@ -111,9 +115,13 @@ export default function SellerAddEditPromoScreen({ promo }) {
 				store_ids: storeIds,
 			}),
 		});
+
+		const content = await rawResponse.json();
+
 		if (rawResponse.status === 200) {
 			await getPromotions();
 			history.goBack();
+			return content.promotion_id;
 		} else {
 			alert("Unable to create.");
 		}
@@ -165,8 +173,9 @@ export default function SellerAddEditPromoScreen({ promo }) {
 			await updateLocal(storeIds, date);
 			history.goBack();
 			history.goBack();
+			return promo.promotion_id;
 		} else {
-			alert("Unable to create.");
+			alert("Unable to update.");
 		}
 	};
 
@@ -181,7 +190,6 @@ export default function SellerAddEditPromoScreen({ promo }) {
 		for (let i = 0; i < currentPromotions.length; i++) {
 			if (currentPromotions[i].promotion_id == promo.promotion_id) {
 				index = i;
-				console.log(index);
 				break;
 			}
 		}
@@ -260,8 +268,9 @@ export default function SellerAddEditPromoScreen({ promo }) {
 								location.state != null &&
 								location.state.isEdit
 							) {
-								handleEditPromo();
-								//storeImage(image);
+								handleEditPromo().then((id) =>
+									storeImage(image, id)
+								);
 							} else {
 								handleAddPromo().then((id) =>
 									storeImage(image, id)
