@@ -6,54 +6,8 @@ import { API_URL, USER_INFO, COMPANY_LOGO } from "../../../constants.js";
 export default function SellerSettingsScreen({ setLoggedIn }) {
 	const history = useHistory();
 	const [image, setImage] = useState(null);
-	const [profile, setProfile] = useState({
-		email: "",
-		category: "",
-		company_name: "",
-		contact_number: "",
-	});
-
-	useEffect(() => {
-		getLocalProfile();
-		getImage();
-	}, []);
-
-	function getLocalProfile() {
-		const checkProfile = localStorage.getItem("profile");
-		if (checkProfile === null) {
-			handleProfile();
-		} else {
-			setProfile(JSON.parse(checkProfile));
-		}
-	}
-
-	const handleProfile = async () => {
-		const rawResponse = await fetch(API_URL + USER_INFO, {
-			method: "GET",
-			headers: {
-				Authorization: localStorage.getItem("accessToken"),
-			},
-		});
-		const content = await rawResponse.json();
-		console.log(content);
-		if (rawResponse.status === 200) {
-			const newProfile = {
-				email: content.email,
-				category: content.category,
-				company_name: content.company_name,
-				contact_number: content.contact_number,
-			};
-			setProfile(newProfile);
-			localStorage.setItem("profile", JSON.stringify(newProfile));
-		} else {
-			alert(content.message);
-		}
-	};
-
-	const getImage = async () => {
-		const company_name = JSON.parse(
-			localStorage.getItem("profile")
-		).company_name;
+	const getImage = async (stringProfile) => {
+		const company_name = JSON.parse(stringProfile).company_name;
 		const response = await fetch(API_URL + COMPANY_LOGO + company_name, {
 			method: "GET",
 		});
@@ -62,10 +16,27 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 		setImage(loadedImage);
 	};
 
+	const [profile, setProfile] = useState(getLocalProfile());
+
+	function getLocalProfile() {
+		const checkProfile = localStorage.getItem("profile");
+		if (checkProfile === null) {
+			return {
+				email: "",
+				category: "",
+				company_name: "",
+				contact_number: "",
+			};
+		} else {
+			getImage(checkProfile);
+			return JSON.parse(checkProfile);
+		}
+	}
+
 	function logout() {
 		setLoggedIn(false);
 		history.replace("/seller");
-		localStorage.removeItem("accessToken");
+		localStorage.clear();
 	}
 
 	return (
