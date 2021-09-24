@@ -3,9 +3,10 @@ import TextField from "@material-ui/core/TextField";
 import { Map, Draggable } from "pigeon-maps";
 import IndicatorSelected from "../../../assets/Indicator_Selected.png";
 import CoordinatesSearch from "./CoordinatesSearch";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import { API_URL, NEW_STORE, STORE } from "../../../constants.js";
+import { getStores } from "../../SharedComponents/SellerInitialization";
 
 export default function SellerAddEditOutletScreen({ store }) {
 	const history = useHistory();
@@ -36,8 +37,12 @@ export default function SellerAddEditOutletScreen({ store }) {
 				opening_hours: openingHours,
 			}),
 		});
-		const content = await rawResponse.json();
-		alert(content.message);
+		if (rawResponse.status === 200) {
+			getStores();
+			history.goBack();
+		} else {
+			alert("Unable to create.");
+		}
 	};
 
 	const handleEditOutlet = async () => {
@@ -57,9 +62,42 @@ export default function SellerAddEditOutletScreen({ store }) {
 				promotionIDs: [],
 			}),
 		});
-		const content = await rawResponse.json();
-		alert(content.message);
+		if (rawResponse.status === 200) {
+			updateLocal();
+			history.goBack();
+		} else {
+			alert("Unable to edit.");
+		}
 	};
+
+	function updateLocal() {
+		const current = localStorage.getItem("stores");
+		if (current === null) {
+			getStores();
+			return;
+		}
+		const currentStores = JSON.parse(current);
+		const index = currentStores.find(
+			(currentStore) => currentStore.store_id == store.store_id
+		);
+		if (index === -1) {
+			getStores();
+			return;
+		}
+		currentStores[index] = {
+			address: storeAddress,
+			company_name: store.company_name,
+			location: {
+				lat: storeCoords[0],
+				lon: storeCoords[1],
+			},
+			opening_hours: openingHours,
+			promotionIDs: store.promotionIDs,
+			store_id: store.store_id,
+		};
+		localStorage.setItem("stores", JSON.stringify(currentStores));
+		console.log("Updated");
+	}
 
 	return (
 		<div className="App">
@@ -133,11 +171,9 @@ export default function SellerAddEditOutletScreen({ store }) {
 					onClick={() => {
 						if (location.state != null && location.state.isEdit) {
 							handleEditOutlet();
-							history.goBack();
 						} else {
 							handleAddOutlet();
 						}
-						history.goBack();
 					}}
 				>
 					<p className="Text__medium--light">

@@ -38,6 +38,7 @@ export default function SellerPromoScreen({ promo }) {
 		});
 		const content = await rawResponse.json();
 		alert(content.message);
+		history.goBack();
 	};
 
 	function Stores() {
@@ -147,7 +148,6 @@ export default function SellerPromoScreen({ promo }) {
 					setShowPopup={setShowPopup}
 					confirmDelete={() => {
 						handleDeletePromo();
-						history.goBack();
 					}}
 				/>
 			)}

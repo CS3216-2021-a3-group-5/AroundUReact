@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { useHistory } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { API_URL, LOGIN_ROUTE } from "../../../constants.js";
+import { getSellerContent } from "../../SharedComponents/SellerInitialization.js";
 
 export default function SignInScreen({ setLoggedIn }) {
 	const [email, setEmail] = useState("");
@@ -27,6 +28,7 @@ export default function SignInScreen({ setLoggedIn }) {
 			localStorage.setItem("accessToken", content.accessToken);
 			console.log("successful login");
 			setLoggedIn(true);
+			await getSellerContent();
 		} else {
 			alert(content.message);
 		}
