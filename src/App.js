@@ -42,7 +42,21 @@ export default function App() {
 			<Helmet>
 				<meta charSet="utf-8" />
 				<title>AroundU</title>
-				<meta name="description" content="Search for deals AroundU" />
+				<meta
+					name="description"
+					content="Search for deals AroundU"
+					data-rh="true"
+				/>
+				<meta
+					property="og:image"
+					content="https://www.aroundu.shop/Share.png"
+					data-rh="true"
+				/>
+				<meta
+					property="og:title"
+					content="AroundU | Search for Deals"
+					data-rh="true"
+				/>
 			</Helmet>
 			<Router>
 				<ScrollToTop />
