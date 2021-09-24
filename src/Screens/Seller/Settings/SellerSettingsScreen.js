@@ -15,7 +15,6 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 		const loadedImage = URL.createObjectURL(blob);
 		setImage(loadedImage);
 	};
-
 	const [profile, setProfile] = useState(getLocalProfile());
 
 	function getLocalProfile() {

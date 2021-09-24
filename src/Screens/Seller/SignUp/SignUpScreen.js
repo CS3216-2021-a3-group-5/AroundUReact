@@ -24,19 +24,23 @@ export default function SignUpScreen() {
 			repeatPassword === "" ||
 			category === "";
 		if (isAnyNotFilled) {
-			alert("please fill up all the fieldssss");
+			alert("Please fill up all the fields");
 			return;
 		} else if (password !== repeatPassword) {
-			alert("password and repeat password don't match");
+			alert("Password and repeat password don't match");
 			return;
 		} else if (!validateEmail(email)) {
 			alert("You have entered an invalid email address!");
 			return;
-		} else if (contact.length < 4 || contact.length > 15) {
+		} else if (!validateContact(contact)) {
 			alert("You have entered an invalid contact number!");
 			return;
-		} else if (contact.length < 4 || contact.length > 15) {
-			alert("You have entered an invalid contact number!");
+		} else if (!validatePassword(password)) {
+			alert(`Your password should 
+      - contain at least 8 characters
+      - contain at least 1 number
+      - contain at least 1 lowercase character (a-z)
+      - contain at least 1 uppercase character (A-Z)`);
 			return;
 		}
 		console.log(`company ${name} is registering with email ${email}`);
@@ -61,6 +65,26 @@ export default function SignUpScreen() {
 
 	function validateEmail(mail) {
 		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+			return true;
+		}
+		return false;
+	}
+
+	function validateContact(contact) {
+		if (
+			/^\d+$/.test(contact) &&
+			contact.length > 4 &&
+			contact.length < 15
+		) {
+			return true;
+		}
+		return false;
+	}
+
+	function validatePassword(password) {
+		console.log(password);
+		if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password)) {
+			console.log("pass");
 			return true;
 		}
 		return false;

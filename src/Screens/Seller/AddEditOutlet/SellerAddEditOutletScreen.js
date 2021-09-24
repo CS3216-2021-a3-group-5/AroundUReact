@@ -25,6 +25,15 @@ export default function SellerAddEditOutletScreen({ store }) {
 	const [showAddressSelector, setShowAddressSelector] = useState(false);
 
 	const handleAddOutlet = async () => {
+		const isAnyNotFilled =
+			storeAddress === "" ||
+			openingHours === "" ||
+			storeCoords[0] === null;
+		if (isAnyNotFilled) {
+			alert("Please fill up all the fields");
+			return;
+		}
+
 		const rawResponse = await fetch(API_URL + NEW_STORE, {
 			method: "POST",
 			headers: {
@@ -46,6 +55,14 @@ export default function SellerAddEditOutletScreen({ store }) {
 	};
 
 	const handleEditOutlet = async () => {
+		const isAnyNotFilled =
+			storeAddress === "" ||
+			openingHours === "" ||
+			storeCoords[0] === null;
+		if (isAnyNotFilled) {
+			alert("Please fill up all the fields");
+			return;
+		}
 		const rawResponse = await fetch(API_URL + STORE, {
 			method: "PUT",
 			headers: {

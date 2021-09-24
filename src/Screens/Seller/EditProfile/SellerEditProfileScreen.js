@@ -10,17 +10,19 @@ import CategorySelector from "../../SharedComponents/CategorySelector";
 export default function SellerEditProfileScreen() {
 	const history = useHistory();
 	const location = useLocation();
-	const profile = location.state.profile;
+	let profile = location.state.profile;
 	const [image, setImage] = useState(location.state.image);
 	const [companyName] = useState(profile.company_name);
 	const [contactNumber, setContactNumber] = useState(profile.contact_number);
 	const [category, setCategory] = useState(profile.category);
 
 	const save = async () => {
-		const isAnyNotFilled =
-			companyName === "" || contactNumber === "" || category === "";
+		const isAnyNotFilled = contactNumber === "" || category === "";
 		if (isAnyNotFilled) {
-			alert("please fill up all the fieldssss");
+			alert("Please fill up all the fields.");
+			return;
+		} else if (!validateContact(contactNumber)) {
+			alert("You have entered an invalid contact number!");
 			return;
 		}
 		const newProfile = JSON.stringify({
@@ -36,33 +38,47 @@ export default function SellerEditProfileScreen() {
 			},
 			body: newProfile,
 		});
-		const content = await rawResponse.json();
 		if (rawResponse.status === 200) {
-			localStorage.setItem("profile", newProfile);
-			history.goBack();
-		} else {
-			alert(content.message);
+			const newProfile = {
+				email: profile.email,
+				category: category,
+				company_name: profile.company_name,
+				contact_number: contactNumber,
+			};
+			localStorage.setItem("profile", JSON.stringify(newProfile));
+			alert("Update success.");
 		}
+		history.goBack();
 	};
+
+	function validateContact(contact) {
+		if (
+			/^\d+$/.test(contact) &&
+			contact.length > 4 &&
+			contact.length < 15
+		) {
+			return true;
+		}
+		return false;
+	}
 
 	const storeImage = async (image) => {
 		const data = await new FormData();
-		data.append("image", image);
-		data.append("filename", profile.company_name);
-		const response = await fetch(
+		//var blob = image.querySelector('input[type="file"]').files[0];
+		var blob = await new Blob([image], { type: "img/png" });
+		console.log(blob);
+		await data.append("image", blob);
+		const rawResponse = await fetch(
 			API_URL + COMPANY_LOGO + profile.company_name,
 			{
 				method: "POST",
 				headers: {
 					Authorization: localStorage.getItem("accessToken"),
 				},
-				body: {
-					file: data,
-				},
+				body: data,
 			}
 		);
-		// const blob = await response.blob();
-		// const loadedImage = URL.createObjectURL(blob);
+		console.log(`Store avatar upload status code: ${rawResponse.status}`);
 	};
 
 	function uploadImage(event) {
@@ -113,8 +129,7 @@ export default function SellerEditProfileScreen() {
 						className="Toggle__large--primary"
 						onClick={() => {
 							save();
-							//storeImage(image);
-							history.goBack();
+							storeImage(image);
 						}}
 					>
 						<p className="Text__medium--light">Update</p>
