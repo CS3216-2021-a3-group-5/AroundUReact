@@ -92,7 +92,12 @@ export default function SellerAddEditPromoScreen({ promo }) {
 			alert("Please select at least one outlet.");
 			return;
 		}
+		let currentDate = new Date();
 		let date = new Date(endDate);
+		if (date < currentDate) {
+			alert("Please select a date which is not expired.");
+			return;
+		}
 		date.setHours(date.getHours() + 8);
 		const rawResponse = await fetch(API_URL + NEW_PROMO, {
 			method: "POST",
@@ -134,7 +139,13 @@ export default function SellerAddEditPromoScreen({ promo }) {
 			alert("Please select at least one outlet.");
 			return;
 		}
+		let currentDate = new Date();
+		currentDate.setDate(currentDate.getDate() - 1);
 		let date = new Date(endDate);
+		if (date < currentDate) {
+			alert("Please select a date which is not expired.");
+			return;
+		}
 		date.setHours(date.getHours() + 8);
 		const rawResponse = await fetch(API_URL + PROMO, {
 			method: "PUT",
