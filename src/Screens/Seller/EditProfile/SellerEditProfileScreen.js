@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Avatar } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import { API_URL, UPDATE_USER_INFO } from "../../../constants.js";
+import { API_URL, UPDATE_USER_INFO, COMPANY_LOGO } from "../../../constants.js";
 
 import CategorySelector from "../../SharedComponents/CategorySelector";
 
@@ -11,7 +11,7 @@ export default function SellerEditProfileScreen() {
 	const history = useHistory();
 	const location = useLocation();
 	const profile = location.state.profile;
-	const [image, setImage] = useState();
+	const [image, setImage] = useState(location.state.image);
 	const [companyName] = useState(profile.company_name);
 	const [contactNumber, setContactNumber] = useState(profile.contact_number);
 	const [category, setCategory] = useState(profile.category);
@@ -43,6 +43,26 @@ export default function SellerEditProfileScreen() {
 		} else {
 			alert(content.message);
 		}
+	};
+
+	const storeImage = async (image) => {
+		const data = await new FormData();
+		data.append("image", image);
+		data.append("filename", profile.company_name);
+		const response = await fetch(
+			API_URL + COMPANY_LOGO + profile.company_name,
+			{
+				method: "POST",
+				headers: {
+					Authorization: localStorage.getItem("accessToken"),
+				},
+				body: {
+					file: data,
+				},
+			}
+		);
+		// const blob = await response.blob();
+		// const loadedImage = URL.createObjectURL(blob);
 	};
 
 	function uploadImage(event) {
@@ -93,6 +113,8 @@ export default function SellerEditProfileScreen() {
 						className="Toggle__large--primary"
 						onClick={() => {
 							save();
+							//storeImage(image);
+							history.goBack();
 						}}
 					>
 						<p className="Text__medium--light">Update</p>

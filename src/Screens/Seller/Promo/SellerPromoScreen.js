@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EditIcon from "@material-ui/icons/Edit";
 import { Categories } from "../../../constants";
 import DeleteConfirmation from "../../SharedComponents/DeleteConfirmation";
-import { API_URL, PROMO } from "../../../constants.js";
+import { API_URL, PROMO, PROMO_IMAGE } from "../../../constants.js";
 
 export default function SellerPromoScreen({ promo }) {
 	const history = useHistory();
@@ -13,6 +13,11 @@ export default function SellerPromoScreen({ promo }) {
 	const stores = location.state.stores;
 
 	const [showPopup, setShowPopup] = useState(false);
+	const [image, setImage] = useState(null);
+
+	useEffect(() => {
+		getImage();
+	}, []);
 
 	function getFormattedDate() {
 		let date = new Date(promo.end_date);
@@ -63,10 +68,25 @@ export default function SellerPromoScreen({ promo }) {
 		return storeItems;
 	}
 
+	const getImage = async () => {
+		if (promo == null) {
+			return null;
+		}
+		const response = await fetch(
+			API_URL + PROMO_IMAGE + promo.promotion_id,
+			{
+				method: "GET",
+			}
+		);
+		const blob = await response.blob();
+		const loadedImage = URL.createObjectURL(blob);
+		setImage(loadedImage);
+	};
+
 	return (
 		<div className="App">
 			<div className="Container__after-header">
-				<img className="Image__promo" />
+				<img className="Image__promo" src={image} />
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
 					<div className="Buffer__20px" />
 					<p className="Text__extra-large--dark-multiline">
@@ -116,6 +136,7 @@ export default function SellerPromoScreen({ promo }) {
 								promo,
 								stores,
 								isEdit,
+								image,
 							});
 						}}
 					/>

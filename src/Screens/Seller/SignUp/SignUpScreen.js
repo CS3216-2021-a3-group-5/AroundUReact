@@ -29,6 +29,15 @@ export default function SignUpScreen() {
 		} else if (password !== repeatPassword) {
 			alert("password and repeat password don't match");
 			return;
+		} else if (!validateEmail(email)) {
+			alert("You have entered an invalid email address!");
+			return;
+		} else if (contact.length < 4 || contact.length > 15) {
+			alert("You have entered an invalid contact number!");
+			return;
+		} else if (contact.length < 4 || contact.length > 15) {
+			alert("You have entered an invalid contact number!");
+			return;
 		}
 		console.log(`company ${name} is registering with email ${email}`);
 		const rawResponse = await fetch(API_URL + REGISTER_ROUTE, {
@@ -49,6 +58,13 @@ export default function SignUpScreen() {
 			alert(content.message);
 		}
 	};
+
+	function validateEmail(mail) {
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+			return true;
+		}
+		return false;
+	}
 
 	return (
 		<div className="App">
