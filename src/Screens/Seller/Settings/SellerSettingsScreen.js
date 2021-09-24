@@ -1,7 +1,7 @@
 import { Avatar } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { API_URL, USER_INFO, COMPANY_LOGO } from "../../../constants.js";
+import { API_URL, COMPANY_LOGO } from "../../../constants.js";
 
 export default function SellerSettingsScreen({ setLoggedIn }) {
 	const history = useHistory();
@@ -11,11 +11,21 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 		const response = await fetch(API_URL + COMPANY_LOGO + company_name, {
 			method: "GET",
 		});
+		console.log(response);
 		const blob = await response.blob();
 		const loadedImage = URL.createObjectURL(blob);
 		setImage(loadedImage);
 	};
-	const [profile, setProfile] = useState(getLocalProfile());
+	const [profile, setProfile] = useState({
+		email: "",
+		category: "",
+		company_name: "",
+		contact_number: "",
+	});
+
+	useEffect(() => {
+		setProfile(getLocalProfile());
+	}, []);
 
 	function getLocalProfile() {
 		const checkProfile = localStorage.getItem("profile");
@@ -34,7 +44,6 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 
 	function logout() {
 		setLoggedIn(false);
-		history.replace("/seller");
 		localStorage.clear();
 	}
 

@@ -7,6 +7,8 @@ import { API_URL, UPDATE_USER_INFO, COMPANY_LOGO } from "../../../constants.js";
 
 import CategorySelector from "../../SharedComponents/CategorySelector";
 
+var fileImage = null;
+
 export default function SellerEditProfileScreen() {
 	const history = useHistory();
 	const location = useLocation();
@@ -46,9 +48,11 @@ export default function SellerEditProfileScreen() {
 				contact_number: contactNumber,
 			};
 			localStorage.setItem("profile", JSON.stringify(newProfile));
-			alert("Update success.");
+			storeImage(image);
+			history.goBack();
+		} else {
+			alert("Update failed.");
 		}
-		history.goBack();
 	};
 
 	function validateContact(contact) {
@@ -65,9 +69,8 @@ export default function SellerEditProfileScreen() {
 	const storeImage = async (image) => {
 		const data = await new FormData();
 		//var blob = image.querySelector('input[type="file"]').files[0];
-		var blob = await new Blob([image], { type: "img/png" });
-		console.log(blob);
-		await data.append("image", blob);
+		// var blob = await new Blob([image], { type: "img/png" });
+		await data.append("image", image);
 		const rawResponse = await fetch(
 			API_URL + COMPANY_LOGO + profile.company_name,
 			{
@@ -83,6 +86,7 @@ export default function SellerEditProfileScreen() {
 
 	function uploadImage(event) {
 		const file = event.target.files[0];
+		fileImage = file;
 		const reader = new FileReader();
 		const url = reader.readAsDataURL(file);
 		reader.onloadend = () => {
@@ -129,7 +133,6 @@ export default function SellerEditProfileScreen() {
 						className="Toggle__large--primary"
 						onClick={() => {
 							save();
-							storeImage(image);
 						}}
 					>
 						<p className="Text__medium--light">Update</p>

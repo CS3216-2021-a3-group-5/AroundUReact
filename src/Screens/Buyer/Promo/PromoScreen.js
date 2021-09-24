@@ -82,8 +82,8 @@ export default function PromoScreen() {
 	return (
 		<div className="App">
 			<div className="Container__after-header">
-				<img className="Image__promo" src={image} />
 				<div className="Container__large-screen-optimize Container__horizontal-padding-20px">
+					<img className="Image__promo" src={image} />
 					<div className="Buffer__20px" />
 					<div className="Container__row">
 						<p className="Text__extra-large--dark-multiline">
