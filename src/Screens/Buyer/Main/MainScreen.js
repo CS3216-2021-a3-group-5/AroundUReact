@@ -84,6 +84,11 @@ export default function MainScreen() {
 			if (promo === undefined) {
 				const newPromo = await getNewPromo(id);
 				newPromo.stores.distanceFrom = store.distanceFrom;
+				const filteredPromos = [];
+				for (let i of newPromo.stores.promotions) {
+					i && filteredPromos.push(i);
+				}
+				newPromo.stores.promotions = filteredPromos;
 				newPromos.push(newPromo.stores);
 			} else {
 				promo.distanceFrom = store.distanceFrom;
