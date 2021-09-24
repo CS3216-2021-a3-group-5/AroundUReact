@@ -1,11 +1,11 @@
 import { Avatar } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { API_URL, USER_INFO } from "../../../constants.js";
+import { API_URL, USER_INFO, COMPANY_LOGO } from "../../../constants.js";
 
 export default function SellerSettingsScreen({ setLoggedIn }) {
 	const history = useHistory();
-	const [avatar, setAvatar] = useState();
+	const [image, setImage] = useState(null);
 	const [profile, setProfile] = useState({
 		email: "",
 		category: "",
@@ -14,7 +14,7 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 	});
 
 	useEffect(() => {
-		handleProfile();
+		handleProfile().then((name) => getImage(name));
 	}, []);
 
 	const handleProfile = async () => {
@@ -33,9 +33,19 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 				company_name: content.company_name,
 				contact_number: content.contact_number,
 			});
+			return content.company_name;
 		} else {
 			alert(content.message);
 		}
+	};
+
+	const getImage = async (company_name) => {
+		const response = await fetch(API_URL + COMPANY_LOGO + company_name, {
+			method: "GET",
+		});
+		const blob = await response.blob();
+		const loadedImage = URL.createObjectURL(blob);
+		setImage(loadedImage);
 	};
 
 	function logout() {
@@ -47,7 +57,7 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 		<div className="App">
 			<div className="Buffer__110px" />
 			<div className="Container__center--horizontal">
-				<Avatar src={avatar} style={{ height: 100, width: 100 }} />
+				<Avatar src={image} style={{ height: 100, width: 100 }} />
 				<div className="Buffer__30px" />
 				<p className="Text__extra-large--dark-multiline">
 					{profile.company_name}
@@ -70,7 +80,10 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 					<div
 						className="Toggle__large--primary"
 						onClick={() =>
-							history.push("/seller/editprofile", { profile })
+							history.push("/seller/editprofile", {
+								profile,
+								image,
+							})
 						}
 					>
 						<p className="Text__medium--light">Edit Profile</p>

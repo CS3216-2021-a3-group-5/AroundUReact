@@ -8,7 +8,7 @@ import {
 import StoreSelector from "./StoreSelector";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
-import { API_URL, NEW_PROMO, PROMO } from "../../../constants.js";
+import { API_URL, NEW_PROMO, PROMO, PROMO_IMAGE } from "../../../constants.js";
 
 import ImageTapToUpload from "../../../assets/Tap_To_Select.png";
 
@@ -16,7 +16,9 @@ export default function SellerAddEditPromoScreen({ promo }) {
 	const history = useHistory();
 	const location = useLocation();
 
-	const [image, setImage] = useState(ImageTapToUpload);
+	const [image, setImage] = useState(
+		location.state.image == null ? "" : ImageTapToUpload
+	);
 	const [promo_name, setPromo_name] = useState(
 		promo == null ? "" : promo.promo_name
 	);
@@ -52,6 +54,26 @@ export default function SellerAddEditPromoScreen({ promo }) {
 			setImage(reader.result);
 		};
 	}
+
+	const storeImage = async (image) => {
+		const data = await new FormData();
+		data.append("image", image);
+		// data.append("filename", profile.company_name);
+		const response = await fetch(
+			API_URL + PROMO_IMAGE + promo.promotion_id,
+			{
+				method: "POST",
+				headers: {
+					Authorization: localStorage.getItem("accessToken"),
+				},
+				body: {
+					file: data,
+				},
+			}
+		);
+		// const blob = await response.blob();
+		// const loadedImage = URL.createObjectURL(blob);
+	};
 
 	const handleAddPromo = async () => {
 		const storeIds = [];
@@ -169,9 +191,11 @@ export default function SellerAddEditPromoScreen({ promo }) {
 								location.state.isEdit
 							) {
 								handleEditPromo();
+								//storeImage(image);
 								history.goBack();
 							} else {
 								handleAddPromo();
+								//storeImage(image);
 							}
 							history.goBack();
 						}}
