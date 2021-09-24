@@ -14,7 +14,6 @@ export default function SellerEditProfileScreen() {
 	const location = useLocation();
 	let profile = location.state.profile;
 	const [image, setImage] = useState(location.state.image);
-	const [companyName] = useState(profile.company_name);
 	const [contactNumber, setContactNumber] = useState(profile.contact_number);
 	const [category, setCategory] = useState(profile.category);
 
@@ -48,7 +47,7 @@ export default function SellerEditProfileScreen() {
 				contact_number: contactNumber,
 			};
 			localStorage.setItem("profile", JSON.stringify(newProfile));
-			storeImage(image);
+			await storeImage();
 			history.goBack();
 		} else {
 			alert("Update failed.");
@@ -66,11 +65,9 @@ export default function SellerEditProfileScreen() {
 		return false;
 	}
 
-	const storeImage = async (image) => {
+	async function storeImage() {
 		if (fileImage === null) return;
 		const data = await new FormData();
-		//var blob = image.querySelector('input[type="file"]').files[0];
-		// var blob = await new Blob([image], { type: "img/png" });
 		await data.append("image", fileImage);
 		const rawResponse = await fetch(
 			API_URL + COMPANY_LOGO + profile.company_name,
@@ -83,7 +80,7 @@ export default function SellerEditProfileScreen() {
 			}
 		);
 		console.log(`Store avatar upload status code: ${rawResponse.status}`);
-	};
+	}
 
 	function uploadImage(event) {
 		const file = event.target.files[0];
