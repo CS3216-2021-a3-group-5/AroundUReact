@@ -24,6 +24,15 @@ export default function SellerAddEditOutletScreen({ store }) {
 	const [showAddressSelector, setShowAddressSelector] = useState(false);
 
 	const handleAddOutlet = async () => {
+		const isAnyNotFilled =
+			storeAddress === "" ||
+			openingHours === "" ||
+			storeCoords[0] === null;
+		if (isAnyNotFilled) {
+			alert("Please fill up all the fields");
+			return;
+		}
+
 		const rawResponse = await fetch(API_URL + NEW_STORE, {
 			method: "POST",
 			headers: {
@@ -36,11 +45,21 @@ export default function SellerAddEditOutletScreen({ store }) {
 				opening_hours: openingHours,
 			}),
 		});
-		const content = await rawResponse.json();
-		alert(content.message);
+		if (rawResponse.status === 200) {
+			alert("Creation success.");
+		}
+		history.goBack();
 	};
 
 	const handleEditOutlet = async () => {
+		const isAnyNotFilled =
+			storeAddress === "" ||
+			openingHours === "" ||
+			storeCoords[0] === null;
+		if (isAnyNotFilled) {
+			alert("Please fill up all the fields");
+			return;
+		}
 		const rawResponse = await fetch(API_URL + STORE, {
 			method: "PUT",
 			headers: {
@@ -57,8 +76,10 @@ export default function SellerAddEditOutletScreen({ store }) {
 				promotionIDs: [],
 			}),
 		});
-		const content = await rawResponse.json();
-		alert(content.message);
+		if (rawResponse.status === 200) {
+			alert("Update success.");
+		}
+		history.goBack();
 	};
 
 	return (
@@ -133,11 +154,9 @@ export default function SellerAddEditOutletScreen({ store }) {
 					onClick={() => {
 						if (location.state != null && location.state.isEdit) {
 							handleEditOutlet();
-							history.goBack();
 						} else {
 							handleAddOutlet();
 						}
-						history.goBack();
 					}}
 				>
 					<p className="Text__medium--light">

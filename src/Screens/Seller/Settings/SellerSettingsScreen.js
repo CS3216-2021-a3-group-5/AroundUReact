@@ -15,15 +15,15 @@ export default function SellerSettingsScreen({ setLoggedIn }) {
 
 	useEffect(() => {
 		getLocalProfile();
-		getImage();
 	}, []);
 
 	function getLocalProfile() {
 		const checkProfile = localStorage.getItem("profile");
 		if (checkProfile === null) {
-			handleProfile();
+			handleProfile().then(getImage());
 		} else {
 			setProfile(JSON.parse(checkProfile));
+			getImage();
 		}
 	}
 
